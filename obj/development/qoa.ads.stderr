@@ -1,0 +1,2 @@
+qoa.ads:7:01: (style) multiple blank lines
+qoa.ads:18:04: error: statement not allowed in package spec

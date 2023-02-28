@@ -1,0 +1,11 @@
+20230228095849
+-c
+-x
+ada
+-gnatA
+-O3
+-gnatn
+-ffunction-sections
+-fdata-sections
+-gnatc
+-gnates=/home/ferrara/qoa/obj/release/gnatprove/860f3d01.tmp

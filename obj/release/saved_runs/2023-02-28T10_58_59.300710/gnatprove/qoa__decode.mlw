@@ -1,0 +1,2330 @@
+module Standard__universal_integer [@GNAT-comment:Module for axiomatizing type "universal_integer", created in Gnat2Why.Types.Translate_Type]
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  type universal_integer = <range -170141183460469231731687303715884105728 170141183460469231731687303715884105727>
+  
+  val function first : int
+    ensures { result = ((- 170141183460469231731687303715884105728) : int) }
+  
+  val function last : int
+    ensures { result = (170141183460469231731687303715884105727 : int) }
+  
+  predicate in_range [@GP_Inline] (x: int) =
+    (([@GP_Pretty_Ada:-1] (first <= x)) /\ ([@GP_Pretty_Ada:-2] (x <= last)))
+  
+  val in_range [@GP_Inline] (x: int) : bool
+    ensures { result <-> (in_range (x : int)) }
+  
+  clone export ada__model.Static_Discrete with
+    axiom .,
+    type t = universal_integer,
+    function first = first,
+    function last = last,
+    predicate in_range = in_range
+  
+  type universal_integer__ref = {
+                               mutable universal_integer__content :
+                                 universal_integer
+                               }
+  
+  function universal_integer__ref_universal_integer__content__projection (a: universal_integer__ref) : universal_integer =
+    a.universal_integer__content
+  
+  meta "model_projection" function universal_integer__ref_universal_integer__content__projection
+  
+  meta "inline:no" function universal_integer__ref_universal_integer__content__projection
+  
+  val universal_integer__havoc (x: universal_integer__ref) : unit
+    writes { x }
+end
+
+module Ada___system__storage_elements__Tstorage_offsetB [@GNAT-comment:Module for axiomatizing type "Tstorage_offsetB" defined at s-stoele.ads:54, created in Gnat2Why.Types.Translate_Type]
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  type tstorage_offsetB = <range -9223372036854775808 9223372036854775807>
+  
+  val function first : int
+    ensures { result = ((- 9223372036854775808) : int) }
+  
+  val function last : int
+    ensures { result = (9223372036854775807 : int) }
+  
+  predicate in_range [@GP_Inline] (x: int) =
+    (([@GP_Pretty_Ada:-1] (first <= x)) /\ ([@GP_Pretty_Ada:-2] (x <= last)))
+  
+  val in_range [@GP_Inline] (x: int) : bool
+    ensures { result <-> (in_range (x : int)) }
+  
+  clone export ada__model.Static_Discrete with
+    axiom .,
+    type t = tstorage_offsetB,
+    function first = first,
+    function last = last,
+    predicate in_range = in_range
+  
+  type tstorage_offsetB__ref = {
+                              mutable tstorage_offsetB__content :
+                                tstorage_offsetB
+                              }
+  
+  function tstorage_offsetB__ref_tstorage_offsetB__content__projection (a: tstorage_offsetB__ref) : tstorage_offsetB =
+    a.tstorage_offsetB__content
+  
+  meta "model_projection" function tstorage_offsetB__ref_tstorage_offsetB__content__projection
+  
+  meta "inline:no" function tstorage_offsetB__ref_tstorage_offsetB__content__projection
+  
+  val tstorage_offsetB__havoc (x: tstorage_offsetB__ref) : unit
+    writes { x }
+end
+
+module Ada___system__storage_elements__Tstorage_offsetB__rep [@GNAT-comment:Module defining to_rep/of_rep for type "Tstorage_offsetB" defined at s-stoele.ads:54, created in Gnat2Why.Types.Translate_Type]
+  use Ada___system__storage_elements__Tstorage_offsetB as Ada___system__storage_elements__Tstorage_offsetB
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  function to_rep (x: Ada___system__storage_elements__Tstorage_offsetB.tstorage_offsetB) : int =
+    [@rac:call_id:1]
+    (Ada___system__storage_elements__Tstorage_offsetB.tstorage_offsetB'int x)
+  
+  clone export ada__model.Rep_Proj_Int with
+    axiom .,
+    type t = Ada___system__storage_elements__Tstorage_offsetB.tstorage_offsetB,
+    predicate in_range = Ada___system__storage_elements__Tstorage_offsetB.in_range,
+    function to_rep = to_rep
+  
+  meta "model_projection" function to_rep
+  
+  meta "inline:no" function to_rep
+end
+
+module Ada___system__storage_elements__storage_offset [@GNAT-comment:Module for axiomatizing type "storage_offset" defined at s-stoele.ads:54, created in Gnat2Why.Types.Translate_Type]
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  type storage_offset = <range -9223372036854775808 9223372036854775807>
+  
+  val function first : int
+    ensures { result = ((- 9223372036854775808) : int) }
+  
+  val function last : int
+    ensures { result = (9223372036854775807 : int) }
+  
+  predicate in_range [@GP_Inline] (x: int) =
+    (([@GP_Pretty_Ada:-1] (first <= x)) /\ ([@GP_Pretty_Ada:-2] (x <= last)))
+  
+  val in_range [@GP_Inline] (x: int) : bool
+    ensures { result <-> (in_range (x : int)) }
+  
+  clone export ada__model.Static_Discrete with
+    axiom .,
+    type t = storage_offset,
+    function first = first,
+    function last = last,
+    predicate in_range = in_range
+  
+  type storage_offset__ref = {
+                            mutable storage_offset__content : storage_offset
+                            }
+  
+  function storage_offset__ref_storage_offset__content__projection (a: storage_offset__ref) : storage_offset =
+    a.storage_offset__content
+  
+  meta "model_projection" function storage_offset__ref_storage_offset__content__projection
+  
+  meta "inline:no" function storage_offset__ref_storage_offset__content__projection
+  
+  val storage_offset__havoc (x: storage_offset__ref) : unit
+    writes { x }
+end
+
+module Ada___system__storage_elements__storage_element [@GNAT-comment:Module for axiomatizing type "storage_element" defined at s-stoele.ads:63, created in Gnat2Why.Types.Translate_Type]
+  use _gnatprove_standard.Main
+  use int.Int
+  use _gnatprove_standard.BV8 as BV8
+  
+  type storage_element
+  
+  val function attr__ATTRIBUTE_MODULUS : BV8.t
+  
+  val function first : BV8.t
+    ensures { result = (0 : BV8.t) }
+  
+  val function last : BV8.t
+    ensures { result = (255 : BV8.t) }
+  
+  function first_int : int = 0 : int
+  
+  function last_int : int = 255 : int
+  
+  predicate in_range (x: BV8.t) = true
+  
+  val in_range (x: BV8.t) : bool
+    ensures { result <-> (in_range (x : BV8.t)) }
+  
+  predicate in_range_int (x: int) = BV8.uint_in_range x
+  
+  val in_range_int (x: int) : bool
+    ensures { result <-> (in_range_int (x : int)) }
+  
+  clone export ada__model.Static_Modular_8 with
+    axiom .,
+    type t = storage_element,
+    function first = first,
+    function last = last,
+    predicate in_range = in_range,
+    predicate in_range_int = in_range_int
+  
+  type storage_element__ref = {
+                             mutable storage_element__content :
+                               storage_element
+                             }
+  
+  function storage_element__ref_storage_element__content__projection (a: storage_element__ref) : storage_element =
+    a.storage_element__content
+  
+  meta "model_projection" function storage_element__ref_storage_element__content__projection
+  
+  meta "inline:no" function storage_element__ref_storage_element__content__projection
+  
+  val storage_element__havoc (x: storage_element__ref) : unit
+    writes { x }
+end
+
+module Ada___system__storage_elements__storage_element__rep [@GNAT-comment:Module defining to_rep/of_rep for type "storage_element" defined at s-stoele.ads:63, created in Gnat2Why.Types.Translate_Type]
+  use Ada___system__storage_elements__storage_element as Ada___system__storage_elements__storage_element
+  use _gnatprove_standard.BV8 as BV8
+  use _gnatprove_standard.Main
+  use int.Int
+  clone export ada__model.Rep_Proj_BV8 with
+    axiom .,
+    type t = Ada___system__storage_elements__storage_element.storage_element,
+    predicate in_range = Ada___system__storage_elements__storage_element.in_range,
+    predicate in_range_int = Ada___system__storage_elements__storage_element.in_range_int
+  
+  meta "model_projection" function to_rep
+  
+  meta "inline:no" function to_rep
+end
+
+module Array__Int__Ada___system__storage_elements__storage_element [@GNAT-comment:Module for axiomatizing the array theory associated to type "storage_array" defined at s-stoele.ads:69, created in Why.Gen.Arrays.Create_Rep_Array_Theory]
+  use _gnatprove_standard.Main
+  use int.Int
+  use _gnatprove_standard.BV8 as BV8
+  use Ada___system__storage_elements__storage_element as Ada___system__storage_elements__storage_element
+  use Ada___system__storage_elements__storage_element__rep as Ada___system__storage_elements__storage_element__rep
+  
+  function index_I1_one : int = 1 : int
+  
+  type component_type = Ada___system__storage_elements__storage_element.storage_element
+  
+  clone export _gnatprove_standard.Array__1 with
+    axiom .,
+    type I1.t = int,
+    predicate I1.le = Int.( <= ),
+    predicate I1.lt = Int.( < ),
+    predicate I1.gt = Int.( > ),
+    function I1.add = Int.( + ),
+    function I1.sub = Int.( - ),
+    function I1.one = index_I1_one,
+    type component_type = component_type
+  
+  function bool_eq (a: map) (a__first: int) (a__last: int) (b: map) (b__first: int) (b__last: int) : bool =
+    ((if (a__first <= a__last) then
+        ((b__first <= b__last) /\
+           (([@rac:call_id:2] (a__last - a__first))
+              = ([@rac:call_id:3] (b__last - b__first))))
+      else (b__first > b__last)) /\
+       (forall temp___idx_170 : int.
+          if ((a__first <= temp___idx_170) /\ (temp___idx_170 <= a__last)) then
+            (([@rac:call_id:5]
+              (Ada___system__storage_elements__storage_element__rep.to_rep
+                 ([@rac:call_id:4] (get a temp___idx_170))))
+               = ([@rac:call_id:9]
+                  (Ada___system__storage_elements__storage_element__rep.to_rep
+                     ([@rac:call_id:8]
+                      (get
+                         b
+                         ([@rac:call_id:7]
+                          (([@rac:call_id:6] (b__first - a__first))
+                             + temp___idx_170)))))))
+          else true))
+  
+  val bool_eq (a: map) (a__first: int) (a__last: int) (b: map) (b__first: int) (b__last: int) : 
+    bool
+    ensures { result
+      =
+      (bool_eq
+         (a : map)
+         (a__first : int)
+         (a__last : int)
+         (b : map)
+         (b__first : int)
+         (b__last : int)) }
+  
+  axiom bool_eq_rev:
+    forall a : map, b : map.
+      forall a__first : int, a__last : int, b__first : int, b__last : int.
+        ((([@rac:call_id:10] (bool_eq b b__first b__last a a__first a__last))
+            = True) ->
+           ((if (a__first <= a__last) then
+               ((b__first <= b__last) /\
+                  (([@rac:call_id:11] (a__last - a__first))
+                     = ([@rac:call_id:12] (b__last - b__first))))
+             else (b__first > b__last)) /\
+              (forall temp___idx_170 : int.
+                 if ((a__first <= temp___idx_170) /\
+                       (temp___idx_170 <= a__last)) then
+                   (([@rac:call_id:14]
+                     (Ada___system__storage_elements__storage_element__rep.to_rep
+                        ([@rac:call_id:13] (get a temp___idx_170))))
+                      = ([@rac:call_id:18]
+                         (Ada___system__storage_elements__storage_element__rep.to_rep
+                            ([@rac:call_id:17]
+                             (get
+                                b
+                                ([@rac:call_id:16]
+                                 (([@rac:call_id:15] (b__first - a__first))
+                                    + temp___idx_170)))))))
+                 else true)))
+end
+
+module Ada___system__storage_elements__storage_array [@GNAT-comment:Module for axiomatizing type "storage_array" defined at s-stoele.ads:69, created in Gnat2Why.Types.Translate_Type]
+  use _gnatprove_standard.Main
+  use int.Int
+  use Ada___system__storage_elements__Tstorage_offsetB as Ada___system__storage_elements__Tstorage_offsetB
+  use Ada___system__storage_elements__Tstorage_offsetB__rep as Ada___system__storage_elements__Tstorage_offsetB__rep
+  use Ada___system__storage_elements__storage_offset as Ada___system__storage_elements__storage_offset
+  use Ada___system__storage_elements__storage_element as Ada___system__storage_elements__storage_element
+  use Array__Int__Ada___system__storage_elements__storage_element as Array__Int__Ada___system__storage_elements__storage_element
+  
+  type component_type = Ada___system__storage_elements__storage_element.storage_element
+  
+  function index_1_id (x: int) : int = x
+  
+  clone export ada__model.Unconstr_Array with
+    axiom .,
+    type map = Array__Int__Ada___system__storage_elements__storage_element.map,
+    function array_bool_eq = Array__Int__Ada___system__storage_elements__storage_element.bool_eq,
+    type index_base_type = Ada___system__storage_elements__Tstorage_offsetB.tstorage_offsetB,
+    type index_rep_type = int,
+    function to_rep = Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep,
+    function rep_to_int = index_1_id,
+    predicate in_range_base = Ada___system__storage_elements__Tstorage_offsetB.in_range,
+    predicate index_dynamic_property = Ada___system__storage_elements__storage_offset.dynamic_property,
+    predicate index_rep_le = Int.( <= )
+  
+  type storage_array = __t
+  
+  meta "model_projection" function to_array
+  
+  meta "inline:no" function to_array
+  
+  meta "model_projection" function first
+  
+  meta "inline:no" function first
+  
+  meta "model_projection" function last
+  
+  meta "inline:no" function last
+  
+  type storage_array__ref = {
+                           mutable storage_array__content : storage_array
+                           }
+  
+  function storage_array__ref_storage_array__content__projection (a: storage_array__ref) : storage_array =
+    a.storage_array__content
+  
+  meta "model_projection" function storage_array__ref_storage_array__content__projection
+  
+  meta "inline:no" function storage_array__ref_storage_array__content__projection
+  
+  val storage_array__havoc (x: storage_array__ref) : unit
+    writes { x }
+end
+
+module Qoa__decode__data [@GNAT-comment:Module for defining the constant "data" defined at qoa.ads:41, created in Gnat2Why.Decls.Translate_Constant]
+  use _gnatprove_standard.Main
+  use int.Int
+  use Ada___system__storage_elements__storage_array as Ada___system__storage_elements__storage_array
+  
+  val function data [@model_trace:1892] [@model_projected] [@name:data] [#"qoa.ads" 41 0 41 0] : 
+    Ada___system__storage_elements__storage_array.storage_array
+end
+
+module Interfaces__integer_16 [@GNAT-comment:Module for axiomatizing type "integer_16" defined at interfac.ads:50, created in Gnat2Why.Types.Translate_Type]
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  type integer_16 = <range -32768 32767>
+  
+  val function first : int
+    ensures { result = ((- 32768) : int) }
+  
+  val function last : int
+    ensures { result = (32767 : int) }
+  
+  predicate in_range [@GP_Inline] (x: int) =
+    (([@GP_Pretty_Ada:-1] (first <= x)) /\ ([@GP_Pretty_Ada:-2] (x <= last)))
+  
+  val in_range [@GP_Inline] (x: int) : bool
+    ensures { result <-> (in_range (x : int)) }
+  
+  clone export ada__model.Static_Discrete with
+    axiom .,
+    type t = integer_16,
+    function first = first,
+    function last = last,
+    predicate in_range = in_range
+  
+  type integer_16__ref = { mutable integer_16__content : integer_16 }
+  
+  function integer_16__ref_integer_16__content__2__projection (a: integer_16__ref) : integer_16 =
+    a.integer_16__content
+  
+  meta "model_projection" function integer_16__ref_integer_16__content__2__projection
+  
+  meta "inline:no" function integer_16__ref_integer_16__content__2__projection
+  
+  val integer_16__havoc (x: integer_16__ref) : unit
+    writes { x }
+end
+
+module Interfaces__integer_16__rep [@GNAT-comment:Module defining to_rep/of_rep for type "integer_16" defined at interfac.ads:50, created in Gnat2Why.Types.Translate_Type]
+  use Interfaces__integer_16 as Interfaces__integer_16
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  function to_rep (x: Interfaces__integer_16.integer_16) : int =
+    [@rac:call_id:19] (Interfaces__integer_16.integer_16'int x)
+  
+  clone export ada__model.Rep_Proj_Int with
+    axiom .,
+    type t = Interfaces__integer_16.integer_16,
+    predicate in_range = Interfaces__integer_16.in_range,
+    function to_rep = to_rep
+  
+  meta "model_projection" function to_rep
+  
+  meta "inline:no" function to_rep
+end
+
+module Array__Int__Interfaces__integer_16 [@GNAT-comment:Module for axiomatizing the array theory associated to type "Tmy_arrayB" defined at qoa.ads:20, created in Why.Gen.Arrays.Create_Rep_Array_Theory]
+  use _gnatprove_standard.Main
+  use int.Int
+  use Interfaces__integer_16 as Interfaces__integer_16
+  use Interfaces__integer_16__rep as Interfaces__integer_16__rep
+  
+  function index_I1_one : int = 1 : int
+  
+  type component_type = Interfaces__integer_16.integer_16
+  
+  clone export _gnatprove_standard.Array__1 with
+    axiom .,
+    type I1.t = int,
+    predicate I1.le = Int.( <= ),
+    predicate I1.lt = Int.( < ),
+    predicate I1.gt = Int.( > ),
+    function I1.add = Int.( + ),
+    function I1.sub = Int.( - ),
+    function I1.one = index_I1_one,
+    type component_type = component_type
+  
+  function bool_eq (a: map) (a__first: int) (a__last: int) (b: map) (b__first: int) (b__last: int) : bool =
+    ((if (a__first <= a__last) then
+        ((b__first <= b__last) /\
+           (([@rac:call_id:20] (a__last - a__first))
+              = ([@rac:call_id:21] (b__last - b__first))))
+      else (b__first > b__last)) /\
+       (forall temp___idx_168 : int.
+          if ((a__first <= temp___idx_168) /\ (temp___idx_168 <= a__last)) then
+            (([@rac:call_id:23]
+              (Interfaces__integer_16__rep.to_rep
+                 ([@rac:call_id:22] (get a temp___idx_168))))
+               = ([@rac:call_id:27]
+                  (Interfaces__integer_16__rep.to_rep
+                     ([@rac:call_id:26]
+                      (get
+                         b
+                         ([@rac:call_id:25]
+                          (([@rac:call_id:24] (b__first - a__first))
+                             + temp___idx_168)))))))
+          else true))
+  
+  val bool_eq (a: map) (a__first: int) (a__last: int) (b: map) (b__first: int) (b__last: int) : 
+    bool
+    ensures { result
+      =
+      (bool_eq
+         (a : map)
+         (a__first : int)
+         (a__last : int)
+         (b : map)
+         (b__first : int)
+         (b__last : int)) }
+  
+  axiom bool_eq_rev:
+    forall a : map, b : map.
+      forall a__first : int, a__last : int, b__first : int, b__last : int.
+        ((([@rac:call_id:28] (bool_eq b b__first b__last a a__first a__last))
+            = True) ->
+           ((if (a__first <= a__last) then
+               ((b__first <= b__last) /\
+                  (([@rac:call_id:29] (a__last - a__first))
+                     = ([@rac:call_id:30] (b__last - b__first))))
+             else (b__first > b__last)) /\
+              (forall temp___idx_168 : int.
+                 if ((a__first <= temp___idx_168) /\
+                       (temp___idx_168 <= a__last)) then
+                   (([@rac:call_id:32]
+                     (Interfaces__integer_16__rep.to_rep
+                        ([@rac:call_id:31] (get a temp___idx_168))))
+                      = ([@rac:call_id:36]
+                         (Interfaces__integer_16__rep.to_rep
+                            ([@rac:call_id:35]
+                             (get
+                                b
+                                ([@rac:call_id:34]
+                                 (([@rac:call_id:33] (b__first - a__first))
+                                    + temp___idx_168)))))))
+                 else true)))
+end
+
+module Qoa__my_array [@GNAT-comment:Module for axiomatizing type "my_array" defined at qoa.ads:20, created in Gnat2Why.Types.Translate_Type]
+  use _gnatprove_standard.Main
+  use int.Int
+  use Interfaces__integer_16 as Interfaces__integer_16
+  use Array__Int__Interfaces__integer_16 as Array__Int__Interfaces__integer_16
+  
+  type component_type = Interfaces__integer_16.integer_16
+  
+  val function first : int
+    ensures { result = (1 : int) }
+  
+  val function last : int
+    ensures { result = (4 : int) }
+  
+  clone export ada__model.Constr_Array with
+    axiom .,
+    type map = Array__Int__Interfaces__integer_16.map,
+    function array_bool_eq = Array__Int__Interfaces__integer_16.bool_eq,
+    function first = first,
+    function last = last,
+    type index_rep_type = int
+end
+
+module Qoa__qoa_lms_t__rep [@GNAT-comment:Module for axiomatizing the record theory associated to type "qoa_lms_t" defined at qoa.ads:21, created in Why.Gen.Records.Create_Rep_Record_Theory_If_Needed]
+  use _gnatprove_standard.Main
+  use int.Int
+  use Qoa__my_array as Qoa__my_array
+  use Array__Int__Interfaces__integer_16 as Array__Int__Interfaces__integer_16
+  
+  type __split_fields = {
+                       rec__qoa__qoa_lms_t__history [@name:history] [@model_trace:.1845] :
+                         Array__Int__Interfaces__integer_16.map;
+                       rec__qoa__qoa_lms_t__weights [@model_trace:.1850] [@name:weights] :
+                         Array__Int__Interfaces__integer_16.map
+                       }
+  
+  function __split_fields_rec__qoa__qoa_lms_t__history__projection [@name:history] [@model_trace:.1845] (a: __split_fields) : 
+    Array__Int__Interfaces__integer_16.map =
+    a.rec__qoa__qoa_lms_t__history
+  
+  meta "model_projection" function __split_fields_rec__qoa__qoa_lms_t__history__projection
+  
+  meta "inline:no" function __split_fields_rec__qoa__qoa_lms_t__history__projection
+  
+  function __split_fields_rec__qoa__qoa_lms_t__weights__projection [@model_trace:.1850] [@name:weights] (a: __split_fields) : 
+    Array__Int__Interfaces__integer_16.map =
+    a.rec__qoa__qoa_lms_t__weights
+  
+  meta "model_projection" function __split_fields_rec__qoa__qoa_lms_t__weights__projection
+  
+  meta "inline:no" function __split_fields_rec__qoa__qoa_lms_t__weights__projection
+  
+  type __split_fields__ref = {
+                            mutable __split_fields__content : __split_fields
+                            }
+  
+  function __split_fields__ref___split_fields__content__projection (a: __split_fields__ref) : __split_fields =
+    __split_fields__content a
+  
+  meta "model_projection" function __split_fields__ref___split_fields__content__projection
+  
+  meta "inline:no" function __split_fields__ref___split_fields__content__projection
+  
+  val __split_fields__havoc (x: __split_fields__ref) : unit
+    writes { x }
+  
+  type __rep = { __split_fields : __split_fields }
+  
+  function __rep___split_fields__projection (a: __rep) : __split_fields =
+    __split_fields a
+  
+  meta "model_projection" function __rep___split_fields__projection
+  
+  meta "inline:no" function __rep___split_fields__projection
+  
+  function to_base (a: __rep) : __rep = a
+  
+  val to_base (a: __rep) : __rep
+    ensures { result = (to_base (a : __rep)) }
+  
+  function of_base (a: __rep) : __rep = a
+  
+  val of_base (a: __rep) : __rep
+    ensures { result = (of_base (a : __rep)) }
+  
+  predicate qoa__qoa_lms_t__history__pred (a: __rep) = true
+  
+  val qoa__qoa_lms_t__history__pred (a: __rep) : bool
+    ensures { result <-> (qoa__qoa_lms_t__history__pred (a : __rep)) }
+  
+  val rec__qoa__qoa_lms_t__history_ (a: __rep) : Array__Int__Interfaces__integer_16.map
+    requires { [@rac:call_id:37] (qoa__qoa_lms_t__history__pred a) }
+    ensures { (result = ((__split_fields a).rec__qoa__qoa_lms_t__history)) }
+  
+  predicate qoa__qoa_lms_t__weights__pred (a: __rep) = true
+  
+  val qoa__qoa_lms_t__weights__pred (a: __rep) : bool
+    ensures { result <-> (qoa__qoa_lms_t__weights__pred (a : __rep)) }
+  
+  val rec__qoa__qoa_lms_t__weights_ (a: __rep) : Array__Int__Interfaces__integer_16.map
+    requires { [@rac:call_id:38] (qoa__qoa_lms_t__weights__pred a) }
+    ensures { (result = ((__split_fields a).rec__qoa__qoa_lms_t__weights)) }
+  
+  function bool_eq (a: __rep) (b: __rep) : bool =
+    if ((true /\
+           ([@rac:call_id:39]
+            (Qoa__my_array.bool_eq
+               ((__split_fields a).rec__qoa__qoa_lms_t__history)
+               ((__split_fields b).rec__qoa__qoa_lms_t__history)))) /\
+          ([@rac:call_id:40]
+           (Qoa__my_array.bool_eq
+              ((__split_fields a).rec__qoa__qoa_lms_t__weights)
+              ((__split_fields b).rec__qoa__qoa_lms_t__weights)))) then
+      True
+    else False
+  
+  val bool_eq (a: __rep) (b: __rep) : bool
+    ensures { result = (bool_eq (a : __rep) (b : __rep)) }
+end
+
+module Qoa__qoa_lms_t [@GNAT-comment:Module for axiomatizing type "qoa_lms_t" defined at qoa.ads:21, created in Gnat2Why.Types.Translate_Type]
+  use export Qoa__qoa_lms_t__rep
+  use _gnatprove_standard.Main
+  use int.Int
+  use Qoa__qoa_lms_t__rep as Qoa__qoa_lms_t__rep
+  
+  type qoa_lms_t = __rep
+  
+  val function value__size : int
+  
+  val function object__size : int
+  
+  val function alignment : int
+  
+  axiom value__size_axiom: (([@rac:call_id:41] value__size) >= (0 : int))
+  
+  axiom object__size_axiom: (([@rac:call_id:42] object__size) >= (0 : int))
+  
+  axiom alignment_axiom: (([@rac:call_id:43] alignment) >= (0 : int))
+  
+  val function qoa__qoa_lms_t__history__first__bit : int
+  
+  val function qoa__qoa_lms_t__history__last__bit : int
+  
+  val function qoa__qoa_lms_t__history__position : int
+  
+  axiom qoa__qoa_lms_t__history__first__bit_axiom:
+    (([@rac:call_id:44] qoa__qoa_lms_t__history__first__bit) >= (0 : int))
+  
+  axiom qoa__qoa_lms_t__history__last__bit_axiom:
+    (([@rac:call_id:45] qoa__qoa_lms_t__history__last__bit)
+       > ([@rac:call_id:46] qoa__qoa_lms_t__history__first__bit))
+  
+  axiom qoa__qoa_lms_t__history__position_axiom:
+    (([@rac:call_id:47] qoa__qoa_lms_t__history__position) >= (0 : int))
+  
+  val function qoa__qoa_lms_t__weights__first__bit : int
+  
+  val function qoa__qoa_lms_t__weights__last__bit : int
+  
+  val function qoa__qoa_lms_t__weights__position : int
+  
+  axiom qoa__qoa_lms_t__weights__first__bit_axiom:
+    (([@rac:call_id:48] qoa__qoa_lms_t__weights__first__bit) >= (0 : int))
+  
+  axiom qoa__qoa_lms_t__weights__last__bit_axiom:
+    (([@rac:call_id:49] qoa__qoa_lms_t__weights__last__bit)
+       > ([@rac:call_id:50] qoa__qoa_lms_t__weights__first__bit))
+  
+  axiom qoa__qoa_lms_t__weights__position_axiom:
+    (([@rac:call_id:51] qoa__qoa_lms_t__weights__position) >= (0 : int))
+  
+  val function dummy : qoa_lms_t
+  
+  type qoa_lms_t__ref = { mutable qoa_lms_t__content : qoa_lms_t }
+  
+  function qoa_lms_t__ref_qoa_lms_t__content__projection (a: qoa_lms_t__ref) : qoa_lms_t =
+    a.qoa_lms_t__content
+  
+  meta "model_projection" function qoa_lms_t__ref_qoa_lms_t__content__projection
+  
+  meta "inline:no" function qoa_lms_t__ref_qoa_lms_t__content__projection
+  
+  val qoa_lms_t__havoc (x: qoa_lms_t__ref) : unit
+    writes { x }
+end
+
+module Array__Int__Qoa__qoa_lms_t [@GNAT-comment:Module for axiomatizing the array theory associated to type "Tarray_lmsB" defined at qoa.ads:26, created in Why.Gen.Arrays.Create_Rep_Array_Theory]
+  use _gnatprove_standard.Main
+  use int.Int
+  use Qoa__qoa_lms_t as Qoa__qoa_lms_t
+  
+  function index_I1_one : int = 1 : int
+  
+  type component_type = Qoa__qoa_lms_t.qoa_lms_t
+  
+  clone export _gnatprove_standard.Array__1 with
+    axiom .,
+    type I1.t = int,
+    predicate I1.le = Int.( <= ),
+    predicate I1.lt = Int.( < ),
+    predicate I1.gt = Int.( > ),
+    function I1.add = Int.( + ),
+    function I1.sub = Int.( - ),
+    function I1.one = index_I1_one,
+    type component_type = component_type
+  
+  function bool_eq (a: map) (a__first: int) (a__last: int) (b: map) (b__first: int) (b__last: int) : bool =
+    ((if (a__first <= a__last) then
+        ((b__first <= b__last) /\
+           (([@rac:call_id:52] (a__last - a__first))
+              = ([@rac:call_id:53] (b__last - b__first))))
+      else (b__first > b__last)) /\
+       (forall temp___idx_169 : int.
+          if ((a__first <= temp___idx_169) /\ (temp___idx_169 <= a__last)) then
+            ([@rac:call_id:58]
+             (Qoa__qoa_lms_t.bool_eq
+                ([@rac:call_id:54] (get a temp___idx_169))
+                ([@rac:call_id:57]
+                 (get
+                    b
+                    ([@rac:call_id:56]
+                     (([@rac:call_id:55] (b__first - a__first))
+                        + temp___idx_169))))))
+          else true))
+  
+  val bool_eq (a: map) (a__first: int) (a__last: int) (b: map) (b__first: int) (b__last: int) : 
+    bool
+    ensures { result
+      =
+      (bool_eq
+         (a : map)
+         (a__first : int)
+         (a__last : int)
+         (b : map)
+         (b__first : int)
+         (b__last : int)) }
+  
+  axiom bool_eq_rev:
+    forall a : map, b : map.
+      forall a__first : int, a__last : int, b__first : int, b__last : int.
+        ((([@rac:call_id:59] (bool_eq b b__first b__last a a__first a__last))
+            = True) ->
+           ((if (a__first <= a__last) then
+               ((b__first <= b__last) /\
+                  (([@rac:call_id:60] (a__last - a__first))
+                     = ([@rac:call_id:61] (b__last - b__first))))
+             else (b__first > b__last)) /\
+              (forall temp___idx_169 : int.
+                 if ((a__first <= temp___idx_169) /\
+                       (temp___idx_169 <= a__last)) then
+                   ([@rac:call_id:66]
+                    (Qoa__qoa_lms_t.bool_eq
+                       ([@rac:call_id:62] (get a temp___idx_169))
+                       ([@rac:call_id:65]
+                        (get
+                           b
+                           ([@rac:call_id:64]
+                            (([@rac:call_id:63] (b__first - a__first))
+                               + temp___idx_169))))))
+                 else true)))
+end
+
+module Qoa__array_lms [@GNAT-comment:Module for axiomatizing type "array_lms" defined at qoa.ads:26, created in Gnat2Why.Types.Translate_Type]
+  use _gnatprove_standard.Main
+  use int.Int
+  use Qoa__qoa_lms_t as Qoa__qoa_lms_t
+  use Array__Int__Qoa__qoa_lms_t as Array__Int__Qoa__qoa_lms_t
+  
+  type component_type = Qoa__qoa_lms_t.qoa_lms_t
+  
+  val function first : int
+    ensures { result = (1 : int) }
+  
+  val function last : int
+    ensures { result = (8 : int) }
+  
+  clone export ada__model.Constr_Array with
+    axiom .,
+    type map = Array__Int__Qoa__qoa_lms_t.map,
+    function array_bool_eq = Array__Int__Qoa__qoa_lms_t.bool_eq,
+    function first = first,
+    function last = last,
+    type index_rep_type = int
+end
+
+module Interfaces__unsigned_32 [@GNAT-comment:Module for axiomatizing type "unsigned_32" defined at interfac.ads:80, created in Gnat2Why.Types.Translate_Type]
+  use _gnatprove_standard.Main
+  use int.Int
+  use _gnatprove_standard.BV32 as BV32
+  
+  type unsigned_32
+  
+  val function attr__ATTRIBUTE_MODULUS : BV32.t
+  
+  val function first : BV32.t
+    ensures { result = (0 : BV32.t) }
+  
+  val function last : BV32.t
+    ensures { result = (4294967295 : BV32.t) }
+  
+  function first_int : int = 0 : int
+  
+  function last_int : int = 4294967295 : int
+  
+  predicate in_range (x: BV32.t) = true
+  
+  val in_range (x: BV32.t) : bool
+    ensures { result <-> (in_range (x : BV32.t)) }
+  
+  predicate in_range_int (x: int) = BV32.uint_in_range x
+  
+  val in_range_int (x: int) : bool
+    ensures { result <-> (in_range_int (x : int)) }
+  
+  clone export ada__model.Static_Modular_32 with
+    axiom .,
+    type t = unsigned_32,
+    function first = first,
+    function last = last,
+    predicate in_range = in_range,
+    predicate in_range_int = in_range_int
+  
+  type unsigned_32__ref = { mutable unsigned_32__content : unsigned_32 }
+  
+  function unsigned_32__ref_unsigned_32__content__projection (a: unsigned_32__ref) : unsigned_32 =
+    a.unsigned_32__content
+  
+  meta "model_projection" function unsigned_32__ref_unsigned_32__content__projection
+  
+  meta "inline:no" function unsigned_32__ref_unsigned_32__content__projection
+  
+  val unsigned_32__havoc (x: unsigned_32__ref) : unit
+    writes { x }
+end
+
+module Interfaces__unsigned_32__rep [@GNAT-comment:Module defining to_rep/of_rep for type "unsigned_32" defined at interfac.ads:80, created in Gnat2Why.Types.Translate_Type]
+  use Interfaces__unsigned_32 as Interfaces__unsigned_32
+  use _gnatprove_standard.BV32 as BV32
+  use _gnatprove_standard.Main
+  use int.Int
+  clone export ada__model.Rep_Proj_BV32 with
+    axiom .,
+    type t = Interfaces__unsigned_32.unsigned_32,
+    predicate in_range = Interfaces__unsigned_32.in_range,
+    predicate in_range_int = Interfaces__unsigned_32.in_range_int
+  
+  meta "model_projection" function to_rep
+  
+  meta "inline:no" function to_rep
+end
+
+module Qoa__qoa_desc__rep [@GNAT-comment:Module for axiomatizing the record theory associated to type "qoa_desc" defined at qoa.ads:28, created in Why.Gen.Records.Create_Rep_Record_Theory_If_Needed]
+  use _gnatprove_standard.Main
+  use int.Int
+  use _gnatprove_standard.BV32 as BV32
+  use Qoa__array_lms as Qoa__array_lms
+  use Interfaces__unsigned_32 as Interfaces__unsigned_32
+  use Interfaces__unsigned_32__rep as Interfaces__unsigned_32__rep
+  use Array__Int__Qoa__qoa_lms_t as Array__Int__Qoa__qoa_lms_t
+  
+  type __split_fields = {
+                       rec__qoa__qoa_desc__channels [@model_trace:.1866] [@name:channels] :
+                         Interfaces__unsigned_32.unsigned_32;
+                       rec__qoa__qoa_desc__samplerate [@name:samplerate] [@model_trace:.1871] :
+                         Interfaces__unsigned_32.unsigned_32;
+                       rec__qoa__qoa_desc__samples [@name:samples] [@model_trace:.1875] :
+                         Interfaces__unsigned_32.unsigned_32;
+                       rec__qoa__qoa_desc__lms [@model_trace:.1879] [@name:lms] :
+                         Array__Int__Qoa__qoa_lms_t.map
+                       }
+  
+  function __split_fields_rec__qoa__qoa_desc__channels__projection [@model_trace:.1866] [@name:channels] (a: __split_fields) : 
+    Interfaces__unsigned_32.unsigned_32 =
+    a.rec__qoa__qoa_desc__channels
+  
+  meta "model_projection" function __split_fields_rec__qoa__qoa_desc__channels__projection
+  
+  meta "inline:no" function __split_fields_rec__qoa__qoa_desc__channels__projection
+  
+  function __split_fields_rec__qoa__qoa_desc__samplerate__projection [@name:samplerate] [@model_trace:.1871] (a: __split_fields) : 
+    Interfaces__unsigned_32.unsigned_32 =
+    a.rec__qoa__qoa_desc__samplerate
+  
+  meta "model_projection" function __split_fields_rec__qoa__qoa_desc__samplerate__projection
+  
+  meta "inline:no" function __split_fields_rec__qoa__qoa_desc__samplerate__projection
+  
+  function __split_fields_rec__qoa__qoa_desc__samples__projection [@name:samples] [@model_trace:.1875] (a: __split_fields) : 
+    Interfaces__unsigned_32.unsigned_32 =
+    a.rec__qoa__qoa_desc__samples
+  
+  meta "model_projection" function __split_fields_rec__qoa__qoa_desc__samples__projection
+  
+  meta "inline:no" function __split_fields_rec__qoa__qoa_desc__samples__projection
+  
+  function __split_fields_rec__qoa__qoa_desc__lms__projection [@model_trace:.1879] [@name:lms] (a: __split_fields) : 
+    Array__Int__Qoa__qoa_lms_t.map =
+    a.rec__qoa__qoa_desc__lms
+  
+  meta "model_projection" function __split_fields_rec__qoa__qoa_desc__lms__projection
+  
+  meta "inline:no" function __split_fields_rec__qoa__qoa_desc__lms__projection
+  
+  type __split_fields__ref = {
+                            mutable __split_fields__content : __split_fields
+                            }
+  
+  function __split_fields__ref___split_fields__content__2__projection (a: __split_fields__ref) : __split_fields =
+    __split_fields__content a
+  
+  meta "model_projection" function __split_fields__ref___split_fields__content__2__projection
+  
+  meta "inline:no" function __split_fields__ref___split_fields__content__2__projection
+  
+  val __split_fields__havoc (x: __split_fields__ref) : unit
+    writes { x }
+  
+  type __rep = { __split_fields : __split_fields }
+  
+  function __rep___split_fields__2__projection (a: __rep) : __split_fields =
+    __split_fields a
+  
+  meta "model_projection" function __rep___split_fields__2__projection
+  
+  meta "inline:no" function __rep___split_fields__2__projection
+  
+  function to_base (a: __rep) : __rep = a
+  
+  val to_base (a: __rep) : __rep
+    ensures { result = (to_base (a : __rep)) }
+  
+  function of_base (a: __rep) : __rep = a
+  
+  val of_base (a: __rep) : __rep
+    ensures { result = (of_base (a : __rep)) }
+  
+  predicate qoa__qoa_desc__channels__pred (a: __rep) = true
+  
+  val qoa__qoa_desc__channels__pred (a: __rep) : bool
+    ensures { result <-> (qoa__qoa_desc__channels__pred (a : __rep)) }
+  
+  val rec__qoa__qoa_desc__channels_ (a: __rep) : Interfaces__unsigned_32.unsigned_32
+    requires { [@rac:call_id:67] (qoa__qoa_desc__channels__pred a) }
+    ensures { (result = ((__split_fields a).rec__qoa__qoa_desc__channels)) }
+  
+  predicate qoa__qoa_desc__samplerate__pred (a: __rep) = true
+  
+  val qoa__qoa_desc__samplerate__pred (a: __rep) : bool
+    ensures { result <-> (qoa__qoa_desc__samplerate__pred (a : __rep)) }
+  
+  val rec__qoa__qoa_desc__samplerate_ (a: __rep) : Interfaces__unsigned_32.unsigned_32
+    requires { [@rac:call_id:68] (qoa__qoa_desc__samplerate__pred a) }
+    ensures { (result = ((__split_fields a).rec__qoa__qoa_desc__samplerate)) }
+  
+  predicate qoa__qoa_desc__samples__pred (a: __rep) = true
+  
+  val qoa__qoa_desc__samples__pred (a: __rep) : bool
+    ensures { result <-> (qoa__qoa_desc__samples__pred (a : __rep)) }
+  
+  val rec__qoa__qoa_desc__samples_ (a: __rep) : Interfaces__unsigned_32.unsigned_32
+    requires { [@rac:call_id:69] (qoa__qoa_desc__samples__pred a) }
+    ensures { (result = ((__split_fields a).rec__qoa__qoa_desc__samples)) }
+  
+  predicate qoa__qoa_desc__lms__pred (a: __rep) = true
+  
+  val qoa__qoa_desc__lms__pred (a: __rep) : bool
+    ensures { result <-> (qoa__qoa_desc__lms__pred (a : __rep)) }
+  
+  val rec__qoa__qoa_desc__lms_ (a: __rep) : Array__Int__Qoa__qoa_lms_t.map
+    requires { [@rac:call_id:70] (qoa__qoa_desc__lms__pred a) }
+    ensures { (result = ((__split_fields a).rec__qoa__qoa_desc__lms)) }
+  
+  function bool_eq (a: __rep) (b: __rep) : bool =
+    if ((true /\
+           (([@rac:call_id:71]
+             (Interfaces__unsigned_32__rep.to_rep
+                ((__split_fields a).rec__qoa__qoa_desc__channels)))
+              = ([@rac:call_id:72]
+                 (Interfaces__unsigned_32__rep.to_rep
+                    ((__split_fields b).rec__qoa__qoa_desc__channels))))) /\
+          (((([@rac:call_id:73]
+              (Interfaces__unsigned_32__rep.to_rep
+                 ((__split_fields a).rec__qoa__qoa_desc__samplerate)))
+               = ([@rac:call_id:74]
+                  (Interfaces__unsigned_32__rep.to_rep
+                     ((__split_fields b).rec__qoa__qoa_desc__samplerate)))) /\
+              (([@rac:call_id:75]
+                (Interfaces__unsigned_32__rep.to_rep
+                   ((__split_fields a).rec__qoa__qoa_desc__samples)))
+                 = ([@rac:call_id:76]
+                    (Interfaces__unsigned_32__rep.to_rep
+                       ((__split_fields b).rec__qoa__qoa_desc__samples))))) /\
+             ([@rac:call_id:77]
+              (Qoa__array_lms.bool_eq
+                 ((__split_fields a).rec__qoa__qoa_desc__lms)
+                 ((__split_fields b).rec__qoa__qoa_desc__lms))))) then
+      True
+    else False
+  
+  val bool_eq (a: __rep) (b: __rep) : bool
+    ensures { result = (bool_eq (a : __rep) (b : __rep)) }
+end
+
+module Qoa__qoa_desc [@GNAT-comment:Module for axiomatizing type "qoa_desc" defined at qoa.ads:28, created in Gnat2Why.Types.Translate_Type]
+  use export Qoa__qoa_desc__rep
+  use _gnatprove_standard.Main
+  use int.Int
+  use Qoa__qoa_desc__rep as Qoa__qoa_desc__rep
+  
+  type qoa_desc = __rep
+  
+  val function value__size : int
+  
+  val function object__size : int
+  
+  val function alignment : int
+  
+  axiom value__size_axiom: (([@rac:call_id:78] value__size) >= (0 : int))
+  
+  axiom object__size_axiom: (([@rac:call_id:79] object__size) >= (0 : int))
+  
+  axiom alignment_axiom: (([@rac:call_id:80] alignment) >= (0 : int))
+  
+  val function qoa__qoa_desc__channels__first__bit : int
+  
+  val function qoa__qoa_desc__channels__last__bit : int
+  
+  val function qoa__qoa_desc__channels__position : int
+  
+  axiom qoa__qoa_desc__channels__first__bit_axiom:
+    (([@rac:call_id:81] qoa__qoa_desc__channels__first__bit) >= (0 : int))
+  
+  axiom qoa__qoa_desc__channels__last__bit_axiom:
+    (([@rac:call_id:82] qoa__qoa_desc__channels__last__bit)
+       > ([@rac:call_id:83] qoa__qoa_desc__channels__first__bit))
+  
+  axiom qoa__qoa_desc__channels__position_axiom:
+    (([@rac:call_id:84] qoa__qoa_desc__channels__position) >= (0 : int))
+  
+  val function qoa__qoa_desc__samplerate__first__bit : int
+  
+  val function qoa__qoa_desc__samplerate__last__bit : int
+  
+  val function qoa__qoa_desc__samplerate__position : int
+  
+  axiom qoa__qoa_desc__samplerate__first__bit_axiom:
+    (([@rac:call_id:85] qoa__qoa_desc__samplerate__first__bit) >= (0 : int))
+  
+  axiom qoa__qoa_desc__samplerate__last__bit_axiom:
+    (([@rac:call_id:86] qoa__qoa_desc__samplerate__last__bit)
+       > ([@rac:call_id:87] qoa__qoa_desc__samplerate__first__bit))
+  
+  axiom qoa__qoa_desc__samplerate__position_axiom:
+    (([@rac:call_id:88] qoa__qoa_desc__samplerate__position) >= (0 : int))
+  
+  val function qoa__qoa_desc__samples__first__bit : int
+  
+  val function qoa__qoa_desc__samples__last__bit : int
+  
+  val function qoa__qoa_desc__samples__position : int
+  
+  axiom qoa__qoa_desc__samples__first__bit_axiom:
+    (([@rac:call_id:89] qoa__qoa_desc__samples__first__bit) >= (0 : int))
+  
+  axiom qoa__qoa_desc__samples__last__bit_axiom:
+    (([@rac:call_id:90] qoa__qoa_desc__samples__last__bit)
+       > ([@rac:call_id:91] qoa__qoa_desc__samples__first__bit))
+  
+  axiom qoa__qoa_desc__samples__position_axiom:
+    (([@rac:call_id:92] qoa__qoa_desc__samples__position) >= (0 : int))
+  
+  val function qoa__qoa_desc__lms__first__bit : int
+  
+  val function qoa__qoa_desc__lms__last__bit : int
+  
+  val function qoa__qoa_desc__lms__position : int
+  
+  axiom qoa__qoa_desc__lms__first__bit_axiom:
+    (([@rac:call_id:93] qoa__qoa_desc__lms__first__bit) >= (0 : int))
+  
+  axiom qoa__qoa_desc__lms__last__bit_axiom:
+    (([@rac:call_id:94] qoa__qoa_desc__lms__last__bit)
+       > ([@rac:call_id:95] qoa__qoa_desc__lms__first__bit))
+  
+  axiom qoa__qoa_desc__lms__position_axiom:
+    (([@rac:call_id:96] qoa__qoa_desc__lms__position) >= (0 : int))
+  
+  val function dummy : qoa_desc
+  
+  type qoa_desc__ref = { mutable qoa_desc__content : qoa_desc }
+  
+  function qoa_desc__ref_qoa_desc__content__projection (a: qoa_desc__ref) : qoa_desc =
+    a.qoa_desc__content
+  
+  meta "model_projection" function qoa_desc__ref_qoa_desc__content__projection
+  
+  meta "inline:no" function qoa_desc__ref_qoa_desc__content__projection
+  
+  val qoa_desc__havoc (x: qoa_desc__ref) : unit
+    writes { x }
+end
+
+module Qoa__decode__qoa [@GNAT-comment:Module for defining a ref holding the value of variable "qoa" defined at qoa.ads:42, created in Gnat2Why.Decls.Translate_Variable]
+  use _gnatprove_standard.Main
+  use int.Int
+  use Qoa__qoa_desc as Qoa__qoa_desc
+  
+  val qoa__split_fields [@name:qoa] [@model_projected] [@model_trace:1895'Fields] [#"qoa.ads" 42 0 42 0] : 
+    Qoa__qoa_desc.__split_fields__ref
+end
+
+module Qoa__qoa_desc___axiom [@GNAT-comment:Module giving axioms for type "qoa_desc" defined at qoa.ads:28, created in Gnat2Why.Types.Generate_Type_Completion]
+  use _gnatprove_standard.Main
+  use int.Int
+  use Qoa__qoa_desc as Qoa__qoa_desc
+  
+  predicate dynamic_invariant (temp___expr_431: Qoa__qoa_desc.qoa_desc) (temp___is_init_427: bool) (temp___skip_constant_428: bool) (temp___do_toplevel_429: bool) (temp___do_typ_inv_430: bool) =
+    true
+  
+  val dynamic_invariant (temp___expr_431: Qoa__qoa_desc.qoa_desc) (temp___is_init_427: bool) (temp___skip_constant_428: bool) (temp___do_toplevel_429: bool) (temp___do_typ_inv_430: bool) : 
+    bool
+    ensures { result
+                <->
+                (dynamic_invariant
+                   (temp___expr_431 : Qoa__qoa_desc.qoa_desc)
+                   (temp___is_init_427 : bool)
+                   (temp___skip_constant_428 : bool)
+                   (temp___do_toplevel_429 : bool)
+                   (temp___do_typ_inv_430 : bool)) }
+end
+
+module Qoa__decode__output [@GNAT-comment:Module for defining a ref holding the value of variable "output" defined at qoa.ads:43, created in Gnat2Why.Decls.Translate_Variable]
+  use _gnatprove_standard.Main
+  use int.Int
+  use Ada___system__storage_elements__Tstorage_offsetB as Ada___system__storage_elements__Tstorage_offsetB
+  use Array__Int__Ada___system__storage_elements__storage_element as Array__Int__Ada___system__storage_elements__storage_element
+  
+  val output [@name:Output] [@model_trace:1898] [@model_projected] [#"qoa.ads" 43 0 43 0] : 
+    Array__Int__Ada___system__storage_elements__storage_element.map__ref
+  
+  val function output__first [@name:Output] [@model_trace:1898'First] [@model_projected] [#"qoa.ads" 43 0 43 0] : 
+    Ada___system__storage_elements__Tstorage_offsetB.tstorage_offsetB
+  
+  val function output__last [@name:Output] [@model_trace:1898'Last] [@model_projected] [#"qoa.ads" 43 0 43 0] : 
+    Ada___system__storage_elements__Tstorage_offsetB.tstorage_offsetB
+end
+
+module Qoa__decode__output_size [@GNAT-comment:Module for defining a ref holding the value of variable "output_size" defined at qoa.ads:44, created in Gnat2Why.Decls.Translate_Variable]
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val output_size [@model_trace:1901] [@name:Output_Size] [@model_projected] [#"qoa.ads" 44 0 44 0] : 
+    int__ref
+end
+
+module Qoa__decode__p [@GNAT-comment:Module for defining a ref holding the value of variable "p" defined at qoa.adb:300, created in Gnat2Why.Decls.Translate_Variable]
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val p [@model_trace:1034] [@name:p] [@model_projected] [#"qoa.adb" 300 0 300 0] : 
+    int__ref
+end
+
+module Qoa__decode__index [@GNAT-comment:Module for defining a ref holding the value of variable "index" defined at qoa.adb:301, created in Gnat2Why.Decls.Translate_Variable]
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val index [@model_trace:1038] [@model_projected] [@name:index] [#"qoa.adb" 301 0 301 0] : 
+    int__ref
+end
+
+module Ada___system__storage_elements__storage_count [@GNAT-comment:Module for axiomatizing type "storage_count" defined at s-stoele.ads:61, created in Gnat2Why.Types.Translate_Type]
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  type storage_count = <range 0 9223372036854775807>
+  
+  val function first : int
+    ensures { result = (0 : int) }
+  
+  val function last : int
+    ensures { result = (9223372036854775807 : int) }
+  
+  predicate in_range [@GP_Inline] (x: int) =
+    (([@GP_Pretty_Ada:-1] (first <= x)) /\ ([@GP_Pretty_Ada:-2] (x <= last)))
+  
+  val in_range [@GP_Inline] (x: int) : bool
+    ensures { result <-> (in_range (x : int)) }
+  
+  clone export ada__model.Static_Discrete with
+    axiom .,
+    type t = storage_count,
+    function first = first,
+    function last = last,
+    predicate in_range = in_range
+  
+  type storage_count__ref = {
+                           mutable storage_count__content : storage_count
+                           }
+  
+  function storage_count__ref_storage_count__content__projection (a: storage_count__ref) : storage_count =
+    a.storage_count__content
+  
+  meta "model_projection" function storage_count__ref_storage_count__content__projection
+  
+  meta "inline:no" function storage_count__ref_storage_count__content__projection
+  
+  val storage_count__havoc (x: storage_count__ref) : unit
+    writes { x }
+end
+
+module Ada___system__storage_elements__storage_count___axiom [@GNAT-comment:Module giving axioms for type "storage_count" defined at s-stoele.ads:61, created in Gnat2Why.Types.Generate_Type_Completion]
+  use _gnatprove_standard.Main
+  use int.Int
+  use Ada___system__storage_elements__storage_count as Ada___system__storage_elements__storage_count
+  
+  predicate dynamic_invariant (temp___expr_479: int) (temp___is_init_475: bool) (temp___skip_constant_476: bool) (temp___do_toplevel_477: bool) (temp___do_typ_inv_478: bool) =
+    [@rac:call_id:97]
+    (Ada___system__storage_elements__storage_count.dynamic_property
+       Ada___system__storage_elements__storage_count.first
+       Ada___system__storage_elements__storage_count.last
+       temp___expr_479)
+  
+  val dynamic_invariant (temp___expr_479: int) (temp___is_init_475: bool) (temp___skip_constant_476: bool) (temp___do_toplevel_477: bool) (temp___do_typ_inv_478: bool) : 
+    bool
+    ensures { result
+                <->
+                (dynamic_invariant
+                   (temp___expr_479 : int)
+                   (temp___is_init_475 : bool)
+                   (temp___skip_constant_476 : bool)
+                   (temp___do_toplevel_477 : bool)
+                   (temp___do_typ_inv_478 : bool)) }
+end
+
+module Qoa__decode__decode_header___axiom [@GNAT-comment:Module for declaring a program function (and possibly an axiom) for "decode_header" defined at qoa.adb:332, created in Gnat2Why.Subprograms.Generate_Subprogram_Completion]
+  use _gnatprove_standard.Main
+  use int.Int
+  use Ada___system__storage_elements__storage_array as Ada___system__storage_elements__storage_array
+  use Qoa__qoa_desc as Qoa__qoa_desc
+  use Qoa__qoa_desc___axiom as Qoa__qoa_desc___axiom
+  use Qoa__decode__output as Qoa__decode__output
+  use Qoa__decode__p as Qoa__decode__p
+  use Ada___system__storage_elements__storage_count___axiom as Ada___system__storage_elements__storage_count___axiom
+  
+  val decode_header (param__data: Ada___system__storage_elements__storage_array.storage_array) (param__qoa__split_fields: 
+    Qoa__qoa_desc.__split_fields__ref) : unit
+    reads { Qoa__decode__p.p, Qoa__decode__output.output }
+    requires { true }
+    writes { Qoa__decode__p.p, param__qoa__split_fields }
+    ensures { (([@rac:call_id:98]
+                (Qoa__qoa_desc___axiom.dynamic_invariant
+                   { Qoa__qoa_desc.__split_fields =
+                       (Qoa__qoa_desc.__split_fields__content
+                           param__qoa__split_fields) }
+                   True
+                   True
+                   True
+                   True)) /\
+                 ([@rac:call_id:99]
+                  (Ada___system__storage_elements__storage_count___axiom.dynamic_invariant
+                     (Qoa__decode__p.p.int__content)
+                     True
+                     True
+                     True
+                     True))) }
+end
+
+module Ada___system__storage_elements__storage_array___axiom [@GNAT-comment:Module giving axioms for type "storage_array" defined at s-stoele.ads:69, created in Gnat2Why.Types.Generate_Type_Completion]
+  use _gnatprove_standard.Main
+  use int.Int
+  use Ada___system__storage_elements__storage_array as Ada___system__storage_elements__storage_array
+  use Ada___system__storage_elements__storage_offset as Ada___system__storage_elements__storage_offset
+  
+  predicate dynamic_invariant (temp___expr_473: Ada___system__storage_elements__storage_array.storage_array) (temp___is_init_469: bool) (temp___skip_constant_470: bool) (temp___do_toplevel_471: bool) (temp___do_typ_inv_472: bool) =
+    if (temp___skip_constant_470 = True) then true
+    else
+      ([@rac:call_id:102]
+       (Ada___system__storage_elements__storage_array.dynamic_property
+          Ada___system__storage_elements__storage_offset.first
+          Ada___system__storage_elements__storage_offset.last
+          ([@rac:call_id:100]
+           (Ada___system__storage_elements__storage_array.first
+              temp___expr_473))
+          ([@rac:call_id:101]
+           (Ada___system__storage_elements__storage_array.last
+              temp___expr_473))))
+  
+  val dynamic_invariant (temp___expr_473: Ada___system__storage_elements__storage_array.storage_array) (temp___is_init_469: bool) (temp___skip_constant_470: bool) (temp___do_toplevel_471: bool) (temp___do_typ_inv_472: bool) : 
+    bool
+    ensures { result
+                <->
+                (dynamic_invariant
+                   (temp___expr_473 :
+                      Ada___system__storage_elements__storage_array.storage_array)
+                   (temp___is_init_469 : bool)
+                   (temp___skip_constant_470 : bool)
+                   (temp___do_toplevel_471 : bool)
+                   (temp___do_typ_inv_472 : bool)) }
+end
+
+module Qoa__decode__decode_frame___axiom [@GNAT-comment:Module for declaring a program function (and possibly an axiom) for "decode_frame" defined at qoa.adb:368, created in Gnat2Why.Subprograms.Generate_Subprogram_Completion]
+  use _gnatprove_standard.Main
+  use int.Int
+  use Ada___system__storage_elements__storage_array as Ada___system__storage_elements__storage_array
+  use Qoa__qoa_desc as Qoa__qoa_desc
+  use Qoa__qoa_desc___axiom as Qoa__qoa_desc___axiom
+  use Qoa__decode__output as Qoa__decode__output
+  use Ada___system__storage_elements__Tstorage_offsetB as Ada___system__storage_elements__Tstorage_offsetB
+  use Qoa__decode__p as Qoa__decode__p
+  use Ada___system__storage_elements__Tstorage_offsetB__rep as Ada___system__storage_elements__Tstorage_offsetB__rep
+  use Ada___system__storage_elements__storage_array___axiom as Ada___system__storage_elements__storage_array___axiom
+  use Ada___system__storage_elements__storage_count___axiom as Ada___system__storage_elements__storage_count___axiom
+  use Array__Int__Ada___system__storage_elements__storage_element as Array__Int__Ada___system__storage_elements__storage_element
+  
+  val decode_frame (param__data: Ada___system__storage_elements__storage_array.storage_array) (param__p: int__ref) (param__qoa__split_fields: 
+    Qoa__qoa_desc.__split_fields__ref) (param__output: Array__Int__Ada___system__storage_elements__storage_element.map__ref) (param__output__first: 
+    Ada___system__storage_elements__Tstorage_offsetB.tstorage_offsetB) (param__output__last: 
+    Ada___system__storage_elements__Tstorage_offsetB.tstorage_offsetB) (param__index: int) : 
+    unit
+    reads { Qoa__decode__p.p, Qoa__decode__output.output }
+    requires { true }
+    writes { Qoa__decode__p.p, param__p, param__qoa__split_fields, param__output }
+    ensures { (((([@rac:call_id:103]
+                  (Ada___system__storage_elements__storage_count___axiom.dynamic_invariant
+                     (param__p.int__content)
+                     True
+                     True
+                     True
+                     True)) /\
+                   ([@rac:call_id:104]
+                    (Qoa__qoa_desc___axiom.dynamic_invariant
+                       { Qoa__qoa_desc.__split_fields =
+                           (Qoa__qoa_desc.__split_fields__content
+                               param__qoa__split_fields) }
+                       True
+                       True
+                       True
+                       True))) /\
+                  ([@rac:call_id:108]
+                   (Ada___system__storage_elements__storage_array___axiom.dynamic_invariant
+                      ([@rac:call_id:107]
+                       (Ada___system__storage_elements__storage_array.of_array
+                          (param__output.Array__Int__Ada___system__storage_elements__storage_element.map__content)
+                          ([@rac:call_id:105]
+                           (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                              param__output__first))
+                          ([@rac:call_id:106]
+                           (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                              param__output__last))))
+                      True
+                      True
+                      True
+                      True))) /\
+                 ([@rac:call_id:109]
+                  (Ada___system__storage_elements__storage_count___axiom.dynamic_invariant
+                     (Qoa__decode__p.p.int__content)
+                     True
+                     True
+                     True
+                     True))) }
+end
+
+module Qoa__decode__sample_index [@GNAT-comment:Module for defining a ref holding the value of variable "sample_index" defined at qoa.adb:471, created in Gnat2Why.Decls.Translate_Variable]
+  use _gnatprove_standard.Main
+  use int.Int
+  use _gnatprove_standard.BV32 as BV32
+  
+  val sample_index [@model_trace:1694] [@model_projected] [@name:sample_index] [#"qoa.adb" 471 0 471 0] : 
+    BV32.t__ref
+end
+
+module Qoa__decode__frame_len [@GNAT-comment:Module for defining a ref holding the value of variable "frame_len" defined at qoa.adb:472, created in Gnat2Why.Decls.Translate_Variable]
+  use _gnatprove_standard.Main
+  use int.Int
+  use _gnatprove_standard.BV32 as BV32
+  
+  val frame_len [@name:frame_len] [@model_trace:1698] [@model_projected] [#"qoa.adb" 472 0 472 0] : 
+    BV32.t__ref
+end
+
+module Interfaces__unsigned_32___axiom [@GNAT-comment:Module giving axioms for type "unsigned_32" defined at interfac.ads:80, created in Gnat2Why.Types.Generate_Type_Completion]
+  use _gnatprove_standard.Main
+  use int.Int
+  use _gnatprove_standard.BV32 as BV32
+  use Interfaces__unsigned_32 as Interfaces__unsigned_32
+  
+  predicate dynamic_invariant (temp___expr_424: BV32.t) (temp___is_init_420: bool) (temp___skip_constant_421: bool) (temp___do_toplevel_422: bool) (temp___do_typ_inv_423: bool) =
+    [@rac:call_id:110]
+    (Interfaces__unsigned_32.dynamic_property
+       Interfaces__unsigned_32.first
+       Interfaces__unsigned_32.last
+       temp___expr_424)
+  
+  val dynamic_invariant (temp___expr_424: BV32.t) (temp___is_init_420: bool) (temp___skip_constant_421: bool) (temp___do_toplevel_422: bool) (temp___do_typ_inv_423: bool) : 
+    bool
+    ensures { result
+                <->
+                (dynamic_invariant
+                   (temp___expr_424 : BV32.t)
+                   (temp___is_init_420 : bool)
+                   (temp___skip_constant_421 : bool)
+                   (temp___do_toplevel_422 : bool)
+                   (temp___do_typ_inv_423 : bool)) }
+end
+
+module Interfaces__unsigned_32___dic [@GNAT-comment:Module giving a predicate for the default initial assumption of type "unsigned_32" defined at interfac.ads:80, created in Gnat2Why.Types.Generate_Type_Completion]
+  use _gnatprove_standard.Main
+  use int.Int
+  use _gnatprove_standard.BV32 as BV32
+  
+  predicate default_initial_assumption (temp___expr_425: BV32.t) (temp___skip_top_level_426: bool) =
+    true
+  
+  val default_initial_assumption (temp___expr_425: BV32.t) (temp___skip_top_level_426: bool) : 
+    bool
+    ensures { result
+                <->
+                (default_initial_assumption
+                   (temp___expr_425 : BV32.t)
+                   (temp___skip_top_level_426 : bool)) }
+end
+
+module Ada___system__storage_elements__storage_count___dic [@GNAT-comment:Module giving a predicate for the default initial assumption of type "storage_count" defined at s-stoele.ads:61, created in Gnat2Why.Types.Generate_Type_Completion]
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  predicate default_initial_assumption (temp___expr_480: int) (temp___skip_top_level_481: bool) =
+    true
+  
+  val default_initial_assumption (temp___expr_480: int) (temp___skip_top_level_481: bool) : 
+    bool
+    ensures { result
+                <->
+                (default_initial_assumption
+                   (temp___expr_480 : int)
+                   (temp___skip_top_level_481 : bool)) }
+end
+
+module Qoa__decode__S9b [@GNAT-comment:Module for axiomatizing type "S9b" defined at qoa.adb:295, created in Gnat2Why.Types.Translate_Type]
+  use export Ada___system__storage_elements__storage_array
+  use _gnatprove_standard.Main
+  use int.Int
+  use Ada___system__storage_elements__storage_array as Ada___system__storage_elements__storage_array
+  
+  type s9b = storage_array
+  
+  type s9b__ref = { mutable s9b__content : s9b }
+  
+  function s9b__ref_s9b__content__projection (a: s9b__ref) : s9b =
+    a.s9b__content
+  
+  meta "model_projection" function s9b__ref_s9b__content__projection
+  
+  meta "inline:no" function s9b__ref_s9b__content__projection
+  
+  val s9b__havoc (x: s9b__ref) : unit
+    writes { x }
+end
+
+module Qoa__decode__L_9 [@GNAT-comment:Module for defining the loop exit exception for the loop "L_9" defined at qoa.adb:485, created in Gnat2Why.Decls.Translate_Loop_Entity]
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  exception L_9
+end
+
+module Standard__universal_integer___axiom [@GNAT-comment:Module giving axioms for type "universal_integer", created in Gnat2Why.Types.Generate_Type_Completion]
+  use _gnatprove_standard.Main
+  use int.Int
+  use Standard__universal_integer as Standard__universal_integer
+  
+  predicate dynamic_invariant (temp___expr_165: int) (temp___is_init_161: bool) (temp___skip_constant_162: bool) (temp___do_toplevel_163: bool) (temp___do_typ_inv_164: bool) =
+    [@rac:call_id:111]
+    (Standard__universal_integer.dynamic_property
+       Standard__universal_integer.first
+       Standard__universal_integer.last
+       temp___expr_165)
+  
+  val dynamic_invariant (temp___expr_165: int) (temp___is_init_161: bool) (temp___skip_constant_162: bool) (temp___do_toplevel_163: bool) (temp___do_typ_inv_164: bool) : 
+    bool
+    ensures { result
+                <->
+                (dynamic_invariant
+                   (temp___expr_165 : int)
+                   (temp___is_init_161 : bool)
+                   (temp___skip_constant_162 : bool)
+                   (temp___do_toplevel_163 : bool)
+                   (temp___do_typ_inv_164 : bool)) }
+end
+
+module Qoa__qoa_lms_t___axiom [@GNAT-comment:Module giving axioms for type "qoa_lms_t" defined at qoa.ads:21, created in Gnat2Why.Types.Generate_Type_Completion]
+  use _gnatprove_standard.Main
+  use int.Int
+  use Qoa__qoa_lms_t as Qoa__qoa_lms_t
+  
+  predicate dynamic_invariant (temp___expr_391: Qoa__qoa_lms_t.qoa_lms_t) (temp___is_init_387: bool) (temp___skip_constant_388: bool) (temp___do_toplevel_389: bool) (temp___do_typ_inv_390: bool) =
+    true
+  
+  val dynamic_invariant (temp___expr_391: Qoa__qoa_lms_t.qoa_lms_t) (temp___is_init_387: bool) (temp___skip_constant_388: bool) (temp___do_toplevel_389: bool) (temp___do_typ_inv_390: bool) : 
+    bool
+    ensures { result
+                <->
+                (dynamic_invariant
+                   (temp___expr_391 : Qoa__qoa_lms_t.qoa_lms_t)
+                   (temp___is_init_387 : bool)
+                   (temp___skip_constant_388 : bool)
+                   (temp___do_toplevel_389 : bool)
+                   (temp___do_typ_inv_390 : bool)) }
+end
+
+module Interfaces__integer_16___axiom [@GNAT-comment:Module giving axioms for type "integer_16" defined at interfac.ads:50, created in Gnat2Why.Types.Generate_Type_Completion]
+  use _gnatprove_standard.Main
+  use int.Int
+  use Interfaces__integer_16 as Interfaces__integer_16
+  
+  predicate dynamic_invariant (temp___expr_374: int) (temp___is_init_370: bool) (temp___skip_constant_371: bool) (temp___do_toplevel_372: bool) (temp___do_typ_inv_373: bool) =
+    [@rac:call_id:112]
+    (Interfaces__integer_16.dynamic_property
+       Interfaces__integer_16.first
+       Interfaces__integer_16.last
+       temp___expr_374)
+  
+  val dynamic_invariant (temp___expr_374: int) (temp___is_init_370: bool) (temp___skip_constant_371: bool) (temp___do_toplevel_372: bool) (temp___do_typ_inv_373: bool) : 
+    bool
+    ensures { result
+                <->
+                (dynamic_invariant
+                   (temp___expr_374 : int)
+                   (temp___is_init_370 : bool)
+                   (temp___skip_constant_371 : bool)
+                   (temp___do_toplevel_372 : bool)
+                   (temp___do_typ_inv_373 : bool)) }
+end
+
+module Qoa__my_array___axiom [@GNAT-comment:Module giving axioms for type "my_array" defined at qoa.ads:20, created in Gnat2Why.Types.Generate_Type_Completion]
+  use _gnatprove_standard.Main
+  use int.Int
+  use Array__Int__Interfaces__integer_16 as Array__Int__Interfaces__integer_16
+  
+  predicate dynamic_invariant (temp___expr_381: Array__Int__Interfaces__integer_16.map) (temp___is_init_377: bool) (temp___skip_constant_378: bool) (temp___do_toplevel_379: bool) (temp___do_typ_inv_380: bool) =
+    true
+  
+  val dynamic_invariant (temp___expr_381: Array__Int__Interfaces__integer_16.map) (temp___is_init_377: bool) (temp___skip_constant_378: bool) (temp___do_toplevel_379: bool) (temp___do_typ_inv_380: bool) : 
+    bool
+    ensures { result
+                <->
+                (dynamic_invariant
+                   (temp___expr_381 : Array__Int__Interfaces__integer_16.map)
+                   (temp___is_init_377 : bool)
+                   (temp___skip_constant_378 : bool)
+                   (temp___do_toplevel_379 : bool)
+                   (temp___do_typ_inv_380 : bool)) }
+end
+
+module Qoa__array_lms___axiom [@GNAT-comment:Module giving axioms for type "array_lms" defined at qoa.ads:26, created in Gnat2Why.Types.Generate_Type_Completion]
+  use _gnatprove_standard.Main
+  use int.Int
+  use Array__Int__Qoa__qoa_lms_t as Array__Int__Qoa__qoa_lms_t
+  
+  predicate dynamic_invariant (temp___expr_406: Array__Int__Qoa__qoa_lms_t.map) (temp___is_init_402: bool) (temp___skip_constant_403: bool) (temp___do_toplevel_404: bool) (temp___do_typ_inv_405: bool) =
+    true
+  
+  val dynamic_invariant (temp___expr_406: Array__Int__Qoa__qoa_lms_t.map) (temp___is_init_402: bool) (temp___skip_constant_403: bool) (temp___do_toplevel_404: bool) (temp___do_typ_inv_405: bool) : 
+    bool
+    ensures { result
+                <->
+                (dynamic_invariant
+                   (temp___expr_406 : Array__Int__Qoa__qoa_lms_t.map)
+                   (temp___is_init_402 : bool)
+                   (temp___skip_constant_403 : bool)
+                   (temp___do_toplevel_404 : bool)
+                   (temp___do_typ_inv_405 : bool)) }
+end
+
+module Ada___system__storage_elements__Tstorage_offsetB___axiom [@GNAT-comment:Module giving axioms for type "Tstorage_offsetB" defined at s-stoele.ads:54, created in Gnat2Why.Types.Generate_Type_Completion]
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Ada___system__storage_elements__storage_offset___axiom [@GNAT-comment:Module giving axioms for type "storage_offset" defined at s-stoele.ads:54, created in Gnat2Why.Types.Generate_Type_Completion]
+  use _gnatprove_standard.Main
+  use int.Int
+  use Ada___system__storage_elements__storage_offset as Ada___system__storage_elements__storage_offset
+  
+  predicate dynamic_invariant (temp___expr_459: int) (temp___is_init_455: bool) (temp___skip_constant_456: bool) (temp___do_toplevel_457: bool) (temp___do_typ_inv_458: bool) =
+    [@rac:call_id:113]
+    (Ada___system__storage_elements__storage_offset.dynamic_property
+       Ada___system__storage_elements__storage_offset.first
+       Ada___system__storage_elements__storage_offset.last
+       temp___expr_459)
+  
+  val dynamic_invariant (temp___expr_459: int) (temp___is_init_455: bool) (temp___skip_constant_456: bool) (temp___do_toplevel_457: bool) (temp___do_typ_inv_458: bool) : 
+    bool
+    ensures { result
+                <->
+                (dynamic_invariant
+                   (temp___expr_459 : int)
+                   (temp___is_init_455 : bool)
+                   (temp___skip_constant_456 : bool)
+                   (temp___do_toplevel_457 : bool)
+                   (temp___do_typ_inv_458 : bool)) }
+end
+
+module Ada___system__storage_elements__storage_element___axiom [@GNAT-comment:Module giving axioms for type "storage_element" defined at s-stoele.ads:63, created in Gnat2Why.Types.Generate_Type_Completion]
+  use _gnatprove_standard.Main
+  use int.Int
+  use _gnatprove_standard.BV8 as BV8
+  use Ada___system__storage_elements__storage_element as Ada___system__storage_elements__storage_element
+  
+  predicate dynamic_invariant (temp___expr_466: BV8.t) (temp___is_init_462: bool) (temp___skip_constant_463: bool) (temp___do_toplevel_464: bool) (temp___do_typ_inv_465: bool) =
+    [@rac:call_id:114]
+    (Ada___system__storage_elements__storage_element.dynamic_property
+       Ada___system__storage_elements__storage_element.first
+       Ada___system__storage_elements__storage_element.last
+       temp___expr_466)
+  
+  val dynamic_invariant (temp___expr_466: BV8.t) (temp___is_init_462: bool) (temp___skip_constant_463: bool) (temp___do_toplevel_464: bool) (temp___do_typ_inv_465: bool) : 
+    bool
+    ensures { result
+                <->
+                (dynamic_invariant
+                   (temp___expr_466 : BV8.t)
+                   (temp___is_init_462 : bool)
+                   (temp___skip_constant_463 : bool)
+                   (temp___do_toplevel_464 : bool)
+                   (temp___do_typ_inv_465 : bool)) }
+end
+
+module Qoa__decode__S9b___axiom [@GNAT-comment:Module giving axioms for type "S9b" defined at qoa.adb:295, created in Gnat2Why.Types.Generate_Type_Completion]
+  use _gnatprove_standard.Main
+  use int.Int
+  use Qoa__decode__output as Qoa__decode__output
+  use Ada___system__storage_elements__Tstorage_offsetB__rep as Ada___system__storage_elements__Tstorage_offsetB__rep
+  use Qoa__decode__S9b as Qoa__decode__S9b
+  
+  predicate dynamic_invariant (temp___expr_493: Qoa__decode__S9b.s9b) (temp___is_init_489: bool) (temp___skip_constant_490: bool) (temp___do_toplevel_491: bool) (temp___do_typ_inv_492: bool) =
+    if (temp___skip_constant_490 = True) then true
+    else
+      ((([@rac:call_id:119]
+         (Qoa__decode__S9b.dynamic_property
+            ([@rac:call_id:115]
+             (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                Qoa__decode__output.output__first))
+            ([@rac:call_id:116]
+             (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                Qoa__decode__output.output__last))
+            ([@rac:call_id:117] (Qoa__decode__S9b.first temp___expr_493))
+            ([@rac:call_id:118] (Qoa__decode__S9b.last temp___expr_493)))) /\
+          (([@rac:call_id:120] (Qoa__decode__S9b.first temp___expr_493))
+             = ([@rac:call_id:121]
+                (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                   Qoa__decode__output.output__first)))) /\
+         (([@rac:call_id:122] (Qoa__decode__S9b.last temp___expr_493))
+            = ([@rac:call_id:123]
+               (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                  Qoa__decode__output.output__last))))
+  
+  val dynamic_invariant (temp___expr_493: Qoa__decode__S9b.s9b) (temp___is_init_489: bool) (temp___skip_constant_490: bool) (temp___do_toplevel_491: bool) (temp___do_typ_inv_492: bool) : 
+    bool
+    ensures { result
+                <->
+                (dynamic_invariant
+                   (temp___expr_493 : Qoa__decode__S9b.s9b)
+                   (temp___is_init_489 : bool)
+                   (temp___skip_constant_490 : bool)
+                   (temp___do_toplevel_491 : bool)
+                   (temp___do_typ_inv_492 : bool)) }
+end
+
+module Qoa__decode__subprogram_def [@GNAT-comment:Module for checking contracts and absence of run-time errors in subprogram "decode" defined at qoa.ads:41, created in Gnat2Why.Subprograms.Generate_VCs_For_Subprogram]
+  use _gnatprove_standard.Main
+  use int.Int
+  use _gnatprove_standard.Main as Main
+  use _gnatprove_standard.BV32 as BV32
+  use Standard__universal_integer as Standard__universal_integer
+  use Ada___system__storage_elements__storage_array as Ada___system__storage_elements__storage_array
+  use Qoa__decode__data as Qoa__decode__data
+  use Qoa__decode__qoa as Qoa__decode__qoa
+  use Qoa__qoa_desc as Qoa__qoa_desc
+  use Qoa__qoa_desc___axiom as Qoa__qoa_desc___axiom
+  use Array__Int__Ada___system__storage_elements__storage_element as Array__Int__Ada___system__storage_elements__storage_element
+  use Qoa__decode__output as Qoa__decode__output
+  use Ada___system__storage_elements__Tstorage_offsetB as Ada___system__storage_elements__Tstorage_offsetB
+  use Qoa__decode__output_size as Qoa__decode__output_size
+  use Qoa__decode__p as Qoa__decode__p
+  use Qoa__decode__index as Qoa__decode__index
+  use Qoa__decode__decode_header___axiom as Qoa__decode__decode_header___axiom
+  use Qoa__decode__decode_frame___axiom as Qoa__decode__decode_frame___axiom
+  use Qoa__decode__sample_index as Qoa__decode__sample_index
+  use Qoa__decode__frame_len as Qoa__decode__frame_len
+  use Interfaces__unsigned_32 as Interfaces__unsigned_32
+  use Interfaces__unsigned_32___axiom as Interfaces__unsigned_32___axiom
+  use Interfaces__unsigned_32___dic as Interfaces__unsigned_32___dic
+  use Interfaces__unsigned_32__rep as Interfaces__unsigned_32__rep
+  use Ada___system__storage_elements__Tstorage_offsetB__rep as Ada___system__storage_elements__Tstorage_offsetB__rep
+  use Ada___system__storage_elements__storage_offset as Ada___system__storage_elements__storage_offset
+  use Ada___system__storage_elements__storage_array___axiom as Ada___system__storage_elements__storage_array___axiom
+  use Ada___system__storage_elements__storage_count as Ada___system__storage_elements__storage_count
+  use Ada___system__storage_elements__storage_count___axiom as Ada___system__storage_elements__storage_count___axiom
+  use Ada___system__storage_elements__storage_count___dic as Ada___system__storage_elements__storage_count___dic
+  use Qoa__decode__S9b as Qoa__decode__S9b
+  use Qoa__decode__L_9 as Qoa__decode__L_9
+  use _gnatprove_standard.BV8 as BV8
+  use Standard__universal_integer___axiom as Standard__universal_integer___axiom
+  use Qoa__qoa_lms_t as Qoa__qoa_lms_t
+  use Qoa__qoa_lms_t___axiom as Qoa__qoa_lms_t___axiom
+  use Interfaces__integer_16 as Interfaces__integer_16
+  use Interfaces__integer_16___axiom as Interfaces__integer_16___axiom
+  use Interfaces__integer_16__rep as Interfaces__integer_16__rep
+  use Array__Int__Interfaces__integer_16 as Array__Int__Interfaces__integer_16
+  use Qoa__my_array as Qoa__my_array
+  use Qoa__my_array___axiom as Qoa__my_array___axiom
+  use Qoa__qoa_lms_t__rep as Qoa__qoa_lms_t__rep
+  use Array__Int__Qoa__qoa_lms_t as Array__Int__Qoa__qoa_lms_t
+  use Qoa__array_lms as Qoa__array_lms
+  use Qoa__array_lms___axiom as Qoa__array_lms___axiom
+  use Qoa__qoa_desc__rep as Qoa__qoa_desc__rep
+  use Ada___system__storage_elements__Tstorage_offsetB___axiom as Ada___system__storage_elements__Tstorage_offsetB___axiom
+  use Ada___system__storage_elements__storage_offset___axiom as Ada___system__storage_elements__storage_offset___axiom
+  use Ada___system__storage_elements__storage_element as Ada___system__storage_elements__storage_element
+  use Ada___system__storage_elements__storage_element___axiom as Ada___system__storage_elements__storage_element___axiom
+  use Ada___system__storage_elements__storage_element__rep as Ada___system__storage_elements__storage_element__rep
+  use Qoa__decode__S9b___axiom as Qoa__decode__S9b___axiom
+  
+  let def [#"qoa.ads" 41 0 41 0] (__void_param : unit)
+    requires { [#"qoa.ads" 41 0 41 0] true }
+  = [@vc:divergent]
+    (([@GNAT-comment:Assume dynamic invariants of inputs of the subprogram qoa.ads:41]
+      ());
+     ([#"qoa.ads" 41 0 41 0]
+      assume {
+        [#"qoa.ads" 41 0 41 0]
+        [@rac:call_id:124]
+        (Ada___system__storage_elements__storage_array___axiom.dynamic_invariant
+           Qoa__decode__data.data
+           True
+           False
+           True
+           True) });
+     ([#"qoa.ads" 41 0 41 0]
+      assume {
+        [#"qoa.ads" 41 0 41 0]
+        [@rac:call_id:125]
+        (Qoa__qoa_desc___axiom.dynamic_invariant
+           { Qoa__qoa_desc.__split_fields =
+               (Qoa__qoa_desc.__split_fields__content
+                   Qoa__decode__qoa.qoa__split_fields) }
+           False
+           False
+           True
+           True) });
+     ([#"qoa.ads" 41 0 41 0]
+      assume {
+        [#"qoa.ads" 41 0 41 0]
+        (if (False = True) then true
+         else
+           ([@rac:call_id:134]
+            (Ada___system__storage_elements__storage_array.dynamic_property
+               Ada___system__storage_elements__storage_offset.first
+               Ada___system__storage_elements__storage_offset.last
+               ([@rac:call_id:129]
+                (Qoa__decode__S9b.first
+                   ([@rac:call_id:128]
+                    (Qoa__decode__S9b.of_array
+                       (Qoa__decode__output.output.Array__Int__Ada___system__storage_elements__storage_element.map__content)
+                       ([@rac:call_id:126]
+                        (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                           Qoa__decode__output.output__first))
+                       ([@rac:call_id:127]
+                        (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                           Qoa__decode__output.output__last))))))
+               ([@rac:call_id:133]
+                (Qoa__decode__S9b.last
+                   ([@rac:call_id:132]
+                    (Qoa__decode__S9b.of_array
+                       (Qoa__decode__output.output.Array__Int__Ada___system__storage_elements__storage_element.map__content)
+                       ([@rac:call_id:130]
+                        (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                           Qoa__decode__output.output__first))
+                       ([@rac:call_id:131]
+                        (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                           Qoa__decode__output.output__last))))))))) });
+     ([#"qoa.ads" 41 0 41 0]
+      assume {
+        [#"qoa.ads" 41 0 41 0]
+        [@rac:call_id:135]
+        (Ada___system__storage_elements__storage_count___axiom.dynamic_invariant
+           (Qoa__decode__output_size.output_size.int__content)
+           False
+           False
+           True
+           True) });
+     ([@GNAT-comment:Assume moved pointers in outputs of the subprogram qoa.ads:41]
+      ());
+     ([@GNAT-comment:Check for RTE in the Pre of the subprogram qoa.ads:41]
+      ());
+     ([#"qoa.ads" 41 0 41 0]
+      (begin
+         ensures { true }
+         [@rac:call_id:148]
+         (let _ =
+            let _ =
+              ((((([@rac:call_id:139]
+                   (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                      (let temp___611 [@mlw:proxy_symbol] [@introduced] =
+                         [@rac:call_id:138]
+                         (Qoa__decode__S9b.of_array
+                            (Qoa__decode__output.output.Array__Int__Ada___system__storage_elements__storage_element.map__content)
+                            ([@rac:call_id:136]
+                             (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                                Qoa__decode__output.output__first))
+                            ([@rac:call_id:137]
+                             (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                                Qoa__decode__output.output__last))) in
+                       Qoa__decode__output.output__first)))
+                    >= (0 : int))
+                  &&
+                   (([@rac:call_id:143]
+                     (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                        (let temp___612 [@mlw:proxy_symbol] [@introduced] =
+                           [@rac:call_id:142]
+                           (Qoa__decode__S9b.of_array
+                              (Qoa__decode__output.output.Array__Int__Ada___system__storage_elements__storage_element.map__content)
+                              ([@rac:call_id:140]
+                               (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                                  Qoa__decode__output.output__first))
+                              ([@rac:call_id:141]
+                               (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                                  Qoa__decode__output.output__last))) in
+                         Qoa__decode__output.output__last)))
+                      < (9223372036854775807 : int)))
+                 &&
+                  (([@rac:call_id:144]
+                    (Ada___system__storage_elements__storage_array.first
+                       Qoa__decode__data.data))
+                     >= (0 : int)))
+                &&
+                 (([@rac:call_id:145]
+                   (Ada___system__storage_elements__storage_array.last
+                      Qoa__decode__data.data))
+                    < (9223372036854775807 : int)))
+               &&
+                (([#"qoa.ads" 50 0 50 0]
+                  [@GP_Shape:pragargs__andthen__cmp__length_ref]
+                  [@vc:annotation]
+                  [@GP_Check:6:VC_OVERFLOW_CHECK:qoa.ads:50:21]
+                  [@rac:call_id:147]
+                  (Standard__universal_integer.range_check_
+                     ([@rac:call_id:146]
+                      (Ada___system__storage_elements__storage_array.length
+                         Qoa__decode__data.data))))
+                   >= (16 : int)) in
+            () in
+          ())
+       end));
+     ([@GNAT-comment:Assume Pre of the subprogram qoa.ads:41] ());
+     assume {
+       ((((([@GP_Pretty_Ada:1914]
+            (([@rac:call_id:149]
+              (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                 Qoa__decode__output.output__first))
+               >= (0 : int))) /\
+             ([@GP_Pretty_Ada:1920]
+              (([@rac:call_id:150]
+                (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                   Qoa__decode__output.output__last))
+                 < (9223372036854775807 : int)))) /\
+            ([@GP_Pretty_Ada:1928]
+             (([@rac:call_id:151]
+               (Ada___system__storage_elements__storage_array.first
+                  Qoa__decode__data.data))
+                >= (0 : int)))) /\
+           ([@GP_Pretty_Ada:1934]
+            (([@rac:call_id:152]
+              (Ada___system__storage_elements__storage_array.last
+                 Qoa__decode__data.data))
+               < (9223372036854775807 : int)))) /\
+          ([@GP_Pretty_Ada:1942]
+           (([@rac:call_id:153]
+             (Ada___system__storage_elements__storage_array.length
+                Qoa__decode__data.data))
+              >= (16 : int)))) };
+     (try
+        ([#"qoa.adb" 295 0 295 0] ());
+        ([#"qoa.adb" 295 0 295 0] ());
+        ([#"qoa.adb" 300 0 300 0]
+         (([#"qoa.adb" 300 0 300 0]
+           assume {
+             [#"qoa.adb" 300 0 300 0]
+             [@rac:call_id:154]
+             (Ada___system__storage_elements__storage_count___dic.default_initial_assumption
+                (Qoa__decode__p.p.int__content)
+                False) });
+          ([#"qoa.adb" 300 0 300 0]
+           assume {
+             [#"qoa.adb" 300 0 300 0]
+             [@rac:call_id:155]
+             (Ada___system__storage_elements__storage_count___axiom.dynamic_invariant
+                (Qoa__decode__p.p.int__content)
+                False
+                False
+                True
+                True) })));
+        ([#"qoa.adb" 301 0 301 0]
+         (([#"qoa.adb" 301 0 301 0]
+           (Qoa__decode__index.index.int__content <-
+              ([#"qoa.adb" 301 0 301 0]
+               [@GP_Check:0:VC_RANGE_CHECK:qoa.adb:301:38]
+               [@vc:annotation]
+               [@GP_Shape:index_decl__first_ref]
+               [@rac:call_id:160]
+               (Ada___system__storage_elements__storage_count.range_check_
+                  ([@rac:call_id:159]
+                   (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                      (let temp___578 [@mlw:proxy_symbol] [@introduced] =
+                         [@rac:call_id:158]
+                         (Qoa__decode__S9b.of_array
+                            (Qoa__decode__output.output.Array__Int__Ada___system__storage_elements__storage_element.map__content)
+                            ([@rac:call_id:156]
+                             (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                                Qoa__decode__output.output__first))
+                            ([@rac:call_id:157]
+                             (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                                Qoa__decode__output.output__last))) in
+                       Qoa__decode__output.output__first)))))));
+          assume {
+            [@rac:call_id:161]
+            (Ada___system__storage_elements__storage_count___axiom.dynamic_invariant
+               (Qoa__decode__index.index.int__content)
+               True
+               False
+               True
+               True) }));
+        ([#"qoa.adb" 303 0 303 0] ());
+        ([#"qoa.adb" 307 0 307 0] ());
+        ([#"qoa.adb" 305 0 305 0] ());
+        ([#"qoa.adb" 310 0 310 0] ());
+        ([#"qoa.adb" 332 0 332 0] ());
+        ([#"qoa.adb" 332 0 332 0] ());
+        ([#"qoa.adb" 332 0 332 0] ());
+        ([#"qoa.adb" 368 0 368 0] ());
+        ([#"qoa.adb" 368 0 368 0] ());
+        ([#"qoa.adb" 368 0 368 0] ());
+        ([#"qoa.adb" 471 0 471 0]
+         (([#"qoa.adb" 471 0 471 0]
+           (Qoa__decode__sample_index.sample_index.BV32.t__content <-
+              (0 : BV32.t)));
+          ([#"qoa.adb" 471 0 471 0]
+           assume {
+             [#"qoa.adb" 471 0 471 0]
+             [@rac:call_id:162]
+             (Interfaces__unsigned_32___axiom.dynamic_invariant
+                (Qoa__decode__sample_index.sample_index.BV32.t__content)
+                True
+                False
+                True
+                True) })));
+        ([#"qoa.adb" 472 0 472 0]
+         (([#"qoa.adb" 472 0 472 0]
+           assume {
+             [#"qoa.adb" 472 0 472 0]
+             [@rac:call_id:163]
+             (Interfaces__unsigned_32___dic.default_initial_assumption
+                (Qoa__decode__frame_len.frame_len.BV32.t__content)
+                False) });
+          ([#"qoa.adb" 472 0 472 0]
+           assume {
+             [#"qoa.adb" 472 0 472 0]
+             [@rac:call_id:164]
+             (Interfaces__unsigned_32___axiom.dynamic_invariant
+                (Qoa__decode__frame_len.frame_len.BV32.t__content)
+                False
+                False
+                True
+                True) })));
+        ([#"qoa.adb" 485 0 485 0] ());
+        ([#"qoa.adb" 481 0 481 0] ());
+        ([#"qoa.adb" 481 0 481 0]
+         (let temp___compl_579 [@mlw:proxy_symbol] [@introduced] =
+            { Qoa__qoa_desc.__split_fields =
+                (Qoa__qoa_desc.__split_fields__content
+                    Qoa__decode__qoa.qoa__split_fields) } in
+          ([#"qoa.adb" 481 0 481 0]
+           (let _f = [@rac:call_id:165] (any unit) in _f));
+          ([@rac:call_id:166]
+           (Qoa__decode__decode_header___axiom.decode_header
+              Qoa__decode__data.data
+              Qoa__decode__qoa.qoa__split_fields))));
+        ([#"qoa.adb" 483 0 483 0] ());
+        ([#"qoa.adb" 483 0 483 0]
+         [#"qoa.adb" 483 0 483 0]
+         (Qoa__decode__p.p.int__content <-
+            ([#"qoa.adb" 483 0 483 0]
+             [@vc:annotation]
+             [@GP_Check:2:VC_RANGE_CHECK:qoa.adb:483:23]
+             [@GP_Shape:p_assign__add]
+             [@rac:call_id:170]
+             (Ada___system__storage_elements__storage_count.range_check_
+                ([#"qoa.adb" 483 0 483 0]
+                 [@GP_Check:1:VC_OVERFLOW_CHECK:qoa.adb:483:23]
+                 [@vc:annotation]
+                 [@GP_Shape:p_assign__add]
+                 [@rac:call_id:169]
+                 (Ada___system__storage_elements__Tstorage_offsetB.range_check_
+                    ([@rac:call_id:168]
+                     (([@rac:call_id:167]
+                       (Ada___system__storage_elements__storage_array.first
+                          Qoa__decode__data.data))
+                        + (5 : int)))))))));
+        ([#"qoa.adb" 485 0 485 0]
+         (([@GNAT-comment:Translation of an Ada loop from qoa.adb:485] ());
+          (if True then
+             ([#"qoa.adb" 485 0 485 0]
+              (try
+                 let temp___loop_entry_598 =
+                   [@rac:call_id:173]
+                   (Qoa__decode__S9b.of_array
+                      (Qoa__decode__output.output.Array__Int__Ada___system__storage_elements__storage_element.map__content)
+                      ([@rac:call_id:171]
+                       (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                          Qoa__decode__output.output__first))
+                      ([@rac:call_id:172]
+                       (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                          Qoa__decode__output.output__last))) in
+                 let temp___loop_entry_596 =
+                   { Qoa__qoa_desc.__split_fields =
+                       (Qoa__qoa_desc.__split_fields__content
+                           Qoa__decode__qoa.qoa__split_fields) } in
+                 ([@GNAT-comment:While loop translating the Ada loop from qoa.adb:485]
+                  ());
+                 ([#"qoa.adb" 485 0 485 0]
+                  [#"qoa.adb" 485 0 485 0]
+                  (([@GNAT-comment:Check for absence of RTE in the loop invariant and variant]
+                    ());
+                   while True do
+                     ([@GNAT-comment:gnat_ast_to_ptree: code after the loop invariant]
+                      (([@GNAT-comment:Assume implicit invariants from the loop qoa.adb:485]
+                        ());
+                       ([#"qoa.adb" 485 0 485 0]
+                        assume {
+                          [#"qoa.adb" 485 0 485 0]
+                          ((((((((((true /\
+                                      ([@rac:call_id:174]
+                                       (Ada___system__storage_elements__storage_count___axiom.dynamic_invariant
+                                          (Qoa__decode__p.p.int__content)
+                                          False
+                                          True
+                                          True
+                                          True))) /\
+                                     (true /\ true)) /\
+                                    ([@rac:call_id:175]
+                                     (Ada___system__storage_elements__storage_count___axiom.dynamic_invariant
+                                        (Qoa__decode__index.index.int__content)
+                                        True
+                                        True
+                                        True
+                                        True))) /\
+                                   (true /\ true)) /\
+                                  ([@rac:call_id:176]
+                                   (Qoa__qoa_desc___axiom.dynamic_invariant
+                                      { Qoa__qoa_desc.__split_fields =
+                                          (Qoa__qoa_desc.__split_fields__content
+                                              Qoa__decode__qoa.qoa__split_fields) }
+                                      False
+                                      True
+                                      True
+                                      True))) /\
+                                 (true /\ true)) /\
+                                true) /\
+                               (true /\ true)) /\
+                              ([@rac:call_id:177]
+                               (Interfaces__unsigned_32___axiom.dynamic_invariant
+                                  (Qoa__decode__sample_index.sample_index.
+                                     BV32.t__content)
+                                  True
+                                  True
+                                  True
+                                  True))) /\
+                             (true /\ true)) });
+                       ([@GNAT-comment:Continuation of loop after loop invariant and variant]
+                        ());
+                       ([#"qoa.adb" 486 0 486 0] ());
+                       ([#"qoa.adb" 486 0 486 0] ());
+                       ([#"qoa.adb" 486 0 486 0] ());
+                       ([#"qoa.adb" 486 0 486 0]
+                        [#"qoa.adb" 486 0 486 0]
+                        (Qoa__decode__index.index.int__content <-
+                           ([#"qoa.adb" 486 0 486 0]
+                            [@vc:annotation]
+                            [@GP_Check:3:VC_OVERFLOW_CHECK:qoa.adb:486:25]
+                            [@GP_Shape:L_9_loop__index_assign__add]
+                            [@rac:call_id:182]
+                            (Ada___system__storage_elements__Tstorage_offsetB.range_check_
+                               ([@rac:call_id:181]
+                                ((Qoa__decode__index.index.int__content)
+                                   + ([@rac:call_id:180]
+                                      (BV32.t_int
+                                         ([@rac:call_id:179]
+                                          (BV32.mul
+                                             (Qoa__decode__sample_index.sample_index.
+                                                BV32.t__content)
+                                             ([@rac:call_id:178]
+                                              (Interfaces__unsigned_32__rep.to_rep
+                                                 ((Qoa__qoa_desc.__split_fields
+                                                      { Qoa__qoa_desc.__split_fields =
+                                                          (Qoa__qoa_desc.__split_fields__content
+                                                              Qoa__decode__qoa.qoa__split_fields) }).
+                                                    Qoa__qoa_desc.rec__qoa__qoa_desc__channels)))))))))))));
+                       ([#"qoa.adb" 487 0 487 0] ());
+                       ([#"qoa.adb" 487 0 487 0] ());
+                       ([#"qoa.adb" 487 0 487 0] ());
+                       ([#"qoa.adb" 487 0 487 0]
+                        (let temp___compl_582 [@mlw:proxy_symbol] [@introduced] =
+                           Qoa__decode__p.p.int__content in
+                         [#"qoa.adb" 487 0 487 0]
+                         (let param__p = { int__content = temp___compl_582 } in
+                          let temp___compl_583 [@mlw:proxy_symbol] [@introduced] =
+                            { Qoa__qoa_desc.__split_fields =
+                                (Qoa__qoa_desc.__split_fields__content
+                                    Qoa__decode__qoa.qoa__split_fields) } in
+                          [#"qoa.adb" 487 0 487 0]
+                          (let param__qoa__split_fields =
+                             { Qoa__qoa_desc.__split_fields__content =
+                                 (Qoa__qoa_desc.__split_fields
+                                     temp___compl_583) } in
+                           let temp___compl_587 [@mlw:proxy_symbol] [@introduced] =
+                             let temp___585 [@mlw:proxy_symbol] [@introduced] =
+                               [@rac:call_id:185]
+                               (Qoa__decode__S9b.of_array
+                                  (Qoa__decode__output.output.Array__Int__Ada___system__storage_elements__storage_element.map__content)
+                                  ([@rac:call_id:183]
+                                   (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                                      Qoa__decode__output.output__first))
+                                  ([@rac:call_id:184]
+                                   (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                                      Qoa__decode__output.output__last))) in
+                             let temp___586 [@mlw:proxy_symbol] [@introduced] =
+                               [@rac:call_id:186]
+                               (Qoa__decode__S9b.to_array temp___585) in
+                             [@rac:call_id:189]
+                             (Ada___system__storage_elements__storage_array.of_array
+                                temp___586
+                                ([@rac:call_id:187]
+                                 (Qoa__decode__S9b.first temp___585))
+                                ([@rac:call_id:188]
+                                 (Qoa__decode__S9b.last temp___585))) in
+                           [#"qoa.adb" 487 0 487 0]
+                           (let param__output =
+                              { Array__Int__Ada___system__storage_elements__storage_element.map__content =
+                                  ([@rac:call_id:190]
+                                   (Ada___system__storage_elements__storage_array.to_array
+                                      temp___compl_587)) } in
+                            ([#"qoa.adb" 487 0 487 0]
+                             (let _f = [@rac:call_id:191] (any unit) in _f));
+                            ([@rac:call_id:196]
+                             (Qoa__decode__decode_frame___axiom.decode_frame
+                                Qoa__decode__data.data
+                                param__p
+                                param__qoa__split_fields
+                                param__output
+                                ([@rac:call_id:193]
+                                 (Ada___system__storage_elements__Tstorage_offsetB__rep.of_rep
+                                    (let temp___for_first_588 [@mlw:proxy_symbol] [@introduced] =
+                                       temp___compl_587 in
+                                     [@rac:call_id:192]
+                                     (Ada___system__storage_elements__storage_array.first
+                                        temp___for_first_588))))
+                                ([@rac:call_id:195]
+                                 (Ada___system__storage_elements__Tstorage_offsetB__rep.of_rep
+                                    (let temp___for_last_589 [@mlw:proxy_symbol] [@introduced] =
+                                       temp___compl_587 in
+                                     [@rac:call_id:194]
+                                     (Ada___system__storage_elements__storage_array.last
+                                        temp___for_last_589))))
+                                (Qoa__decode__index.index.int__content)));
+                            ([#"qoa.adb" 487 0 487 0]
+                             (Qoa__decode__p.p.int__content <-
+                                (param__p.int__content)));
+                            (let temp___584 [@mlw:proxy_symbol] [@introduced] =
+                               { Qoa__qoa_desc.__split_fields =
+                                   (Qoa__qoa_desc.__split_fields__content
+                                       param__qoa__split_fields) } in
+                             [#"qoa.adb" 487 0 487 0]
+                             (Qoa__decode__qoa.qoa__split_fields.Qoa__qoa_desc.__split_fields__content <-
+                                (Qoa__qoa_desc.__split_fields temp___584)));
+                            ([#"qoa.adb" 487 0 487 0]
+                             (Qoa__decode__output.output.Array__Int__Ada___system__storage_elements__storage_element.map__content <-
+                                ([@rac:call_id:207]
+                                 (Qoa__decode__S9b.to_array
+                                    (let temp___590 [@mlw:proxy_symbol] [@introduced] =
+                                       [@rac:call_id:199]
+                                       (Ada___system__storage_elements__storage_array.of_array
+                                          (param__output.Array__Int__Ada___system__storage_elements__storage_element.map__content)
+                                          ([@rac:call_id:197]
+                                           (Ada___system__storage_elements__storage_array.first
+                                              temp___compl_587))
+                                          ([@rac:call_id:198]
+                                           (Ada___system__storage_elements__storage_array.last
+                                              temp___compl_587))) in
+                                     let temp___594 [@mlw:proxy_symbol] [@introduced] =
+                                       [@rac:call_id:203]
+                                       (Array__Int__Ada___system__storage_elements__storage_element.slide
+                                          ([@rac:call_id:200]
+                                           (Ada___system__storage_elements__storage_array.to_array
+                                              temp___590))
+                                          ([@rac:call_id:201]
+                                           (Ada___system__storage_elements__storage_array.first
+                                              temp___590))
+                                          ([@rac:call_id:202]
+                                           (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                                              Qoa__decode__output.output__first))) in
+                                     [@rac:call_id:206]
+                                     (Qoa__decode__S9b.of_array
+                                        temp___594
+                                        ([@rac:call_id:204]
+                                         (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                                            Qoa__decode__output.output__first))
+                                        ([@rac:call_id:205]
+                                         (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                                            Qoa__decode__output.output__last)))))))))))));
+                       ([#"qoa.adb" 489 0 489 0] ());
+                       ([#"qoa.adb" 489 0 489 0] ());
+                       ([#"qoa.adb" 489 0 489 0] ());
+                       ([#"qoa.adb" 489 0 489 0]
+                        [#"qoa.adb" 489 0 489 0]
+                        (Qoa__decode__sample_index.sample_index.BV32.t__content <-
+                           ([@rac:call_id:208]
+                            (BV32.add
+                               (Qoa__decode__sample_index.sample_index.
+                                  BV32.t__content)
+                               (Qoa__decode__frame_len.frame_len.BV32.t__content)))));
+                       ([#"qoa.adb" 491 0 491 0] ());
+                       ([#"qoa.adb" 491 0 491 0]
+                        (if (([#"qoa.adb" 491 0 491 0]
+                              [#"qoa.adb" 491 0 491 0]
+                              (([@branch_id=1738] Main.spark__branch).bool__content <-
+                                 (([@rac:call_id:209]
+                                   (BV32.eq
+                                      (Qoa__decode__frame_len.frame_len.
+                                         BV32.t__content)
+                                      (0 : BV32.t)))
+                                   &&
+                                    ([@rac:call_id:211]
+                                     (BV32.ugt
+                                        (Qoa__decode__sample_index.sample_index.
+                                           BV32.t__content)
+                                        ([@rac:call_id:210]
+                                         (Interfaces__unsigned_32__rep.to_rep
+                                            ((Qoa__qoa_desc.__split_fields
+                                                 { Qoa__qoa_desc.__split_fields =
+                                                     (Qoa__qoa_desc.__split_fields__content
+                                                         Qoa__decode__qoa.qoa__split_fields) }).
+                                               Qoa__qoa_desc.rec__qoa__qoa_desc__samples))))))));
+                             (([@branch_id=1738] Main.spark__branch).bool__content)) then
+                           ([#"qoa.adb" 492 0 492 0]
+                            [#"qoa.adb" 492 0 492 0]
+                            (raise Qoa__decode__L_9.L_9))
+                         else ()));
+                       ([@GNAT-comment:Check for the exit condition and loop statements appearing before the loop invariant of loop qoa.adb:485]
+                        ());
+                       (if False then (raise Qoa__decode__L_9.L_9)
+                        else ())));
+                     ([@GNAT-comment:gnat_ast_to_ptree: code before the loop invariant]
+                      [@GNAT-comment:Check for absence of RTE in the loop invariant and variant]
+                      ());
+                     ([@GNAT-comment:gnat_ast_to_ptree: code checking the variants]
+                      ())
+                   done))
+               with Qoa__decode__L_9.L_9 -> ()
+               end))
+           else ())));
+        ([#"qoa.adb" 495 0 495 0] ());
+        ([#"qoa.adb" 495 0 495 0]
+         (let temp___602 [@mlw:proxy_symbol] [@introduced] =
+            let temp___600 [@mlw:proxy_symbol] [@introduced] =
+              { Qoa__qoa_desc.__split_fields =
+                  (Qoa__qoa_desc.__split_fields__content
+                      Qoa__decode__qoa.qoa__split_fields) } in
+            let temp___601 [@mlw:proxy_symbol] [@introduced] = temp___600 in
+            ([#"qoa.adb" 495 0 495 0]
+             (begin
+                ensures { true }
+                [@rac:call_id:212]
+                (let _ =
+                   let _ =
+                     (Qoa__qoa_desc.__split_fields temp___601).Qoa__qoa_desc.rec__qoa__qoa_desc__samples in
+                   () in
+                 ())
+              end));
+            ({ temp___601 with
+               Qoa__qoa_desc.__split_fields =
+                 ({ (Qoa__qoa_desc.__split_fields temp___601) with
+                    Qoa__qoa_desc.rec__qoa__qoa_desc__samples =
+                      ([@rac:call_id:213]
+                       (Interfaces__unsigned_32__rep.of_rep
+                          (Qoa__decode__sample_index.sample_index.BV32.t__content))) }) }) in
+          [#"qoa.adb" 495 0 495 0]
+          (Qoa__decode__qoa.qoa__split_fields.Qoa__qoa_desc.__split_fields__content <-
+             (Qoa__qoa_desc.__split_fields temp___602))));
+        ([#"qoa.adb" 497 0 497 0] ());
+        ([#"qoa.adb" 497 0 497 0]
+         [#"qoa.adb" 497 0 497 0]
+         (Qoa__decode__output_size.output_size.int__content <-
+            ([#"qoa.adb" 497 0 497 0]
+             [@GP_Shape:output_size_assign__sub]
+             [@vc:annotation]
+             [@GP_Check:5:VC_RANGE_CHECK:qoa.adb:497:28]
+             [@rac:call_id:220]
+             (Ada___system__storage_elements__storage_count.range_check_
+                ([#"qoa.adb" 497 0 497 0]
+                 [@GP_Shape:output_size_assign__sub]
+                 [@vc:annotation]
+                 [@GP_Check:4:VC_OVERFLOW_CHECK:qoa.adb:497:28]
+                 [@rac:call_id:219]
+                 (Ada___system__storage_elements__Tstorage_offsetB.range_check_
+                    ([@rac:call_id:218]
+                     ((Qoa__decode__index.index.int__content)
+                        - ([@rac:call_id:217]
+                           (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                              (let temp___604 [@mlw:proxy_symbol] [@introduced] =
+                                 [@rac:call_id:216]
+                                 (Qoa__decode__S9b.of_array
+                                    (Qoa__decode__output.output.Array__Int__Ada___system__storage_elements__storage_element.map__content)
+                                    ([@rac:call_id:214]
+                                     (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                                        Qoa__decode__output.output__first))
+                                    ([@rac:call_id:215]
+                                     (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                                        Qoa__decode__output.output__last))) in
+                               Qoa__decode__output.output__first)))))))))));
+        (raise Return__exc)
+      with Return__exc -> ()
+      end))
+end

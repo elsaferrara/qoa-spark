@@ -1,0 +1,51 @@
+{
+  "spark": [
+    {
+      "name": "Qoa.clamp",
+      "sloc": [
+        {
+          "file": "qoa.ads",
+          "line": 102
+        }
+      ],
+      "spark": "all"
+    }
+  ],
+  "progress": "PROGRESS_PROOF",
+  "stop_reason": "STOP_REASON_NONE",
+  "flow": [
+  ],
+  "pragma_assume": [
+  ],
+  "session_map": {
+  },
+  "proof": [
+  ],
+  "assumptions": [
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "predicate": "CLAIM_EFFECTS",
+        "arg": {
+          "name": "Qoa.clamp",
+          "sloc": [
+            {
+              "file": "qoa.ads",
+              "line": 102
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "timings": {
+    "init_why_sections": 6.94999995175749E-04,
+    "globals (advanced)": 4.00999997509643E-04,
+    "flow analysis": 3.87000007322058E-04,
+    "marking": 2.14999992749654E-04,
+    "translation of standard": 1.77700002677739E-03,
+    "properties (advanced)": 2.80000003840541E-05,
+    "globals (basic)": 3.13899992033839E-03
+  }
+}

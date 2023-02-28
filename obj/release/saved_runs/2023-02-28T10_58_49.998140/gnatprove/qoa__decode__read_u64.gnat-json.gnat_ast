@@ -1,0 +1,1278 @@
+(* Module for axiomatizing type "Tstorage_offsetB" defined at s-stoele.ads:54, created in Gnat2Why.Types.Translate_Type *)
+module Ada___system__storage_elements__Tstorage_offsetB
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use import int.Int
+  
+  type tstorage_offsetB  = <range -9223372036854775808 9223372036854775807>
+  
+  function   first () requires { True } ensures  { True } returns
+    int = -9223372036854775808
+  
+  function   last () requires { True } ensures  { True } returns
+    int = 9223372036854775807
+  
+  function [GP_Inline]  in_range (x : int) requires { True } ensures 
+    { True } returns
+     = (([GP_Pretty_Ada:-1] (first <= x)) /\ ([GP_Pretty_Ada:-2] (x <= last)))
+  
+  clone export ada__model.Static_Discrete with axiom . type t = tstorage_offsetB,
+    function first = first, function last = last,
+    predicate in_range = in_range
+  
+  type tstorage_offsetB__ref  = { mutable tstorage_offsetB__content : tstorage_offsetB }
+  
+  function   tstorage_offsetB__ref_tstorage_offsetB__content__projection
+    (a : tstorage_offsetB__ref) requires {  } ensures  {  } returns
+    tstorage_offsetB = a.tstorage_offsetB__content
+  
+  meta model_projection function tstorage_offsetB__ref_tstorage_offsetB__content__projection
+  
+  meta inline:no function tstorage_offsetB__ref_tstorage_offsetB__content__projection
+  
+  function   tstorage_offsetB__havoc (x : tstorage_offsetB__ref) requires
+    {  } ensures  {  } returns unit
+
+end
+
+(* Module defining to_rep/of_rep for type "Tstorage_offsetB" defined at s-stoele.ads:54, created in Gnat2Why.Types.Translate_Type *)
+module Ada___system__storage_elements__Tstorage_offsetB__rep
+  
+  use        Ada___system__storage_elements__Tstorage_offsetB
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  function   to_rep
+    (x : Ada___system__storage_elements__Tstorage_offsetB.tstorage_offsetB)
+    requires { True } ensures  { True } returns
+    int = (Ada___system__storage_elements__Tstorage_offsetB.tstorage_offsetB'int
+             x)
+  
+  clone export ada__model.Rep_Proj_Int with axiom . type t = Ada___system__storage_elements__Tstorage_offsetB.tstorage_offsetB,
+    predicate in_range = Ada___system__storage_elements__Tstorage_offsetB.in_range,
+    function to_rep = to_rep
+  
+  meta model_projection function to_rep
+  
+  meta inline:no function to_rep
+
+end
+
+(* Module for axiomatizing type "storage_offset" defined at s-stoele.ads:54, created in Gnat2Why.Types.Translate_Type *)
+module Ada___system__storage_elements__storage_offset
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use import int.Int
+  
+  type storage_offset  = <range -9223372036854775808 9223372036854775807>
+  
+  function   first () requires { True } ensures  { True } returns
+    int = -9223372036854775808
+  
+  function   last () requires { True } ensures  { True } returns
+    int = 9223372036854775807
+  
+  function [GP_Inline]  in_range (x : int) requires { True } ensures 
+    { True } returns
+     = (([GP_Pretty_Ada:-1] (first <= x)) /\ ([GP_Pretty_Ada:-2] (x <= last)))
+  
+  clone export ada__model.Static_Discrete with axiom . type t = storage_offset,
+    function first = first, function last = last,
+    predicate in_range = in_range
+  
+  type storage_offset__ref  = { mutable storage_offset__content : storage_offset }
+  
+  function   storage_offset__ref_storage_offset__content__projection
+    (a : storage_offset__ref) requires {  } ensures  {  } returns
+    storage_offset = a.storage_offset__content
+  
+  meta model_projection function storage_offset__ref_storage_offset__content__projection
+  
+  meta inline:no function storage_offset__ref_storage_offset__content__projection
+  
+  function   storage_offset__havoc (x : storage_offset__ref) requires {  }
+    ensures  {  } returns unit
+
+end
+
+(* Module for axiomatizing type "storage_element" defined at s-stoele.ads:63, created in Gnat2Why.Types.Translate_Type *)
+module Ada___system__storage_elements__storage_element
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use import int.Int
+  use        _gnatprove_standard.BV8
+  
+  type storage_element  
+  
+  function   attr__ATTRIBUTE_MODULUS () requires {  } ensures  {  } returns
+    _gnatprove_standard.BV8.t
+  
+  function   first () requires { True } ensures  { True } returns
+    _gnatprove_standard.BV8.t = 0
+  
+  function   last () requires { True } ensures  { True } returns
+    _gnatprove_standard.BV8.t = 255
+  
+  function   first_int () requires {  } ensures  {  } returns int = 0
+  
+  function   last_int () requires {  } ensures  {  } returns int = 255
+  
+  function   in_range (x : _gnatprove_standard.BV8.t) requires { True }
+    ensures  { True } returns  = True
+  
+  function   in_range_int (x : int) requires { True } ensures  { True }
+    returns  = _gnatprove_standard.BV8.uint_in_range x
+  
+  clone export ada__model.Static_Modular_8 with axiom . type t = storage_element,
+    function first = first, function last = last,
+    predicate in_range = in_range, predicate in_range_int = in_range_int
+  
+  type storage_element__ref  = { mutable storage_element__content : storage_element }
+  
+  function   storage_element__ref_storage_element__content__projection
+    (a : storage_element__ref) requires {  } ensures  {  } returns
+    storage_element = a.storage_element__content
+  
+  meta model_projection function storage_element__ref_storage_element__content__projection
+  
+  meta inline:no function storage_element__ref_storage_element__content__projection
+  
+  function   storage_element__havoc (x : storage_element__ref) requires {  }
+    ensures  {  } returns unit
+
+end
+
+(* Module defining to_rep/of_rep for type "storage_element" defined at s-stoele.ads:63, created in Gnat2Why.Types.Translate_Type *)
+module Ada___system__storage_elements__storage_element__rep
+  
+  use        Ada___system__storage_elements__storage_element
+  use        _gnatprove_standard.BV8
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  clone export ada__model.Rep_Proj_BV8 with axiom . type t = Ada___system__storage_elements__storage_element.storage_element,
+    predicate in_range = Ada___system__storage_elements__storage_element.in_range,
+    predicate in_range_int = Ada___system__storage_elements__storage_element.in_range_int
+  
+  meta model_projection function to_rep
+  
+  meta inline:no function to_rep
+
+end
+
+(* Module for axiomatizing the array theory associated to type "storage_array" defined at s-stoele.ads:69, created in Why.Gen.Arrays.Create_Rep_Array_Theory *)
+module Array__Int__Ada___system__storage_elements__storage_element
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use import int.Int
+  use        _gnatprove_standard.BV8
+  use        Ada___system__storage_elements__storage_element
+  use        Ada___system__storage_elements__storage_element__rep
+  
+  function   index_I1_one () requires { True } ensures  { True } returns
+    int = 1
+  
+  type component_type  = Ada___system__storage_elements__storage_element.storage_element
+  
+  clone export _gnatprove_standard.Array__1 with axiom . type I1.t = int,
+    predicate I1.le = <=, predicate I1.lt = <, predicate I1.gt = >,
+    function I1.add = +, function I1.sub = -, function I1.one = index_I1_one,
+    type component_type = component_type
+  
+  function   bool_eq
+    (a : map a__first : int a__last : int b : map b__first : int
+    b__last : int) requires { True } ensures  { True } returns
+    bool = ((if (a__first <= a__last) then
+            ((b__first <= b__last) /\
+               ((a__last - a__first) = (b__last - b__first)))
+             else (b__first > b__last)) /\
+              ( forall ([mlw:proxy_symbol] [introduced] temp___idx_170) : int
+              [].(if
+                 ((a__first <= ([mlw:proxy_symbol]
+                     [introduced] temp___idx_170)) /\
+                    (([mlw:proxy_symbol] [introduced] temp___idx_170)
+                       <= a__last))
+                 then
+                 ((Ada___system__storage_elements__storage_element__rep.to_rep
+                     (get a ([mlw:proxy_symbol] [introduced] temp___idx_170)))
+                    = (Ada___system__storage_elements__storage_element__rep.to_rep
+                         (get b
+                            ((b__first - a__first) + ([mlw:proxy_symbol]
+                               [introduced] temp___idx_170)))))
+                 )))
+  
+  axiom bool_eq_rev : ( forall a b : map
+                      [].( forall a__first a__last b__first b__last : int
+                         [].(((bool_eq b b__first b__last a a__first a__last)
+                                = True) ->
+                               ((if (a__first <= a__last) then
+                                ((b__first <= b__last) /\
+                                   ((a__last - a__first)
+                                      = (b__last - b__first)))
+                                 else (b__first > b__last)) /\
+                                  ( forall ([mlw:proxy_symbol]
+                                  [introduced] temp___idx_170) : int
+                                  [].(if
+                                     ((a__first <= ([mlw:proxy_symbol]
+                                         [introduced] temp___idx_170)) /\
+                                        (([mlw:proxy_symbol]
+                                           [introduced] temp___idx_170)
+                                           <= a__last))
+                                     then
+                                     ((Ada___system__storage_elements__storage_element__rep.to_rep
+                                         (get a ([mlw:proxy_symbol]
+                                            [introduced] temp___idx_170)))
+                                        = (Ada___system__storage_elements__storage_element__rep.to_rep
+                                             (get b
+                                                ((b__first - a__first)
+                                                   + ([mlw:proxy_symbol]
+                                                   [introduced] temp___idx_170)))))
+                                     ))))))
+
+end
+
+(* Module for axiomatizing type "storage_array" defined at s-stoele.ads:69, created in Gnat2Why.Types.Translate_Type *)
+module Ada___system__storage_elements__storage_array
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use import int.Int
+  use        Ada___system__storage_elements__Tstorage_offsetB
+  use        Ada___system__storage_elements__Tstorage_offsetB__rep
+  use        Ada___system__storage_elements__storage_offset
+  use        Ada___system__storage_elements__storage_element
+  use        Array__Int__Ada___system__storage_elements__storage_element
+  
+  type component_type  = Ada___system__storage_elements__storage_element.storage_element
+  
+  function   index_1_id (x : int) requires { True } ensures  { True } returns
+    int = x
+  
+  clone export ada__model.Unconstr_Array with axiom . type map = Array__Int__Ada___system__storage_elements__storage_element.map,
+    function array_bool_eq = Array__Int__Ada___system__storage_elements__storage_element.bool_eq,
+    type index_base_type = Ada___system__storage_elements__Tstorage_offsetB.tstorage_offsetB,
+    type index_rep_type = int,
+    function to_rep = Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep,
+    function rep_to_int = index_1_id,
+    predicate in_range_base = Ada___system__storage_elements__Tstorage_offsetB.in_range,
+    predicate index_dynamic_property = Ada___system__storage_elements__storage_offset.dynamic_property,
+    predicate index_rep_le = <=
+  
+  type storage_array  = __t
+  
+  meta model_projection function to_array
+  
+  meta inline:no function to_array
+  
+  meta model_projection function first
+  
+  meta inline:no function first
+  
+  meta model_projection function last
+  
+  meta inline:no function last
+  
+  type storage_array__ref  = { mutable storage_array__content : storage_array }
+  
+  function   storage_array__ref_storage_array__content__projection
+    (a : storage_array__ref) requires {  } ensures  {  } returns
+    storage_array = a.storage_array__content
+  
+  meta model_projection function storage_array__ref_storage_array__content__projection
+  
+  meta inline:no function storage_array__ref_storage_array__content__projection
+  
+  function   storage_array__havoc (x : storage_array__ref) requires {  }
+    ensures  {  } returns unit
+
+end
+
+(* Module for defining the constant "data" defined at qoa.ads:41, created in Gnat2Why.Decls.Translate_Constant *)
+module Qoa__decode__data
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use        Ada___system__storage_elements__storage_array
+  
+  function [model_trace:1892] [model_projected] [name:data] [sloc:qoa.ads:41]
+    data () requires {  } ensures  {  } returns
+    Ada___system__storage_elements__storage_array.storage_array
+
+end
+
+(* Module for defining a ref holding the value of variable "output" defined at qoa.ads:43, created in Gnat2Why.Decls.Translate_Variable *)
+module Qoa__decode__output
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use        Ada___system__storage_elements__Tstorage_offsetB
+  use        Array__Int__Ada___system__storage_elements__storage_element
+  
+  val output [name:Output] [model_trace:1898]
+  [model_projected] [sloc:qoa.ads:43]: Array__Int__Ada___system__storage_elements__storage_element.map
+  
+  function [name:Output] [model_trace:1898'First] [model_projected]
+    [sloc:qoa.ads:43] output__first () requires {  } ensures  {  } returns
+    Ada___system__storage_elements__Tstorage_offsetB.tstorage_offsetB
+  
+  function [name:Output] [model_trace:1898'Last] [model_projected]
+    [sloc:qoa.ads:43] output__last () requires {  } ensures  {  } returns
+    Ada___system__storage_elements__Tstorage_offsetB.tstorage_offsetB
+
+end
+
+(* Module for defining a ref holding the value of variable "p" defined at qoa.adb:300, created in Gnat2Why.Decls.Translate_Variable *)
+module Qoa__decode__p
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  val p [model_trace:1034] [name:p] [model_projected] [sloc:qoa.adb:300]: int
+
+end
+
+(* Module for defining a ref holding the value of variable "res" defined at qoa.adb:303, created in Gnat2Why.Decls.Translate_Variable *)
+module Qoa__decode__read_u64__res
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use        _gnatprove_standard.BV64
+  
+  val res [model_projected] [name:Res]
+  [model_trace:1045] [sloc:qoa.adb:303]: _gnatprove_standard.BV64.t
+
+end
+
+(* Module for defining the constant "r0" defined at qoa.adb:312, created in Gnat2Why.Decls.Translate_Constant *)
+module Qoa__decode__read_u64__r0
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use        _gnatprove_standard.BV64
+  
+  function [model_trace:1079] [name:r0] [sloc:qoa.adb:312] r0 () requires
+    {  } ensures  {  } returns _gnatprove_standard.BV64.t
+
+end
+
+(* Module for defining the constant "r1" defined at qoa.adb:313, created in Gnat2Why.Decls.Translate_Constant *)
+module Qoa__decode__read_u64__r1
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use        _gnatprove_standard.BV64
+  
+  function [name:r1] [model_trace:1088] [sloc:qoa.adb:313] r1 () requires
+    {  } ensures  {  } returns _gnatprove_standard.BV64.t
+
+end
+
+(* Module for defining the constant "r2" defined at qoa.adb:314, created in Gnat2Why.Decls.Translate_Constant *)
+module Qoa__decode__read_u64__r2
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use        _gnatprove_standard.BV64
+  
+  function [name:r2] [model_trace:1098] [sloc:qoa.adb:314] r2 () requires
+    {  } ensures  {  } returns _gnatprove_standard.BV64.t
+
+end
+
+(* Module for defining the constant "r3" defined at qoa.adb:315, created in Gnat2Why.Decls.Translate_Constant *)
+module Qoa__decode__read_u64__r3
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use        _gnatprove_standard.BV64
+  
+  function [name:r3] [model_trace:1108] [sloc:qoa.adb:315] r3 () requires
+    {  } ensures  {  } returns _gnatprove_standard.BV64.t
+
+end
+
+(* Module for defining the constant "r4" defined at qoa.adb:316, created in Gnat2Why.Decls.Translate_Constant *)
+module Qoa__decode__read_u64__r4
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use        _gnatprove_standard.BV64
+  
+  function [name:r4] [model_trace:1118] [sloc:qoa.adb:316] r4 () requires
+    {  } ensures  {  } returns _gnatprove_standard.BV64.t
+
+end
+
+(* Module for defining the constant "r5" defined at qoa.adb:317, created in Gnat2Why.Decls.Translate_Constant *)
+module Qoa__decode__read_u64__r5
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use        _gnatprove_standard.BV64
+  
+  function [model_trace:1128] [name:r5] [sloc:qoa.adb:317] r5 () requires
+    {  } ensures  {  } returns _gnatprove_standard.BV64.t
+
+end
+
+(* Module for defining the constant "r6" defined at qoa.adb:318, created in Gnat2Why.Decls.Translate_Constant *)
+module Qoa__decode__read_u64__r6
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use        _gnatprove_standard.BV64
+  
+  function [name:r6] [model_trace:1138] [sloc:qoa.adb:318] r6 () requires
+    {  } ensures  {  } returns _gnatprove_standard.BV64.t
+
+end
+
+(* Module for defining the constant "r7" defined at qoa.adb:319, created in Gnat2Why.Decls.Translate_Constant *)
+module Qoa__decode__read_u64__r7
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use        _gnatprove_standard.BV64
+  
+  function [name:r7] [model_trace:1148] [sloc:qoa.adb:319] r7 () requires
+    {  } ensures  {  } returns _gnatprove_standard.BV64.t
+
+end
+
+(* Module giving axioms for type "storage_array" defined at s-stoele.ads:69, created in Gnat2Why.Types.Generate_Type_Completion *)
+module Ada___system__storage_elements__storage_array___axiom
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use        Ada___system__storage_elements__storage_array
+  use        Ada___system__storage_elements__storage_offset
+  
+  function   dynamic_invariant
+    (([mlw:proxy_symbol]
+    [introduced] temp___expr_473) : Ada___system__storage_elements__storage_array.storage_array
+    ([mlw:proxy_symbol] [introduced] temp___is_init_469) : bool
+    ([mlw:proxy_symbol] [introduced] temp___skip_constant_470) : bool
+    ([mlw:proxy_symbol] [introduced] temp___do_toplevel_471) : bool
+    ([mlw:proxy_symbol] [introduced] temp___do_typ_inv_472) : bool) requires
+    { True } ensures  { True } returns
+     = (if
+       (([mlw:proxy_symbol] [introduced] temp___skip_constant_470) = True)
+       then True  else
+       (Ada___system__storage_elements__storage_array.dynamic_property
+          Ada___system__storage_elements__storage_offset.first
+          Ada___system__storage_elements__storage_offset.last
+          (Ada___system__storage_elements__storage_array.first
+             ([mlw:proxy_symbol] [introduced] temp___expr_473))
+          (Ada___system__storage_elements__storage_array.last
+             ([mlw:proxy_symbol] [introduced] temp___expr_473))))
+
+end
+
+(* Module for axiomatizing type "storage_count" defined at s-stoele.ads:61, created in Gnat2Why.Types.Translate_Type *)
+module Ada___system__storage_elements__storage_count
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use import int.Int
+  
+  type storage_count  = <range 0 9223372036854775807>
+  
+  function   first () requires { True } ensures  { True } returns int = 0
+  
+  function   last () requires { True } ensures  { True } returns
+    int = 9223372036854775807
+  
+  function [GP_Inline]  in_range (x : int) requires { True } ensures 
+    { True } returns
+     = (([GP_Pretty_Ada:-1] (first <= x)) /\ ([GP_Pretty_Ada:-2] (x <= last)))
+  
+  clone export ada__model.Static_Discrete with axiom . type t = storage_count,
+    function first = first, function last = last,
+    predicate in_range = in_range
+  
+  type storage_count__ref  = { mutable storage_count__content : storage_count }
+  
+  function   storage_count__ref_storage_count__content__projection
+    (a : storage_count__ref) requires {  } ensures  {  } returns
+    storage_count = a.storage_count__content
+  
+  meta model_projection function storage_count__ref_storage_count__content__projection
+  
+  meta inline:no function storage_count__ref_storage_count__content__projection
+  
+  function   storage_count__havoc (x : storage_count__ref) requires {  }
+    ensures  {  } returns unit
+
+end
+
+(* Module giving axioms for type "storage_count" defined at s-stoele.ads:61, created in Gnat2Why.Types.Generate_Type_Completion *)
+module Ada___system__storage_elements__storage_count___axiom
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use        Ada___system__storage_elements__storage_count
+  
+  function   dynamic_invariant
+    (([mlw:proxy_symbol] [introduced] temp___expr_479) : int
+    ([mlw:proxy_symbol] [introduced] temp___is_init_475) : bool
+    ([mlw:proxy_symbol] [introduced] temp___skip_constant_476) : bool
+    ([mlw:proxy_symbol] [introduced] temp___do_toplevel_477) : bool
+    ([mlw:proxy_symbol] [introduced] temp___do_typ_inv_478) : bool) requires
+    { True } ensures  { True } returns
+     = (Ada___system__storage_elements__storage_count.dynamic_property
+          Ada___system__storage_elements__storage_count.first
+          Ada___system__storage_elements__storage_count.last
+          ([mlw:proxy_symbol] [introduced] temp___expr_479))
+
+end
+
+(* Module for axiomatizing type "S9b" defined at qoa.adb:295, created in Gnat2Why.Types.Translate_Type *)
+module Qoa__decode__S9b
+  
+  use export Ada___system__storage_elements__storage_array
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use        Ada___system__storage_elements__storage_array
+  
+  type s9b  = storage_array
+  
+  type s9b__ref  = { mutable s9b__content : s9b }
+  
+  function   s9b__ref_s9b__content__projection (a : s9b__ref) requires {  }
+    ensures  {  } returns s9b = a.s9b__content
+  
+  meta model_projection function s9b__ref_s9b__content__projection
+  
+  meta inline:no function s9b__ref_s9b__content__projection
+  
+  function   s9b__havoc (x : s9b__ref) requires {  } ensures  {  } returns
+    unit
+
+end
+
+(* Module for axiomatizing type "unsigned_64" defined at interfac.ads:83, created in Gnat2Why.Types.Translate_Type *)
+module Interfaces__unsigned_64
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use import int.Int
+  use        _gnatprove_standard.BV64
+  
+  type unsigned_64  
+  
+  function   attr__ATTRIBUTE_MODULUS () requires {  } ensures  {  } returns
+    _gnatprove_standard.BV64.t
+  
+  function   first () requires { True } ensures  { True } returns
+    _gnatprove_standard.BV64.t = 0
+  
+  function   last () requires { True } ensures  { True } returns
+    _gnatprove_standard.BV64.t = 18446744073709551615
+  
+  function   first_int () requires {  } ensures  {  } returns int = 0
+  
+  function   last_int () requires {  } ensures  {  } returns
+    int = 18446744073709551615
+  
+  function   in_range (x : _gnatprove_standard.BV64.t) requires { True }
+    ensures  { True } returns  = True
+  
+  function   in_range_int (x : int) requires { True } ensures  { True }
+    returns  = _gnatprove_standard.BV64.uint_in_range x
+  
+  clone export ada__model.Static_Modular_64 with axiom . type t = unsigned_64,
+    function first = first, function last = last,
+    predicate in_range = in_range, predicate in_range_int = in_range_int
+  
+  type unsigned_64__ref  = { mutable unsigned_64__content : unsigned_64 }
+  
+  function   unsigned_64__ref_unsigned_64__content__projection
+    (a : unsigned_64__ref) requires {  } ensures  {  } returns
+    unsigned_64 = a.unsigned_64__content
+  
+  meta model_projection function unsigned_64__ref_unsigned_64__content__projection
+  
+  meta inline:no function unsigned_64__ref_unsigned_64__content__projection
+  
+  function   unsigned_64__havoc (x : unsigned_64__ref) requires {  } ensures 
+    {  } returns unit
+
+end
+
+(* Module giving axioms for type "unsigned_64" defined at interfac.ads:83, created in Gnat2Why.Types.Generate_Type_Completion *)
+module Interfaces__unsigned_64___axiom
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use        _gnatprove_standard.BV64
+  use        Interfaces__unsigned_64
+  
+  function   dynamic_invariant
+    (([mlw:proxy_symbol]
+    [introduced] temp___expr_519) : _gnatprove_standard.BV64.t
+    ([mlw:proxy_symbol] [introduced] temp___is_init_515) : bool
+    ([mlw:proxy_symbol] [introduced] temp___skip_constant_516) : bool
+    ([mlw:proxy_symbol] [introduced] temp___do_toplevel_517) : bool
+    ([mlw:proxy_symbol] [introduced] temp___do_typ_inv_518) : bool) requires
+    { True } ensures  { True } returns
+     = (Interfaces__unsigned_64.dynamic_property
+          Interfaces__unsigned_64.first Interfaces__unsigned_64.last
+          ([mlw:proxy_symbol] [introduced] temp___expr_519))
+
+end
+
+(* Module giving axioms for type "Tstorage_offsetB" defined at s-stoele.ads:54, created in Gnat2Why.Types.Generate_Type_Completion *)
+module Ada___system__storage_elements__Tstorage_offsetB___axiom
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  
+
+end
+
+(* Module giving axioms for type "storage_offset" defined at s-stoele.ads:54, created in Gnat2Why.Types.Generate_Type_Completion *)
+module Ada___system__storage_elements__storage_offset___axiom
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use        Ada___system__storage_elements__storage_offset
+  
+  function   dynamic_invariant
+    (([mlw:proxy_symbol] [introduced] temp___expr_459) : int
+    ([mlw:proxy_symbol] [introduced] temp___is_init_455) : bool
+    ([mlw:proxy_symbol] [introduced] temp___skip_constant_456) : bool
+    ([mlw:proxy_symbol] [introduced] temp___do_toplevel_457) : bool
+    ([mlw:proxy_symbol] [introduced] temp___do_typ_inv_458) : bool) requires
+    { True } ensures  { True } returns
+     = (Ada___system__storage_elements__storage_offset.dynamic_property
+          Ada___system__storage_elements__storage_offset.first
+          Ada___system__storage_elements__storage_offset.last
+          ([mlw:proxy_symbol] [introduced] temp___expr_459))
+
+end
+
+(* Module giving axioms for type "storage_element" defined at s-stoele.ads:63, created in Gnat2Why.Types.Generate_Type_Completion *)
+module Ada___system__storage_elements__storage_element___axiom
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use        _gnatprove_standard.BV8
+  use        Ada___system__storage_elements__storage_element
+  
+  function   dynamic_invariant
+    (([mlw:proxy_symbol]
+    [introduced] temp___expr_466) : _gnatprove_standard.BV8.t
+    ([mlw:proxy_symbol] [introduced] temp___is_init_462) : bool
+    ([mlw:proxy_symbol] [introduced] temp___skip_constant_463) : bool
+    ([mlw:proxy_symbol] [introduced] temp___do_toplevel_464) : bool
+    ([mlw:proxy_symbol] [introduced] temp___do_typ_inv_465) : bool) requires
+    { True } ensures  { True } returns
+     = (Ada___system__storage_elements__storage_element.dynamic_property
+          Ada___system__storage_elements__storage_element.first
+          Ada___system__storage_elements__storage_element.last
+          ([mlw:proxy_symbol] [introduced] temp___expr_466))
+
+end
+
+(* Module for defining the value of constant "r0" defined at qoa.adb:312, created in Gnat2Why.Decls.Translate_Constant_Value *)
+module Qoa__decode__read_u64__r0___axiom
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  
+
+end
+
+(* Module for defining the value of constant "r1" defined at qoa.adb:313, created in Gnat2Why.Decls.Translate_Constant_Value *)
+module Qoa__decode__read_u64__r1___axiom
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  
+
+end
+
+(* Module for defining the value of constant "r2" defined at qoa.adb:314, created in Gnat2Why.Decls.Translate_Constant_Value *)
+module Qoa__decode__read_u64__r2___axiom
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  
+
+end
+
+(* Module for defining the value of constant "r3" defined at qoa.adb:315, created in Gnat2Why.Decls.Translate_Constant_Value *)
+module Qoa__decode__read_u64__r3___axiom
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  
+
+end
+
+(* Module for defining the value of constant "r4" defined at qoa.adb:316, created in Gnat2Why.Decls.Translate_Constant_Value *)
+module Qoa__decode__read_u64__r4___axiom
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  
+
+end
+
+(* Module for defining the value of constant "r5" defined at qoa.adb:317, created in Gnat2Why.Decls.Translate_Constant_Value *)
+module Qoa__decode__read_u64__r5___axiom
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  
+
+end
+
+(* Module for defining the value of constant "r6" defined at qoa.adb:318, created in Gnat2Why.Decls.Translate_Constant_Value *)
+module Qoa__decode__read_u64__r6___axiom
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  
+
+end
+
+(* Module for defining the value of constant "r7" defined at qoa.adb:319, created in Gnat2Why.Decls.Translate_Constant_Value *)
+module Qoa__decode__read_u64__r7___axiom
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  
+
+end
+
+(* Module giving axioms for type "S9b" defined at qoa.adb:295, created in Gnat2Why.Types.Generate_Type_Completion *)
+module Qoa__decode__S9b___axiom
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use        Qoa__decode__output
+  use        Ada___system__storage_elements__Tstorage_offsetB__rep
+  use        Qoa__decode__S9b
+  
+  function   dynamic_invariant
+    (([mlw:proxy_symbol] [introduced] temp___expr_493) : Qoa__decode__S9b.s9b
+    ([mlw:proxy_symbol] [introduced] temp___is_init_489) : bool
+    ([mlw:proxy_symbol] [introduced] temp___skip_constant_490) : bool
+    ([mlw:proxy_symbol] [introduced] temp___do_toplevel_491) : bool
+    ([mlw:proxy_symbol] [introduced] temp___do_typ_inv_492) : bool) requires
+    { True } ensures  { True } returns
+     = (if
+       (([mlw:proxy_symbol] [introduced] temp___skip_constant_490) = True)
+       then True  else
+       (((Qoa__decode__S9b.dynamic_property
+            (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+               Qoa__decode__output.output__first)
+            (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+               Qoa__decode__output.output__last)
+            (Qoa__decode__S9b.first ([mlw:proxy_symbol]
+               [introduced] temp___expr_493))
+            (Qoa__decode__S9b.last ([mlw:proxy_symbol]
+               [introduced] temp___expr_493))) /\
+           ((Qoa__decode__S9b.first ([mlw:proxy_symbol]
+               [introduced] temp___expr_493))
+              = (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                   Qoa__decode__output.output__first))) /\
+          ((Qoa__decode__S9b.last ([mlw:proxy_symbol]
+              [introduced] temp___expr_493))
+             = (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                  Qoa__decode__output.output__last))))
+
+end
+
+(* Module for checking contracts and absence of run-time errors in subprogram "read_u64" defined at qoa.adb:303, created in Gnat2Why.Subprograms.Generate_VCs_For_Subprogram *)
+module Qoa__decode__read_u64__subprogram_def
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use import int.Int
+  use        _gnatprove_standard.BV8
+  use        _gnatprove_standard.BV64
+  use        _gnatprove_standard.BVConv_8_64
+  use        _gnatprove_standard.Boolean
+  use        Ada___system__storage_elements__storage_array
+  use        Qoa__decode__data
+  use        Array__Int__Ada___system__storage_elements__storage_element
+  use        Qoa__decode__output
+  use        Ada___system__storage_elements__Tstorage_offsetB
+  use        Qoa__decode__p
+  use        Qoa__decode__read_u64__res
+  use        Qoa__decode__read_u64__r0
+  use        Qoa__decode__read_u64__r1
+  use        Qoa__decode__read_u64__r2
+  use        Qoa__decode__read_u64__r3
+  use        Qoa__decode__read_u64__r4
+  use        Qoa__decode__read_u64__r5
+  use        Qoa__decode__read_u64__r6
+  use        Qoa__decode__read_u64__r7
+  use        Ada___system__storage_elements__Tstorage_offsetB__rep
+  use        Ada___system__storage_elements__storage_offset
+  use        Ada___system__storage_elements__storage_element
+  use        Ada___system__storage_elements__storage_element__rep
+  use        Array__Int__Ada___system__storage_elements__storage_element
+  use        Ada___system__storage_elements__storage_array___axiom
+  use        Ada___system__storage_elements__storage_count___axiom
+  use        Qoa__decode__S9b
+  use        Interfaces__unsigned_64___axiom
+  use        Array__Int__Ada___system__storage_elements__storage_element
+  use        Array__Int__Ada___system__storage_elements__storage_element
+  use        Array__Int__Ada___system__storage_elements__storage_element
+  use        Array__Int__Ada___system__storage_elements__storage_element
+  use        Array__Int__Ada___system__storage_elements__storage_element
+  use        Array__Int__Ada___system__storage_elements__storage_element
+  use        Array__Int__Ada___system__storage_elements__storage_element
+  use        Array__Int__Ada___system__storage_elements__storage_element
+  use import int.Int
+  use        _gnatprove_standard.BV8
+  use        _gnatprove_standard.BV64
+  use        _gnatprove_standard.BVConv_8_64
+  use        _gnatprove_standard.Boolean
+  use        Ada___system__storage_elements__storage_array
+  use        Qoa__decode__data
+  use        Array__Int__Ada___system__storage_elements__storage_element
+  use        Qoa__decode__output
+  use        Ada___system__storage_elements__Tstorage_offsetB
+  use        Qoa__decode__p
+  use        Qoa__decode__read_u64__res
+  use        Qoa__decode__read_u64__r0
+  use        Qoa__decode__read_u64__r1
+  use        Qoa__decode__read_u64__r2
+  use        Qoa__decode__read_u64__r3
+  use        Qoa__decode__read_u64__r4
+  use        Qoa__decode__read_u64__r5
+  use        Qoa__decode__read_u64__r6
+  use        Qoa__decode__read_u64__r7
+  use        Ada___system__storage_elements__Tstorage_offsetB___axiom
+  use        Ada___system__storage_elements__Tstorage_offsetB__rep
+  use        Ada___system__storage_elements__storage_offset
+  use        Ada___system__storage_elements__storage_offset___axiom
+  use        Ada___system__storage_elements__storage_element
+  use        Ada___system__storage_elements__storage_element___axiom
+  use        Ada___system__storage_elements__storage_element__rep
+  use        Array__Int__Ada___system__storage_elements__storage_element
+  use        Ada___system__storage_elements__storage_array___axiom
+  use        Array__Int__Ada___system__storage_elements__storage_element
+  use        Ada___system__storage_elements__storage_count
+  use        Ada___system__storage_elements__storage_count___axiom
+  use        Qoa__decode__S9b
+  use        Interfaces__unsigned_64
+  use        Interfaces__unsigned_64___axiom
+  use        Qoa__decode__read_u64__r0___axiom
+  use        Qoa__decode__read_u64__r1___axiom
+  use        Qoa__decode__read_u64__r2___axiom
+  use        Qoa__decode__read_u64__r3___axiom
+  use        Qoa__decode__read_u64__r4___axiom
+  use        Qoa__decode__read_u64__r5___axiom
+  use        Qoa__decode__read_u64__r6___axiom
+  use        Qoa__decode__read_u64__r7___axiom
+  use        Qoa__decode__S9b___axiom
+  use        Array__Int__Ada___system__storage_elements__storage_element
+  use        Array__Int__Ada___system__storage_elements__storage_element
+  use        Array__Int__Ada___system__storage_elements__storage_element
+  use        Array__Int__Ada___system__storage_elements__storage_element
+  use        Array__Int__Ada___system__storage_elements__storage_element
+  use        Array__Int__Ada___system__storage_elements__storage_element
+  use        Array__Int__Ada___system__storage_elements__storage_element
+  use        Array__Int__Ada___system__storage_elements__storage_element
+  
+  function  [sloc:qoa.adb:303] def (__void_param : unit) requires { True }
+    ensures 
+    { ([sloc:qoa.adb:307] ([GP_Shape:pragargs__cmp] [model_vc_post]
+                          [GP_Check:36:VC_POSTCONDITION:qoa.adb:307:23] (
+                          !Qoa__decode__p.p
+                            = ((at old !Qoa__decode__p.p) + 8)))) } returns
+     = assume
+        { (Ada___system__storage_elements__storage_array___axiom.dynamic_invariant
+             Qoa__decode__data.data True False True True) };
+        (* Assume dynamic invariants of inputs of the subprogram qoa.adb:303 *);
+        assume
+        { (Ada___system__storage_elements__storage_count___axiom.dynamic_invariant
+             !Qoa__decode__p.p True False True True) };
+        assume
+        { (Interfaces__unsigned_64___axiom.dynamic_invariant
+             !Qoa__decode__read_u64__res.res False False True True) };
+        assume
+        { (Ada___system__storage_elements__storage_array___axiom.dynamic_invariant
+             Qoa__decode__data.data True False True True) };
+        assume
+        { (if (False = True) then True  else
+          (Ada___system__storage_elements__storage_array.dynamic_property
+             Ada___system__storage_elements__storage_offset.first
+             Ada___system__storage_elements__storage_offset.last
+             (Qoa__decode__S9b.first
+                (Qoa__decode__S9b.of_array !Qoa__decode__output.output
+                   (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                      Qoa__decode__output.output__first)
+                   (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                      Qoa__decode__output.output__last)))
+             (Qoa__decode__S9b.last
+                (Qoa__decode__S9b.of_array !Qoa__decode__output.output
+                   (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                      Qoa__decode__output.output__first)
+                   (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                      Qoa__decode__output.output__last))))) };
+        (* Assume moved pointers in outputs of the subprogram qoa.adb:303 *);
+        (* Check for RTE in the Pre of the subprogram qoa.adb:303 *);
+        abstract ensures
+        { True } begin  (let _ =
+                       (_gnatprove_standard.Boolean.andb
+                          ((Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                              (let ([mlw:proxy_symbol]
+                              [introduced] temp___676) =
+                              (Qoa__decode__S9b.of_array
+                                 !Qoa__decode__output.output
+                                 (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                                    Qoa__decode__output.output__first)
+                                 (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                                    Qoa__decode__output.output__last)) in
+                              Qoa__decode__output.output__first))
+                             <= !Qoa__decode__p.p)
+                          (!Qoa__decode__p.p
+                             <= ([sloc:qoa.adb:306] ([GP_Check:35:VC_OVERFLOW_CHECK:qoa.adb:306:47]
+                                                    [vc:annotation]
+                                                    [GP_Shape:pragargs__in__range__sub] (
+                                                    Ada___system__storage_elements__Tstorage_offsetB.range_check_
+                                                      ((Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                                                          (let ([mlw:proxy_symbol]
+                                                          [introduced] temp___677)
+                                                          =
+                                                          (Qoa__decode__S9b.of_array
+                                                             !Qoa__decode__output.output
+                                                             (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                                                                Qoa__decode__output.output__first)
+                                                             (Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                                                                Qoa__decode__output.output__last))
+                                                          in
+                                                          Qoa__decode__output.output__last))
+                                                         - 7))))))
+                       in ())  end;
+        (* Assume Pre of the subprogram qoa.adb:303 *);
+        assume
+        { (((Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+               Qoa__decode__output.output__first) <= !Qoa__decode__p.p) /\
+             (!Qoa__decode__p.p
+                <= ((Ada___system__storage_elements__Tstorage_offsetB__rep.to_rep
+                       Qoa__decode__output.output__last) - 7))) };
+        (let ([mlw:proxy_symbol] [introduced] temp___old_673) =
+        !Qoa__decode__p.p in (try
+        ();
+          ([sloc:qoa.adb:312] ());
+          ([sloc:qoa.adb:312] (let qoa__decode__read_u64__r0__assume =
+          ( (_gnatprove_standard.BVConv_8_64.toBig
+               (Ada___system__storage_elements__storage_element__rep.to_rep
+                  (Array__Int__Ada___system__storage_elements__storage_element.get
+                     (Ada___system__storage_elements__storage_array.to_array
+                        Qoa__decode__data.data) assert
+                     { ([sloc:qoa.adb:312] ([GP_Shape:r0_decl__typeconv__ixdcomp]
+                                           [vc:annotation]
+                                           [GP_Check:18:VC_INDEX_CHECK:qoa.adb:312:58] (
+                                           ((Ada___system__storage_elements__storage_array.first
+                                               Qoa__decode__data.data)
+                                              <= !Qoa__decode__p.p) /\
+                                             (!Qoa__decode__p.p
+                                                <= (Ada___system__storage_elements__storage_array.last
+                                                      Qoa__decode__data.data))))) };
+                     !Qoa__decode__p.p))))
+          in assume
+          { (qoa__decode__read_u64__r0__assume = Qoa__decode__read_u64__r0.r0) });
+          assume
+          { (Interfaces__unsigned_64___axiom.dynamic_invariant
+               Qoa__decode__read_u64__r0.r0 True False True True) });
+          ([sloc:qoa.adb:313] ());
+          ([sloc:qoa.adb:313] (let qoa__decode__read_u64__r1__assume =
+          ( (_gnatprove_standard.BVConv_8_64.toBig
+               (Ada___system__storage_elements__storage_element__rep.to_rep
+                  (Array__Int__Ada___system__storage_elements__storage_element.get
+                     (Ada___system__storage_elements__storage_array.to_array
+                        Qoa__decode__data.data) (let ([mlw:proxy_symbol]
+                     [introduced] temp___664) =
+                     ([sloc:qoa.adb:313] ([GP_Shape:r1_decl__typeconv__ixdcomp__add]
+                                         [vc:annotation]
+                                         [GP_Check:19:VC_OVERFLOW_CHECK:qoa.adb:313:60] (
+                                         Ada___system__storage_elements__Tstorage_offsetB.range_check_
+                                           (!Qoa__decode__p.p + 1)))) in
+                     assert
+                     { ([sloc:qoa.adb:313] ([GP_Shape:r1_decl__typeconv__ixdcomp__add]
+                                           [GP_Check:20:VC_INDEX_CHECK:qoa.adb:313:60]
+                                           [vc:annotation] (((Ada___system__storage_elements__storage_array.first
+                                                                Qoa__decode__data.data)
+                                                               <= ([mlw:proxy_symbol]
+                                                               [introduced] temp___664))
+                                                              /\
+                                                              (([mlw:proxy_symbol]
+                                                                 [introduced] temp___664)
+                                                                 <= (
+                                                                 Ada___system__storage_elements__storage_array.last
+                                                                   Qoa__decode__data.data))))) };
+                     ([mlw:proxy_symbol] [introduced] temp___664))))))
+          in assume
+          { (qoa__decode__read_u64__r1__assume = Qoa__decode__read_u64__r1.r1) });
+          assume
+          { (Interfaces__unsigned_64___axiom.dynamic_invariant
+               Qoa__decode__read_u64__r1.r1 True False True True) });
+          ([sloc:qoa.adb:314] ());
+          ([sloc:qoa.adb:314] (let qoa__decode__read_u64__r2__assume =
+          ( (_gnatprove_standard.BVConv_8_64.toBig
+               (Ada___system__storage_elements__storage_element__rep.to_rep
+                  (Array__Int__Ada___system__storage_elements__storage_element.get
+                     (Ada___system__storage_elements__storage_array.to_array
+                        Qoa__decode__data.data) (let ([mlw:proxy_symbol]
+                     [introduced] temp___665) =
+                     ([sloc:qoa.adb:314] ([GP_Check:21:VC_OVERFLOW_CHECK:qoa.adb:314:60]
+                                         [GP_Shape:r2_decl__typeconv__ixdcomp__add]
+                                         [vc:annotation] (Ada___system__storage_elements__Tstorage_offsetB.range_check_
+                                                            (!Qoa__decode__p.p
+                                                               + 2)))) in
+                     assert
+                     { ([sloc:qoa.adb:314] ([GP_Shape:r2_decl__typeconv__ixdcomp__add]
+                                           [vc:annotation]
+                                           [GP_Check:22:VC_INDEX_CHECK:qoa.adb:314:60] (
+                                           ((Ada___system__storage_elements__storage_array.first
+                                               Qoa__decode__data.data)
+                                              <= ([mlw:proxy_symbol]
+                                              [introduced] temp___665)) /\
+                                             (([mlw:proxy_symbol]
+                                                [introduced] temp___665)
+                                                <= (Ada___system__storage_elements__storage_array.last
+                                                      Qoa__decode__data.data))))) };
+                     ([mlw:proxy_symbol] [introduced] temp___665))))))
+          in assume
+          { (qoa__decode__read_u64__r2__assume = Qoa__decode__read_u64__r2.r2) });
+          assume
+          { (Interfaces__unsigned_64___axiom.dynamic_invariant
+               Qoa__decode__read_u64__r2.r2 True False True True) });
+          ([sloc:qoa.adb:315] ());
+          ([sloc:qoa.adb:315] (let qoa__decode__read_u64__r3__assume =
+          ( (_gnatprove_standard.BVConv_8_64.toBig
+               (Ada___system__storage_elements__storage_element__rep.to_rep
+                  (Array__Int__Ada___system__storage_elements__storage_element.get
+                     (Ada___system__storage_elements__storage_array.to_array
+                        Qoa__decode__data.data) (let ([mlw:proxy_symbol]
+                     [introduced] temp___666) =
+                     ([sloc:qoa.adb:315] ([vc:annotation]
+                                         [GP_Check:23:VC_OVERFLOW_CHECK:qoa.adb:315:60]
+                                         [GP_Shape:r3_decl__typeconv__ixdcomp__add] (
+                                         Ada___system__storage_elements__Tstorage_offsetB.range_check_
+                                           (!Qoa__decode__p.p + 3)))) in
+                     assert
+                     { ([sloc:qoa.adb:315] ([vc:annotation]
+                                           [GP_Check:24:VC_INDEX_CHECK:qoa.adb:315:60]
+                                           [GP_Shape:r3_decl__typeconv__ixdcomp__add] (
+                                           ((Ada___system__storage_elements__storage_array.first
+                                               Qoa__decode__data.data)
+                                              <= ([mlw:proxy_symbol]
+                                              [introduced] temp___666)) /\
+                                             (([mlw:proxy_symbol]
+                                                [introduced] temp___666)
+                                                <= (Ada___system__storage_elements__storage_array.last
+                                                      Qoa__decode__data.data))))) };
+                     ([mlw:proxy_symbol] [introduced] temp___666))))))
+          in assume
+          { (qoa__decode__read_u64__r3__assume = Qoa__decode__read_u64__r3.r3) });
+          assume
+          { (Interfaces__unsigned_64___axiom.dynamic_invariant
+               Qoa__decode__read_u64__r3.r3 True False True True) });
+          ([sloc:qoa.adb:316] ());
+          ([sloc:qoa.adb:316] (let qoa__decode__read_u64__r4__assume =
+          ( (_gnatprove_standard.BVConv_8_64.toBig
+               (Ada___system__storage_elements__storage_element__rep.to_rep
+                  (Array__Int__Ada___system__storage_elements__storage_element.get
+                     (Ada___system__storage_elements__storage_array.to_array
+                        Qoa__decode__data.data) (let ([mlw:proxy_symbol]
+                     [introduced] temp___667) =
+                     ([sloc:qoa.adb:316] ([GP_Shape:r4_decl__typeconv__ixdcomp__add]
+                                         [vc:annotation]
+                                         [GP_Check:25:VC_OVERFLOW_CHECK:qoa.adb:316:60] (
+                                         Ada___system__storage_elements__Tstorage_offsetB.range_check_
+                                           (!Qoa__decode__p.p + 4)))) in
+                     assert
+                     { ([sloc:qoa.adb:316] ([GP_Shape:r4_decl__typeconv__ixdcomp__add]
+                                           [vc:annotation]
+                                           [GP_Check:26:VC_INDEX_CHECK:qoa.adb:316:60] (
+                                           ((Ada___system__storage_elements__storage_array.first
+                                               Qoa__decode__data.data)
+                                              <= ([mlw:proxy_symbol]
+                                              [introduced] temp___667)) /\
+                                             (([mlw:proxy_symbol]
+                                                [introduced] temp___667)
+                                                <= (Ada___system__storage_elements__storage_array.last
+                                                      Qoa__decode__data.data))))) };
+                     ([mlw:proxy_symbol] [introduced] temp___667))))))
+          in assume
+          { (qoa__decode__read_u64__r4__assume = Qoa__decode__read_u64__r4.r4) });
+          assume
+          { (Interfaces__unsigned_64___axiom.dynamic_invariant
+               Qoa__decode__read_u64__r4.r4 True False True True) });
+          ([sloc:qoa.adb:317] ());
+          ([sloc:qoa.adb:317] (let qoa__decode__read_u64__r5__assume =
+          ( (_gnatprove_standard.BVConv_8_64.toBig
+               (Ada___system__storage_elements__storage_element__rep.to_rep
+                  (Array__Int__Ada___system__storage_elements__storage_element.get
+                     (Ada___system__storage_elements__storage_array.to_array
+                        Qoa__decode__data.data) (let ([mlw:proxy_symbol]
+                     [introduced] temp___668) =
+                     ([sloc:qoa.adb:317] ([GP_Check:27:VC_OVERFLOW_CHECK:qoa.adb:317:60]
+                                         [GP_Shape:r5_decl__typeconv__ixdcomp__add]
+                                         [vc:annotation] (Ada___system__storage_elements__Tstorage_offsetB.range_check_
+                                                            (!Qoa__decode__p.p
+                                                               + 5)))) in
+                     assert
+                     { ([sloc:qoa.adb:317] ([GP_Shape:r5_decl__typeconv__ixdcomp__add]
+                                           [vc:annotation]
+                                           [GP_Check:28:VC_INDEX_CHECK:qoa.adb:317:60] (
+                                           ((Ada___system__storage_elements__storage_array.first
+                                               Qoa__decode__data.data)
+                                              <= ([mlw:proxy_symbol]
+                                              [introduced] temp___668)) /\
+                                             (([mlw:proxy_symbol]
+                                                [introduced] temp___668)
+                                                <= (Ada___system__storage_elements__storage_array.last
+                                                      Qoa__decode__data.data))))) };
+                     ([mlw:proxy_symbol] [introduced] temp___668))))))
+          in assume
+          { (qoa__decode__read_u64__r5__assume = Qoa__decode__read_u64__r5.r5) });
+          assume
+          { (Interfaces__unsigned_64___axiom.dynamic_invariant
+               Qoa__decode__read_u64__r5.r5 True False True True) });
+          ([sloc:qoa.adb:318] ());
+          ([sloc:qoa.adb:318] (let qoa__decode__read_u64__r6__assume =
+          ( (_gnatprove_standard.BVConv_8_64.toBig
+               (Ada___system__storage_elements__storage_element__rep.to_rep
+                  (Array__Int__Ada___system__storage_elements__storage_element.get
+                     (Ada___system__storage_elements__storage_array.to_array
+                        Qoa__decode__data.data) (let ([mlw:proxy_symbol]
+                     [introduced] temp___669) =
+                     ([sloc:qoa.adb:318] ([vc:annotation]
+                                         [GP_Check:29:VC_OVERFLOW_CHECK:qoa.adb:318:60]
+                                         [GP_Shape:r6_decl__typeconv__ixdcomp__add] (
+                                         Ada___system__storage_elements__Tstorage_offsetB.range_check_
+                                           (!Qoa__decode__p.p + 6)))) in
+                     assert
+                     { ([sloc:qoa.adb:318] ([vc:annotation]
+                                           [GP_Shape:r6_decl__typeconv__ixdcomp__add]
+                                           [GP_Check:30:VC_INDEX_CHECK:qoa.adb:318:60] (
+                                           ((Ada___system__storage_elements__storage_array.first
+                                               Qoa__decode__data.data)
+                                              <= ([mlw:proxy_symbol]
+                                              [introduced] temp___669)) /\
+                                             (([mlw:proxy_symbol]
+                                                [introduced] temp___669)
+                                                <= (Ada___system__storage_elements__storage_array.last
+                                                      Qoa__decode__data.data))))) };
+                     ([mlw:proxy_symbol] [introduced] temp___669))))))
+          in assume
+          { (qoa__decode__read_u64__r6__assume = Qoa__decode__read_u64__r6.r6) });
+          assume
+          { (Interfaces__unsigned_64___axiom.dynamic_invariant
+               Qoa__decode__read_u64__r6.r6 True False True True) });
+          ([sloc:qoa.adb:319] ());
+          ([sloc:qoa.adb:319] (let qoa__decode__read_u64__r7__assume =
+          ( (_gnatprove_standard.BVConv_8_64.toBig
+               (Ada___system__storage_elements__storage_element__rep.to_rep
+                  (Array__Int__Ada___system__storage_elements__storage_element.get
+                     (Ada___system__storage_elements__storage_array.to_array
+                        Qoa__decode__data.data) (let ([mlw:proxy_symbol]
+                     [introduced] temp___670) =
+                     ([sloc:qoa.adb:319] ([vc:annotation]
+                                         [GP_Check:31:VC_OVERFLOW_CHECK:qoa.adb:319:60]
+                                         [GP_Shape:r7_decl__typeconv__ixdcomp__add] (
+                                         Ada___system__storage_elements__Tstorage_offsetB.range_check_
+                                           (!Qoa__decode__p.p + 7)))) in
+                     assert
+                     { ([sloc:qoa.adb:319] ([vc:annotation]
+                                           [GP_Check:32:VC_INDEX_CHECK:qoa.adb:319:60]
+                                           [GP_Shape:r7_decl__typeconv__ixdcomp__add] (
+                                           ((Ada___system__storage_elements__storage_array.first
+                                               Qoa__decode__data.data)
+                                              <= ([mlw:proxy_symbol]
+                                              [introduced] temp___670)) /\
+                                             (([mlw:proxy_symbol]
+                                                [introduced] temp___670)
+                                                <= (Ada___system__storage_elements__storage_array.last
+                                                      Qoa__decode__data.data))))) };
+                     ([mlw:proxy_symbol] [introduced] temp___670))))))
+          in assume
+          { (qoa__decode__read_u64__r7__assume = Qoa__decode__read_u64__r7.r7) });
+          assume
+          { (Interfaces__unsigned_64___axiom.dynamic_invariant
+               Qoa__decode__read_u64__r7.r7 True False True True) });
+          ();
+          ([sloc:qoa.adb:321] ());
+          ([sloc:qoa.adb:322] ());
+          ([sloc:qoa.adb:323] ());
+          ([sloc:qoa.adb:324] ());
+          ([sloc:qoa.adb:325] ());
+          ([sloc:qoa.adb:326] ());
+          ([sloc:qoa.adb:327] ());
+          ([sloc:qoa.adb:328] ());
+          ([sloc:qoa.adb:321] ( Qoa__decode__read_u64__res.res :=
+          ( (_gnatprove_standard.BV64.bw_or
+               (_gnatprove_standard.BV64.bw_or
+                  (_gnatprove_standard.BV64.bw_or
+                     (_gnatprove_standard.BV64.bw_or
+                        (_gnatprove_standard.BV64.bw_or
+                           (_gnatprove_standard.BV64.bw_or
+                              (_gnatprove_standard.BV64.bw_or
+                                 (_gnatprove_standard.BV64.lsl_bv
+                                    Qoa__decode__read_u64__r0.r0
+                                    (_gnatprove_standard.BV64.of_int ( 56)))
+                                 (_gnatprove_standard.BV64.lsl_bv
+                                    Qoa__decode__read_u64__r1.r1
+                                    (_gnatprove_standard.BV64.of_int ( 48))))
+                              (_gnatprove_standard.BV64.lsl_bv
+                                 Qoa__decode__read_u64__r2.r2
+                                 (_gnatprove_standard.BV64.of_int ( 40))))
+                           (_gnatprove_standard.BV64.lsl_bv
+                              Qoa__decode__read_u64__r3.r3
+                              (_gnatprove_standard.BV64.of_int ( 32))))
+                        (_gnatprove_standard.BV64.lsl_bv
+                           Qoa__decode__read_u64__r4.r4
+                           (_gnatprove_standard.BV64.of_int ( 24))))
+                     (_gnatprove_standard.BV64.lsl_bv
+                        Qoa__decode__read_u64__r5.r5
+                        (_gnatprove_standard.BV64.of_int ( 16))))
+                  (_gnatprove_standard.BV64.lsl_bv
+                     Qoa__decode__read_u64__r6.r6
+                     (_gnatprove_standard.BV64.of_int ( 8))))
+               (_gnatprove_standard.BV64.lsl_bv Qoa__decode__read_u64__r7.r7
+                  (_gnatprove_standard.BV64.of_int ( 0)))))));
+          ([sloc:qoa.adb:329] ());
+          ([sloc:qoa.adb:329] ());
+          ([sloc:qoa.adb:329] ( Qoa__decode__p.p :=
+          ( ([sloc:qoa.adb:329] ([GP_Check:33:VC_OVERFLOW_CHECK:qoa.adb:329:17]
+                                [vc:annotation]
+                                [GP_Shape:p_assign__add] (Ada___system__storage_elements__Tstorage_offsetB.range_check_
+                                                            (!Qoa__decode__p.p
+                                                               + 8)))))));
+          raise Return__exc with | Return__exc  -> ());
+        abstract ensures
+        { True } begin  (let _ =
+                       (!Qoa__decode__p.p
+                          = ([sloc:qoa.adb:307] ([GP_Check:34:VC_OVERFLOW_CHECK:qoa.adb:307:33]
+                                                [vc:annotation]
+                                                [GP_Shape:pragargs__cmp__add] (
+                                                Ada___system__storage_elements__Tstorage_offsetB.range_check_
+                                                  (([mlw:proxy_symbol]
+                                                     [introduced] temp___old_673)
+                                                     + 8)))))
+                       in ())  end)
+
+end

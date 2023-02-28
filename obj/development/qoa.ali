@@ -1,0 +1,185 @@
+V "GNAT Lib v12"
+A -Og
+A -gnatA
+A -ffunction-sections
+A -fdata-sections
+A -g
+A -gnatwa
+A -gnatw.X
+A -gnatVa
+A -gnaty3
+A -gnatya
+A -gnatyA
+A -gnatyB
+A -gnatyb
+A -gnatyc
+A -gnaty-
+A -gnatyd
+A -gnatye
+A -gnatyf
+A -gnatyh
+A -gnatyi
+A -gnatyI
+A -gnatyk
+A -gnatyl
+A -gnatym
+A -gnatyn
+A -gnatyO
+A -gnatyp
+A -gnatyr
+A -gnatyS
+A -gnatyt
+A -gnatyu
+A -gnatyx
+A -mtune=generic
+A -march=x86-64
+P ZX
+
+RN
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_IMPLEMENTATION_PRAGMAS
+
+U qoa%b			qoa.adb			ed0b5834 NE OO PK
+
+U qoa%s			qoa.ads			8ad372d1 EE NE OO PK
+W interfaces%s		interfac.ads		interfac.ali
+W system%s		system.ads		system.ali
+W system.storage_elements%s  s-stoele.adb	s-stoele.ali
+
+D interfac.ads		20220819080952 edec285f interfaces%s
+D qoa.ads		20230227145205 0ab1457a qoa%s
+D qoa.adb		20230227145304 e7ba1d4e qoa%b
+D system.ads		20220819080952 a2da961d system%s
+D s-stoele.ads		20220819080952 6d8e1ff4 system.storage_elements%s
+G a e
+G c Z s b [decode qoa 41 14 none]
+G c Z s b [lms_predict qoa 78 13 none]
+G c Z s b [lms_update qoa 79 14 none]
+G c Z s b [clamp qoa 87 13 none]
+G c Z s s [Tmy_arrayBIP qoa 20 4 none]
+G c Z s s [qoa_lms_tIP qoa 21 9 none]
+G c Z s s [Tarray_lmsBIP qoa 26 4 none]
+G c Z s s [qoa_descIP qoa 28 9 none]
+G c Z s s [array_shortIP qoa 35 9 none]
+X 1 interfac.ads
+38K9*Interfaces 231e15 2|2w6 2r22
+49I9*Integer_16<short_integer> 2|20r45 35r52 3|77r20 77r35 89r37 423r18 426r18
+79M9*Unsigned_32 2|29r18 30r20 31r17 3|345r12 347r12 461r22 462r19 477r23
+82M9*Unsigned_64 3|302r37 304r24 304r39 305r24 305r39 306r24 306r39 307r24
+. 307r39 308r24 308r39 309r24 309r39 310r24 310r39 311r24 311r39 329r24 330r25
+. 366r25 376r20 377r20 380r18
+164V13*Shift_Left{82M9} 3|313s17 314s15 315s15 316s15 317s15 318s15 319s15
+. 320s15 424s27 427s27 449s28
+169V13*Shift_Right{82M9} 3|339s13 345s25 347s25 399s31 400s33 401s33 423s30
+. 426s30 435s40 443s41
+X 2 qoa.ads
+4K9*Qoa 51E4 98l5 98e8 3|1b14 490l5 490t8
+11N4*MIN_FILESIZE 3|334r27
+12N4*MAX_CHANNELS 26r34
+13N4*SLICE_LEN 15r48 3|406r44 437r47 455r36
+14N4*SLICES_PER_FRAME 15r29
+15N4*FRAME_LEN
+16N4*LMS_LEN 20r33 3|61r21 79r21 86r21 89r20 393r32 404r40 421r27
+17N4*MAGIC 3|339r46
+18N4*HEADER_SIZE 3|354r42
+20A9*my_array(1|49I9)<integer> 22r17 23r17
+21R9*qoa_lms_t 24e14 26r51 78r32 79r39 3|58r32 73r39
+22a7*history{20A9} 3|63r43 80r17 87m14 87r33 89m11 422m29
+23a7*weights{20A9} 3|63r25 81m17 81r36 83m17 83r36 425m29
+26A9*Array_lms(21R9)<integer> 32r13
+28R9*qoa_desc 33e14 42r43 3|294r39 325r41 360r43
+29m7*channels{1|79M9} 3|344m14 349r17 393r50 408r38 476r61
+30m7*samplerate{1|79M9} 3|346m14 350r24 409r39
+31m7*samples{1|79M9} 3|349r42 480r55 484m11
+32a7*lms{26A9} 3|422m20 425m20 442r49 451m35
+35A9*array_short(1|49I9)<integer>
+41U14*decode 41>22 42<26 43<26 44<26 3|293b14 488l8 488t14
+41a22 data{5|67A9} 3|293b22 304r52 305r52 306r52 307r52 308r52 309r52 310r52
+. 311r52 471r22 473r12 477r50
+42r26 qoa{28R9} 3|294b22 471m28 476r57 477m59 477r59 480r51 484m7
+43a26 Output{5|67A9} 3|295b22 300r32 477m64 477r64 486r30
+44i26 Output_Size{5|59I12} 3|296b22 486m7
+51a4 QUANT_TAB(integer)
+54a4 SCALEFACTOR_TAB(integer)
+57a4 RECIPROCAL_TAB(integer)
+60a4 DEQUANT_TAB(integer) 3|444r34
+78V13 lms_predict{integer} 78>26 3|58b13 67l8 67t19 442s32
+78r26 lms{21R9} 3|58b26 63r21 63r39
+79U14 lms_update 79=26 80>26 81>26 3|73b14 90l8 90t18 451s19
+79r26 lms{21R9} 3|73b26 80r13 81m13 81r32 83m13 83r32 87m10 87r29 89m7
+80i26 sample{integer} 3|74b26 89r49
+81i26 residual{integer} 3|75b26 77r47
+87V13 clamp{integer} 87>20 88>24 89>24 3|15b13 30l8 30t13 437s29 445s36
+87i20 v{integer} 3|15b20 21r10 24r13 27r20
+88i24 min{integer} 3|16b20 21r14 22r17
+89i24 max{integer} 3|17b20 24r17 25r20
+X 3 qoa.adb
+59i7 prediction{integer} 62m10 62r24 66r14
+61i11 i{integer} 63r34 63r52
+77i7 d{1|49I9} 81r50 83r51
+79i11 i{integer} 80r26 81r26 81r45 83r26 83r45
+86i11 i{integer} 87r23 87r42
+299i7 p{5|59I12} 304r58 305r58 306r58 307r58 308r58 309r58 310r58 311r58
+. 321m10 321r15 473m7 477m56 477r56
+300i7 index{5|59I12} 476m10 476r19 477r72 486r22
+302U17 Read_u64 302b17 302<27 322l11 322t19 338s10 343s10 398s10 419s13 420s13
+. 434s16
+302m27 Res{1|82M9} 313m10
+304m10 r0{1|82M9} 313r29
+305m10 r1{1|82M9} 314r27
+306m10 r2{1|82M9} 315r27
+307m10 r3{1|82M9} 316r27
+308m10 r4{1|82M9} 317r27
+309m10 r5{1|82M9} 318r27
+310m10 r6{1|82M9} 319r27
+311m10 r7{1|82M9} 320r27
+324U17 decode_header 324b17 324>32 325<31 355l11 355t24 471s7
+324a32 data{5|67A9} 327r31 334r13 354r29
+325r31 qoa{2|28R9} 344m10 346m10 349r13 349r38 350r20
+327i10 p{5|59I12} 354r25
+329m10 file_header{1|82M9} 338m20 339r26
+330m10 frame_header{1|82M9} 343m20 345r38 347r38
+358V16 decode_frame{integer} 358b16 358>30 359=30 360=30 361=30 362>30 459l11
+. 459t23 477s36
+358a30 data{5|67A9} 393r13 410r25
+359i30 p{5|59I12}
+360r30 qoa{2|28R9} 393r46 408r34 409r35 422m16 425m16 442r45 451m31 451r31
+361a30 Output{5|67A9} 447m19
+362i30 index{5|59I12} 447r27
+366m10 frame_header{1|82M9} 398m20 399r44 400r46 401r46 402r34
+367i10 channels{integer} 399m10 404r54 408r13 411r22 418r25 433r27 436r42
+. 438r20 452r30
+368i10 samplerate{integer} 400m10 409r12
+369i10 samples{integer} 401m10 411r12 432r27 437r61 457r17
+370i10 frame_size{integer} 402m10 404r23 410r12
+372i10 data_size{integer} 404m10 405r24
+373i10 num_slices{integer} 405m10 406r31
+374i10 max_total_samples{integer} 406m10 411r33
+376m10 history{1|82M9} 419m23 423r43 424m16 424r39
+377m10 weights{1|82M9} 420m23 426r43 427m16 427r39
+379i10 sample_i{integer} 432r16 436r31 437r36 455m13 455r25
+380m10 slice{1|82M9} 434m26 435r53 443r54 449m19 449r40
+381i10 scalefactor{integer} 435m16 444r47
+382i10 slice_start{integer} 436m16 440r22
+383i10 slice_end{integer} 437m16 441r27
+384i10 si{integer} 440m16 441r22 447r50 452m19 452r25
+386i10 predicted{integer} 442m19 445r43
+387i10 quantized{integer} 443m19 444r60
+388i10 dequantized{integer} 444m19 445r55 451r59
+389i10 reconstructed{integer} 445m19 448r41 451r44
+418i15 c{integer} 422r25 425r25
+421i17 i{integer} 422r38 425r38
+433i17 c{integer} 436r53 438r31 442r54 451r40
+461m7 sample_index{1|79M9} 476r42 478m10 478r26 480r36 484r22
+462m7 frame_len{1|79M9} 477m10 478r41 480r13
+X 4 system.ads
+37K9*System 2|1r6 1r35 4|154e11
+X 5 s-stoele.ads
+40K16*Storage_Elements 2|1w13 1r42 5|114e28
+52I9*Storage_Offset<long_integer>
+59I12*Storage_Count{52I9} 2|44r44 3|296r40 299r11 300r15 327r14 359r41 362r38
+. 447r35 476r27
+61M9*Storage_Element 3|448r24
+67A9*Storage_Array(61M9)<52I9> 2|41r40 43r44 3|293r40 295r40 324r39 358r37
+. 361r51
+

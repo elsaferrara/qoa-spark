@@ -1,0 +1,83 @@
+{
+  "spark": [
+    {
+      "name": "Qoa",
+      "sloc": [
+        {
+          "file": "qoa.ads",
+          "line": 4
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Qoa.decode",
+      "sloc": [
+        {
+          "file": "qoa.ads",
+          "line": 41
+        }
+      ],
+      "spark": "spec"
+    },
+    {
+      "name": "Qoa.lms_predict",
+      "sloc": [
+        {
+          "file": "qoa.ads",
+          "line": 78
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Qoa.lms_update",
+      "sloc": [
+        {
+          "file": "qoa.ads",
+          "line": 79
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Qoa.clamp",
+      "sloc": [
+        {
+          "file": "qoa.ads",
+          "line": 87
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Qoa.decode.Read_u64",
+      "sloc": [
+        {
+          "file": "qoa.adb",
+          "line": 302
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Qoa.decode.decode_header",
+      "sloc": [
+        {
+          "file": "qoa.adb",
+          "line": 324
+        }
+      ],
+      "spark": "all"
+    }
+  ],
+  "progress": "PROGRESS_MARKING",
+  "stop_reason": "STOP_REASON_ERROR_MARKING",
+  "assumptions": [
+  ],
+  "timings": {
+    "globals (advanced)": 3.90000001061708E-04,
+    "marking": 3.07000009343028E-04,
+    "globals (basic)": 3.51399998180568E-03
+  }
+}

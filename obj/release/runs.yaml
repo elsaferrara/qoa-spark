@@ -1,0 +1,47 @@
+'2023-02-28T10:58:49.998140':
+  category: GNATprove
+  files:
+  - /home/ferrara/qoa/obj/release/gnatprove
+  label: Basic Prove Subprogram
+  output: 'Phase 1 of 2: generation of Global contracts ...
+
+    Phase 2 of 2: flow analysis and proof ...
+
+    qoa.adb:80:56: medium: range check might fail, cannot prove lower bound for residual
+    / (2 ** 4) [reason for check: result of division must be convertible to the target
+    type of the conversion] [possible fix: add precondition (residual / (2 ** 4) in
+    Integer_16) to subprogram at qoa.ads:91][#0]
+
+    qoa.adb:84:48: medium: overflow check might fail, cannot prove lower bound for
+    lms.weights (i) - d [reason for check: result of subtraction must fit in a 16-bits
+    machine integer] [possible fix: precondition of subprogram at qoa.ads:91 should
+    mention lms][#1]
+
+    qoa.adb:86:48: medium: overflow check might fail, cannot prove lower bound for
+    lms.weights (i) + d [reason for check: result of addition must fit in a 16-bits
+    machine integer] [possible fix: precondition of subprogram at qoa.ads:91 should
+    mention lms][#2]
+
+    qoa.adb:92:45: medium: range check might fail, cannot prove lower bound for sample
+    [reason for check: value must be convertible to the target type of the conversion]
+    [possible fix: add precondition (sample in Integer_16) to subprogram at qoa.ads:91][#3]
+
+    Summary logged in /home/ferrara/qoa/obj/release/gnatprove/gnatprove.out
+
+    '
+  output_parser: GNATprove_Parser
+  timestamp: '2023-02-28T10:58:49.998140'
+'2023-02-28T10:58:59.300710':
+  category: GNATprove
+  files:
+  - /home/ferrara/qoa/obj/release/gnatprove
+  label: Basic Prove Subprogram
+  output: 'Phase 1 of 2: generation of Global contracts ...
+
+    Phase 2 of 2: flow analysis and proof ...
+
+    Summary logged in /home/ferrara/qoa/obj/release/gnatprove/gnatprove.out
+
+    '
+  output_parser: GNATprove_Parser
+  timestamp: '2023-02-28T10:58:59.300710'

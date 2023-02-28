@@ -1,0 +1,5 @@
+qoa.adb:327:10: warning: "p" is not modified, could be declared constant [-gnatwk]
+qoa.adb:354:29: (style) bad casing of "data" declared at line 324
+qoa.adb:356:01: (style) multiple blank lines
+qoa.adb:359:30: warning: formal parameter "p" is not referenced [-gnatwf]
+qoa.ads:7:01: (style) multiple blank lines

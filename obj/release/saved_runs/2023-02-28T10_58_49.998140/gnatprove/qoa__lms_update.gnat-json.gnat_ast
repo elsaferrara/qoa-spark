@@ -1,0 +1,1328 @@
+(* Module for axiomatizing type "integer", created in Gnat2Why.Types.Translate_Type *)
+module Standard__integer
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use import int.Int
+  
+  type integer  = <range -2147483648 2147483647>
+  
+  function   first () requires { True } ensures  { True } returns
+    int = -2147483648
+  
+  function   last () requires { True } ensures  { True } returns
+    int = 2147483647
+  
+  function [GP_Inline]  in_range (x : int) requires { True } ensures 
+    { True } returns
+     = (([GP_Pretty_Ada:-1] (first <= x)) /\ ([GP_Pretty_Ada:-2] (x <= last)))
+  
+  clone export ada__model.Static_Discrete with axiom . type t = integer,
+    function first = first, function last = last,
+    predicate in_range = in_range
+  
+  type integer__ref  = { mutable integer__content : integer }
+  
+  function   integer__ref_integer__content__projection (a : integer__ref)
+    requires {  } ensures  {  } returns integer = a.integer__content
+  
+  meta model_projection function integer__ref_integer__content__projection
+  
+  meta inline:no function integer__ref_integer__content__projection
+  
+  function   integer__havoc (x : integer__ref) requires {  } ensures  {  }
+    returns unit
+
+end
+
+(* Module giving axioms for type "integer", created in Gnat2Why.Types.Generate_Type_Completion *)
+module Standard__integer___axiom
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use        Standard__integer
+  
+  function   dynamic_invariant
+    (([mlw:proxy_symbol] [introduced] temp___expr_18) : int
+    ([mlw:proxy_symbol] [introduced] temp___is_init_14) : bool
+    ([mlw:proxy_symbol] [introduced] temp___skip_constant_15) : bool
+    ([mlw:proxy_symbol] [introduced] temp___do_toplevel_16) : bool
+    ([mlw:proxy_symbol] [introduced] temp___do_typ_inv_17) : bool) requires
+    { True } ensures  { True } returns
+     = (Standard__integer.dynamic_property Standard__integer.first
+          Standard__integer.last ([mlw:proxy_symbol]
+          [introduced] temp___expr_18))
+
+end
+
+(* Module for axiomatizing type "integer_16" defined at interfac.ads:50, created in Gnat2Why.Types.Translate_Type *)
+module Interfaces__integer_16
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use import int.Int
+  
+  type integer_16  = <range -32768 32767>
+  
+  function   first () requires { True } ensures  { True } returns
+    int = -32768
+  
+  function   last () requires { True } ensures  { True } returns int = 32767
+  
+  function [GP_Inline]  in_range (x : int) requires { True } ensures 
+    { True } returns
+     = (([GP_Pretty_Ada:-1] (first <= x)) /\ ([GP_Pretty_Ada:-2] (x <= last)))
+  
+  clone export ada__model.Static_Discrete with axiom . type t = integer_16,
+    function first = first, function last = last,
+    predicate in_range = in_range
+  
+  type integer_16__ref  = { mutable integer_16__content : integer_16 }
+  
+  function   integer_16__ref_integer_16__content__2__projection
+    (a : integer_16__ref) requires {  } ensures  {  } returns
+    integer_16 = a.integer_16__content
+  
+  meta model_projection function integer_16__ref_integer_16__content__2__projection
+  
+  meta inline:no function integer_16__ref_integer_16__content__2__projection
+  
+  function   integer_16__havoc (x : integer_16__ref) requires {  } ensures 
+    {  } returns unit
+
+end
+
+(* Module defining to_rep/of_rep for type "integer_16" defined at interfac.ads:50, created in Gnat2Why.Types.Translate_Type *)
+module Interfaces__integer_16__rep
+  
+  use        Interfaces__integer_16
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  function   to_rep (x : Interfaces__integer_16.integer_16) requires { True }
+    ensures  { True } returns int = (Interfaces__integer_16.integer_16'int x)
+  
+  clone export ada__model.Rep_Proj_Int with axiom . type t = Interfaces__integer_16.integer_16,
+    predicate in_range = Interfaces__integer_16.in_range,
+    function to_rep = to_rep
+  
+  meta model_projection function to_rep
+  
+  meta inline:no function to_rep
+
+end
+
+(* Module for axiomatizing the array theory associated to type "Tmy_arrayB" defined at qoa.ads:20, created in Why.Gen.Arrays.Create_Rep_Array_Theory *)
+module Array__Int__Interfaces__integer_16
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use import int.Int
+  use        Interfaces__integer_16
+  use        Interfaces__integer_16__rep
+  
+  function   index_I1_one () requires { True } ensures  { True } returns
+    int = 1
+  
+  type component_type  = Interfaces__integer_16.integer_16
+  
+  clone export _gnatprove_standard.Array__1 with axiom . type I1.t = int,
+    predicate I1.le = <=, predicate I1.lt = <, predicate I1.gt = >,
+    function I1.add = +, function I1.sub = -, function I1.one = index_I1_one,
+    type component_type = component_type
+  
+  function   bool_eq
+    (a : map a__first : int a__last : int b : map b__first : int
+    b__last : int) requires { True } ensures  { True } returns
+    bool = ((if (a__first <= a__last) then
+            ((b__first <= b__last) /\
+               ((a__last - a__first) = (b__last - b__first)))
+             else (b__first > b__last)) /\
+              ( forall ([mlw:proxy_symbol] [introduced] temp___idx_168) : int
+              [].(if
+                 ((a__first <= ([mlw:proxy_symbol]
+                     [introduced] temp___idx_168)) /\
+                    (([mlw:proxy_symbol] [introduced] temp___idx_168)
+                       <= a__last))
+                 then
+                 ((Interfaces__integer_16__rep.to_rep
+                     (get a ([mlw:proxy_symbol] [introduced] temp___idx_168)))
+                    = (Interfaces__integer_16__rep.to_rep
+                         (get b
+                            ((b__first - a__first) + ([mlw:proxy_symbol]
+                               [introduced] temp___idx_168)))))
+                 )))
+  
+  axiom bool_eq_rev : ( forall a b : map
+                      [].( forall a__first a__last b__first b__last : int
+                         [].(((bool_eq b b__first b__last a a__first a__last)
+                                = True) ->
+                               ((if (a__first <= a__last) then
+                                ((b__first <= b__last) /\
+                                   ((a__last - a__first)
+                                      = (b__last - b__first)))
+                                 else (b__first > b__last)) /\
+                                  ( forall ([mlw:proxy_symbol]
+                                  [introduced] temp___idx_168) : int
+                                  [].(if
+                                     ((a__first <= ([mlw:proxy_symbol]
+                                         [introduced] temp___idx_168)) /\
+                                        (([mlw:proxy_symbol]
+                                           [introduced] temp___idx_168)
+                                           <= a__last))
+                                     then
+                                     ((Interfaces__integer_16__rep.to_rep
+                                         (get a ([mlw:proxy_symbol]
+                                            [introduced] temp___idx_168)))
+                                        = (Interfaces__integer_16__rep.to_rep
+                                             (get b
+                                                ((b__first - a__first)
+                                                   + ([mlw:proxy_symbol]
+                                                   [introduced] temp___idx_168)))))
+                                     ))))))
+
+end
+
+(* Module for axiomatizing type "my_array" defined at qoa.ads:20, created in Gnat2Why.Types.Translate_Type *)
+module Qoa__my_array
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use import int.Int
+  use        Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  
+  type component_type  = Interfaces__integer_16.integer_16
+  
+  function   first () requires {  } ensures  {  } returns int = 1
+  
+  function   last () requires {  } ensures  {  } returns int = 4
+  
+  clone export ada__model.Constr_Array with axiom . type map = Array__Int__Interfaces__integer_16.map,
+    function array_bool_eq = Array__Int__Interfaces__integer_16.bool_eq,
+    function first = first, function last = last, type index_rep_type = int
+
+end
+
+(* Module for axiomatizing the record theory associated to type "qoa_lms_t" defined at qoa.ads:21, created in Why.Gen.Records.Create_Rep_Record_Theory_If_Needed *)
+module Qoa__qoa_lms_t__rep
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use        Qoa__my_array
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  
+  type __split_fields  = { [model_trace:.1861]
+                           [name:history]rec__qoa__qoa_lms_t__history : Array__Int__Interfaces__integer_16.map;
+                           [model_trace:.1866]
+                           [name:weights]rec__qoa__qoa_lms_t__weights : Array__Int__Interfaces__integer_16.map }
+  
+  function [model_trace:.1861] [name:history] 
+    __split_fields_rec__qoa__qoa_lms_t__history__projection
+    (a : __split_fields) requires {  } ensures  {  } returns
+    Array__Int__Interfaces__integer_16.map = a.rec__qoa__qoa_lms_t__history
+  
+  meta model_projection function __split_fields_rec__qoa__qoa_lms_t__history__projection
+  
+  meta inline:no function __split_fields_rec__qoa__qoa_lms_t__history__projection
+  
+  function [model_trace:.1866] [name:weights] 
+    __split_fields_rec__qoa__qoa_lms_t__weights__projection
+    (a : __split_fields) requires {  } ensures  {  } returns
+    Array__Int__Interfaces__integer_16.map = a.rec__qoa__qoa_lms_t__weights
+  
+  meta model_projection function __split_fields_rec__qoa__qoa_lms_t__weights__projection
+  
+  meta inline:no function __split_fields_rec__qoa__qoa_lms_t__weights__projection
+  
+  type __split_fields__ref  = { mutable __split_fields__content : __split_fields }
+  
+  function   __split_fields__ref___split_fields__content__projection
+    (a : __split_fields__ref) requires {  } ensures  {  } returns
+    __split_fields = a.__split_fields__content
+  
+  meta model_projection function __split_fields__ref___split_fields__content__projection
+  
+  meta inline:no function __split_fields__ref___split_fields__content__projection
+  
+  function   __split_fields__havoc (x : __split_fields__ref) requires {  }
+    ensures  {  } returns unit
+  
+  type __rep  = { __split_fields : __split_fields }
+  
+  function   __rep___split_fields__projection (a : __rep) requires {  }
+    ensures  {  } returns __split_fields = a.__split_fields
+  
+  meta model_projection function __rep___split_fields__projection
+  
+  meta inline:no function __rep___split_fields__projection
+  
+  function   to_base (a : __rep) requires { True } ensures  { True } returns
+    __rep = a
+  
+  function   of_base (a : __rep) requires { True } ensures  { True } returns
+    __rep = a
+  
+  function   qoa__qoa_lms_t__history__pred (a : __rep) requires { True }
+    ensures  { True } returns  = True
+  
+  function   rec__qoa__qoa_lms_t__history_ (a : __rep) requires
+    { (qoa__qoa_lms_t__history__pred a) } ensures 
+    { (result = a.__split_fields.rec__qoa__qoa_lms_t__history) } returns
+    Array__Int__Interfaces__integer_16.map
+  
+  function   qoa__qoa_lms_t__weights__pred (a : __rep) requires { True }
+    ensures  { True } returns  = True
+  
+  function   rec__qoa__qoa_lms_t__weights_ (a : __rep) requires
+    { (qoa__qoa_lms_t__weights__pred a) } ensures 
+    { (result = a.__split_fields.rec__qoa__qoa_lms_t__weights) } returns
+    Array__Int__Interfaces__integer_16.map
+  
+  function   bool_eq (a : __rep b : __rep) requires { True } ensures 
+    { True } returns
+    bool = (if
+           (True /\
+              (Qoa__my_array.bool_eq
+                 a.__split_fields.rec__qoa__qoa_lms_t__history
+                 b.__split_fields.rec__qoa__qoa_lms_t__history) /\
+              (Qoa__my_array.bool_eq
+                 a.__split_fields.rec__qoa__qoa_lms_t__weights
+                 b.__split_fields.rec__qoa__qoa_lms_t__weights))
+           then True  else False)
+
+end
+
+(* Module for axiomatizing type "qoa_lms_t" defined at qoa.ads:21, created in Gnat2Why.Types.Translate_Type *)
+module Qoa__qoa_lms_t
+  
+  use export Qoa__qoa_lms_t__rep
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use import int.Int
+  use        Qoa__qoa_lms_t__rep
+  
+  type qoa_lms_t  = __rep
+  
+  function   value__size () requires {  } ensures  {  } returns int
+  
+  function   object__size () requires {  } ensures  {  } returns int
+  
+  function   alignment () requires {  } ensures  {  } returns int
+  
+  axiom value__size_axiom : ((value__size ) >= 0)
+  
+  axiom object__size_axiom : ((object__size ) >= 0)
+  
+  axiom alignment_axiom : ((alignment ) >= 0)
+  
+  function   qoa__qoa_lms_t__history__first__bit () requires {  } ensures 
+    {  } returns int
+  
+  function   qoa__qoa_lms_t__history__last__bit () requires {  } ensures 
+    {  } returns int
+  
+  function   qoa__qoa_lms_t__history__position () requires {  } ensures  {  }
+    returns int
+  
+  axiom qoa__qoa_lms_t__history__first__bit_axiom : ((qoa__qoa_lms_t__history__first__bit
+                                                        ) >= 0)
+  
+  axiom qoa__qoa_lms_t__history__last__bit_axiom : ((qoa__qoa_lms_t__history__last__bit
+                                                       )
+                                                      > (qoa__qoa_lms_t__history__first__bit
+                                                           ))
+  
+  axiom qoa__qoa_lms_t__history__position_axiom : ((qoa__qoa_lms_t__history__position
+                                                      ) >= 0)
+  
+  function   qoa__qoa_lms_t__weights__first__bit () requires {  } ensures 
+    {  } returns int
+  
+  function   qoa__qoa_lms_t__weights__last__bit () requires {  } ensures 
+    {  } returns int
+  
+  function   qoa__qoa_lms_t__weights__position () requires {  } ensures  {  }
+    returns int
+  
+  axiom qoa__qoa_lms_t__weights__first__bit_axiom : ((qoa__qoa_lms_t__weights__first__bit
+                                                        ) >= 0)
+  
+  axiom qoa__qoa_lms_t__weights__last__bit_axiom : ((qoa__qoa_lms_t__weights__last__bit
+                                                       )
+                                                      > (qoa__qoa_lms_t__weights__first__bit
+                                                           ))
+  
+  axiom qoa__qoa_lms_t__weights__position_axiom : ((qoa__qoa_lms_t__weights__position
+                                                      ) >= 0)
+  
+  function   dummy () requires {  } ensures  {  } returns qoa_lms_t
+  
+  type qoa_lms_t__ref  = { mutable qoa_lms_t__content : qoa_lms_t }
+  
+  function   qoa_lms_t__ref_qoa_lms_t__content__projection
+    (a : qoa_lms_t__ref) requires {  } ensures  {  } returns
+    qoa_lms_t = a.qoa_lms_t__content
+  
+  meta model_projection function qoa_lms_t__ref_qoa_lms_t__content__projection
+  
+  meta inline:no function qoa_lms_t__ref_qoa_lms_t__content__projection
+  
+  function   qoa_lms_t__havoc (x : qoa_lms_t__ref) requires {  } ensures 
+    {  } returns unit
+
+end
+
+(* Module for defining a ref holding the value of variable "lms" defined at qoa.ads:91, created in Gnat2Why.Decls.Translate_Variable *)
+module Qoa__lms_update__lms
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use        Qoa__qoa_lms_t
+  
+  val lms__split_fields [model_projected] [name:lms]
+  [model_trace:2265'Fields] [sloc:qoa.ads:91]: Qoa__qoa_lms_t.__split_fields
+
+end
+
+(* Module giving axioms for type "qoa_lms_t" defined at qoa.ads:21, created in Gnat2Why.Types.Generate_Type_Completion *)
+module Qoa__qoa_lms_t___axiom
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use        Qoa__qoa_lms_t
+  
+  function   dynamic_invariant
+    (([mlw:proxy_symbol]
+    [introduced] temp___expr_391) : Qoa__qoa_lms_t.qoa_lms_t
+    ([mlw:proxy_symbol] [introduced] temp___is_init_387) : bool
+    ([mlw:proxy_symbol] [introduced] temp___skip_constant_388) : bool
+    ([mlw:proxy_symbol] [introduced] temp___do_toplevel_389) : bool
+    ([mlw:proxy_symbol] [introduced] temp___do_typ_inv_390) : bool) requires
+    { True } ensures  { True } returns  = True
+
+end
+
+(* Module for defining the constant "sample" defined at qoa.ads:92, created in Gnat2Why.Decls.Translate_Constant *)
+module Qoa__lms_update__sample
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  function [model_trace:2268] [name:sample] [sloc:qoa.ads:92] sample 
+    () requires {  } ensures  {  } returns int
+
+end
+
+(* Module for defining the constant "residual" defined at qoa.ads:93, created in Gnat2Why.Decls.Translate_Constant *)
+module Qoa__lms_update__residual
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  function [model_trace:2271] [name:residual] [sloc:qoa.ads:93] residual 
+    () requires {  } ensures  {  } returns int
+
+end
+
+(* Module for defining the constant "d" defined at qoa.adb:80, created in Gnat2Why.Decls.Translate_Constant *)
+module Qoa__lms_update__d
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  function [name:d] [model_trace:944] [sloc:qoa.adb:80] d () requires {  }
+    ensures  {  } returns int
+
+end
+
+(* Module for defining a ref holding the value of variable "i" defined at qoa.adb:82, created in Gnat2Why.Decls.Translate_Variable *)
+module Qoa__lms_update__L_2__i
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  val i [name:i] [model_projected] [model_trace:957] [sloc:qoa.adb:82]: int
+
+end
+
+(* Module for defining a ref holding the value of variable "i" defined at qoa.adb:89, created in Gnat2Why.Decls.Translate_Variable *)
+module Qoa__lms_update__L_3__i
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  val i [name:i] [model_projected] [model_trace:1001] [sloc:qoa.adb:89]: int
+
+end
+
+(* Module for axiomatizing type "Tinteger_16B" defined at interfac.ads:50, created in Gnat2Why.Types.Translate_Type *)
+module Interfaces__Tinteger_16B
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use import int.Int
+  
+  type tinteger_16B  = <range -32768 32767>
+  
+  function   first () requires { True } ensures  { True } returns
+    int = -32768
+  
+  function   last () requires { True } ensures  { True } returns int = 32767
+  
+  function [GP_Inline]  in_range (x : int) requires { True } ensures 
+    { True } returns
+     = (([GP_Pretty_Ada:-1] (first <= x)) /\ ([GP_Pretty_Ada:-2] (x <= last)))
+  
+  clone export ada__model.Static_Discrete with axiom . type t = tinteger_16B,
+    function first = first, function last = last,
+    predicate in_range = in_range
+  
+  type tinteger_16B__ref  = { mutable tinteger_16B__content : tinteger_16B }
+  
+  function   tinteger_16B__ref_tinteger_16B__content__projection
+    (a : tinteger_16B__ref) requires {  } ensures  {  } returns
+    tinteger_16B = a.tinteger_16B__content
+  
+  meta model_projection function tinteger_16B__ref_tinteger_16B__content__projection
+  
+  meta inline:no function tinteger_16B__ref_tinteger_16B__content__projection
+  
+  function   tinteger_16B__havoc (x : tinteger_16B__ref) requires {  }
+    ensures  {  } returns unit
+
+end
+
+(* Module giving axioms for type "integer_16" defined at interfac.ads:50, created in Gnat2Why.Types.Generate_Type_Completion *)
+module Interfaces__integer_16___axiom
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use        Interfaces__integer_16
+  
+  function   dynamic_invariant
+    (([mlw:proxy_symbol] [introduced] temp___expr_374) : int
+    ([mlw:proxy_symbol] [introduced] temp___is_init_370) : bool
+    ([mlw:proxy_symbol] [introduced] temp___skip_constant_371) : bool
+    ([mlw:proxy_symbol] [introduced] temp___do_toplevel_372) : bool
+    ([mlw:proxy_symbol] [introduced] temp___do_typ_inv_373) : bool) requires
+    { True } ensures  { True } returns
+     = (Interfaces__integer_16.dynamic_property Interfaces__integer_16.first
+          Interfaces__integer_16.last ([mlw:proxy_symbol]
+          [introduced] temp___expr_374))
+
+end
+
+(* Module for defining the loop exit exception for the loop "L_2" defined at qoa.adb:82, created in Gnat2Why.Decls.Translate_Loop_Entity *)
+module Qoa__lms_update__L_2
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  exception L_2 
+
+end
+
+(* Module for defining the loop exit exception for the loop "L_3" defined at qoa.adb:89, created in Gnat2Why.Decls.Translate_Loop_Entity *)
+module Qoa__lms_update__L_3
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  exception L_3 
+
+end
+
+(* Module giving axioms for type "Tinteger_16B" defined at interfac.ads:50, created in Gnat2Why.Types.Generate_Type_Completion *)
+module Interfaces__Tinteger_16B___axiom
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  
+  
+
+end
+
+(* Module giving axioms for type "my_array" defined at qoa.ads:20, created in Gnat2Why.Types.Generate_Type_Completion *)
+module Qoa__my_array___axiom
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use        Array__Int__Interfaces__integer_16
+  
+  function   dynamic_invariant
+    (([mlw:proxy_symbol]
+    [introduced] temp___expr_381) : Array__Int__Interfaces__integer_16.map
+    ([mlw:proxy_symbol] [introduced] temp___is_init_377) : bool
+    ([mlw:proxy_symbol] [introduced] temp___skip_constant_378) : bool
+    ([mlw:proxy_symbol] [introduced] temp___do_toplevel_379) : bool
+    ([mlw:proxy_symbol] [introduced] temp___do_typ_inv_380) : bool) requires
+    { True } ensures  { True } returns  = True
+
+end
+
+(* Module for defining the value of constant "d" defined at qoa.adb:80, created in Gnat2Why.Decls.Translate_Constant_Value *)
+module Qoa__lms_update__d___axiom
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use import int.Int
+  use        _gnatprove_standard.Int_Division
+  use        Qoa__lms_update__residual
+  use        Qoa__lms_update__d
+  
+  axiom d__def_axiom : ((Qoa__lms_update__d.d )
+                          = ( (_gnatprove_standard.Int_Division.div
+                                 Qoa__lms_update__residual.residual 16)))
+
+end
+
+(* Module for checking contracts and absence of run-time errors in subprogram "lms_update" defined at qoa.ads:91, created in Gnat2Why.Subprograms.Generate_VCs_For_Subprogram *)
+module Qoa__lms_update__subprogram_def
+  
+  use import _gnatprove_standard.Main
+  use import int.Int
+  use import int.Int
+  use        _gnatprove_standard.Main
+  use        _gnatprove_standard.Int_Division
+  use        Standard__integer
+  use        Standard__integer___axiom
+  use        Qoa__qoa_lms_t
+  use        Qoa__lms_update__lms
+  use        Qoa__qoa_lms_t___axiom
+  use        Qoa__lms_update__sample
+  use        Qoa__lms_update__residual
+  use        Qoa__lms_update__d
+  use        Qoa__lms_update__L_2__i
+  use        Qoa__lms_update__L_3__i
+  use        Interfaces__Tinteger_16B
+  use        Interfaces__integer_16
+  use        Interfaces__integer_16___axiom
+  use        Interfaces__integer_16__rep
+  use        Array__Int__Interfaces__integer_16
+  use        Qoa__lms_update__L_2
+  use        Qoa__lms_update__L_3
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use import int.Int
+  use        _gnatprove_standard.Main
+  use        _gnatprove_standard.Int_Division
+  use        Standard__integer
+  use        Standard__integer___axiom
+  use        Qoa__qoa_lms_t
+  use        Qoa__lms_update__lms
+  use        Qoa__qoa_lms_t___axiom
+  use        Qoa__lms_update__sample
+  use        Qoa__lms_update__residual
+  use        Qoa__lms_update__d
+  use        Qoa__lms_update__L_2__i
+  use        Qoa__lms_update__L_3__i
+  use        Interfaces__Tinteger_16B
+  use        Interfaces__Tinteger_16B___axiom
+  use        Interfaces__integer_16
+  use        Interfaces__integer_16___axiom
+  use        Interfaces__integer_16__rep
+  use        Array__Int__Interfaces__integer_16
+  use        Qoa__my_array
+  use        Qoa__my_array___axiom
+  use        Qoa__qoa_lms_t__rep
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Qoa__lms_update__d___axiom
+  use        Qoa__lms_update__L_2
+  use        Qoa__lms_update__L_3
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  use        Array__Int__Interfaces__integer_16
+  
+  function  [sloc:qoa.ads:91] def (__void_param : unit) requires { True }
+    ensures  {  } returns
+     = (* Assume dynamic invariants of inputs of the subprogram qoa.ads:91 *);
+        assume
+        { (Qoa__qoa_lms_t___axiom.dynamic_invariant
+             {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields}
+             True False True True) };
+        assume
+        { (Standard__integer___axiom.dynamic_invariant
+             Qoa__lms_update__sample.sample True False True True) };
+        assume
+        { (Standard__integer___axiom.dynamic_invariant
+             Qoa__lms_update__residual.residual True False True True) };
+        (* Assume moved pointers in outputs of the subprogram qoa.ads:91 *);
+        (* Check for RTE in the Pre of the subprogram qoa.ads:91 *);
+        abstract ensures
+        { True } begin  (let _ =
+                       (let ([mlw:proxy_symbol] [introduced] temp___600) =
+                         ([sloc:qoa.ads:95] ([GP_Shape:pragargs__in__div]
+                                            [GP_Check:5:VC_DIVISION_CHECK:qoa.ads:95:24]
+                                            [vc:annotation] (_gnatprove_standard.Int_Division.div_
+                                                               Qoa__lms_update__residual.residual
+                                                               16))) in
+                         (Standard__integer.in_range ([mlw:proxy_symbol]
+                            [introduced] temp___600)))
+                       in ())  end;
+        (* Assume Pre of the subprogram qoa.ads:91 *);
+        assume
+        { (let ([mlw:proxy_symbol] [introduced] temp___601) =
+          (_gnatprove_standard.Int_Division.div
+             Qoa__lms_update__residual.residual 16) in
+          (Standard__integer.in_range ([mlw:proxy_symbol]
+             [introduced] temp___601))) };
+        (try
+        ();
+          ([sloc:qoa.adb:80] (let qoa__lms_update__d__assume =
+          ( ([sloc:qoa.adb:80] ([vc:annotation]
+                               [GP_Shape:d_decl__typeconv__div]
+                               [GP_Check:1:VC_RANGE_CHECK:qoa.adb:80:56] (
+                               Interfaces__integer_16.range_check_
+                                 ([sloc:qoa.adb:80] ([vc:annotation]
+                                                    [GP_Check:0:VC_DIVISION_CHECK:qoa.adb:80:56]
+                                                    [GP_Shape:d_decl__typeconv__div] (
+                                                    _gnatprove_standard.Int_Division.div_
+                                                      Qoa__lms_update__residual.residual
+                                                      16)))))))
+          in assume
+          { (qoa__lms_update__d__assume = Qoa__lms_update__d.d) });
+          assume
+          { (Interfaces__integer_16___axiom.dynamic_invariant
+               Qoa__lms_update__d.d True False True True) });
+          ([sloc:qoa.adb:82] ());
+          ([sloc:qoa.adb:89] ());
+          ();
+          ([sloc:qoa.adb:82] (let ([mlw:proxy_symbol]
+          [introduced] temp___564) = 1 in (let ([mlw:proxy_symbol]
+          [introduced] temp___565) = 4 in
+          (* Translation of an unrolled Ada loop from qoa.adb:82 *);
+          (try
+          (let temp___loop_entry_581 =
+            {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields}
+            in (* Unrolling of the loop statements of loop qoa.adb:82 *);
+            ( Qoa__lms_update__L_2__i.i :=
+            1);
+            ();
+            ([sloc:qoa.adb:83] (if
+                               ([sloc:qoa.adb:83] ([branch_id=965]
+                               _gnatprove_standard.Main.spark__branch :=
+                               ((Interfaces__integer_16__rep.to_rep
+                                   (let ([mlw:proxy_symbol]
+                                   [introduced] temp___580) =
+                                   ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields}).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__history
+                                   in
+                                   (Array__Int__Interfaces__integer_16.get
+                                      ([mlw:proxy_symbol]
+                                      [introduced] temp___580)
+                                      !Qoa__lms_update__L_2__i.i))) < 0)));
+                               ([branch_id=965] _gnatprove_standard.Main.spark__branch).bool__content
+                               then
+                               ();
+                               ([sloc:qoa.adb:84] (let ([mlw:proxy_symbol]
+                               [introduced] temp___572) =
+                               (let ([mlw:proxy_symbol]
+                                 [introduced] temp___570) =
+                                 ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields})
+                                 in (let ([mlw:proxy_symbol]
+                                 [introduced] temp___571) =
+                                 ([mlw:proxy_symbol] [introduced] temp___570)
+                                 in abstract ensures
+                                 { True } begin  (let _ =
+                                                ([mlw:proxy_symbol]
+                                                  [introduced] temp___571).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__weights
+                                                in ())  end;
+                                 {([mlw:proxy_symbol]
+                                 [introduced] temp___571) with Qoa__qoa_lms_t.__split_fields : 
+                                 {([mlw:proxy_symbol]
+                                 [introduced] temp___571).Qoa__qoa_lms_t.__split_fields with Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__weights : (let ([mlw:proxy_symbol]
+                                 [introduced] temp___568) =
+                                 ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields}).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__weights
+                                 in (let ([mlw:proxy_symbol]
+                                 [introduced] temp___569) =
+                                 ([mlw:proxy_symbol] [introduced] temp___568)
+                                 in
+                                 (Array__Int__Interfaces__integer_16.set
+                                    ([mlw:proxy_symbol]
+                                    [introduced] temp___568)
+                                    !Qoa__lms_update__L_2__i.i
+                                    (Interfaces__integer_16__rep.of_rep
+                                       ( ([sloc:qoa.adb:84] ([GP_Shape:L_2_while__if__lms_assign__sub]
+                                                            [vc:annotation]
+                                                            [GP_Check:2:VC_OVERFLOW_CHECK:qoa.adb:84:48] (
+                                                            Interfaces__Tinteger_16B.range_check_
+                                                              ((Interfaces__integer_16__rep.to_rep
+                                                                  (let ([mlw:proxy_symbol]
+                                                                  [introduced] temp___567)
+                                                                  =
+                                                                  ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields}).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__weights
+                                                                  in
+                                                                  (Array__Int__Interfaces__integer_16.get
+                                                                    ([mlw:proxy_symbol]
+                                                                    [introduced] temp___567)
+                                                                    !Qoa__lms_update__L_2__i.i)))
+                                                                 - Qoa__lms_update__d.d)))))))))}}))
+                               in ( Qoa__lms_update__lms.lms__split_fields :=
+                               ([mlw:proxy_symbol]
+                                 [introduced] temp___572).Qoa__qoa_lms_t.__split_fields)))
+                                else
+                               ();
+                               ([sloc:qoa.adb:86] (let ([mlw:proxy_symbol]
+                               [introduced] temp___579) =
+                               (let ([mlw:proxy_symbol]
+                                 [introduced] temp___577) =
+                                 ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields})
+                                 in (let ([mlw:proxy_symbol]
+                                 [introduced] temp___578) =
+                                 ([mlw:proxy_symbol] [introduced] temp___577)
+                                 in abstract ensures
+                                 { True } begin  (let _ =
+                                                ([mlw:proxy_symbol]
+                                                  [introduced] temp___578).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__weights
+                                                in ())  end;
+                                 {([mlw:proxy_symbol]
+                                 [introduced] temp___578) with Qoa__qoa_lms_t.__split_fields : 
+                                 {([mlw:proxy_symbol]
+                                 [introduced] temp___578).Qoa__qoa_lms_t.__split_fields with Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__weights : (let ([mlw:proxy_symbol]
+                                 [introduced] temp___575) =
+                                 ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields}).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__weights
+                                 in (let ([mlw:proxy_symbol]
+                                 [introduced] temp___576) =
+                                 ([mlw:proxy_symbol] [introduced] temp___575)
+                                 in
+                                 (Array__Int__Interfaces__integer_16.set
+                                    ([mlw:proxy_symbol]
+                                    [introduced] temp___575)
+                                    !Qoa__lms_update__L_2__i.i
+                                    (Interfaces__integer_16__rep.of_rep
+                                       ( ([sloc:qoa.adb:86] ([GP_Shape:L_2_while__if__lms_assign__add]
+                                                            [vc:annotation]
+                                                            [GP_Check:3:VC_OVERFLOW_CHECK:qoa.adb:86:48] (
+                                                            Interfaces__Tinteger_16B.range_check_
+                                                              ((Interfaces__integer_16__rep.to_rep
+                                                                  (let ([mlw:proxy_symbol]
+                                                                  [introduced] temp___574)
+                                                                  =
+                                                                  ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields}).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__weights
+                                                                  in
+                                                                  (Array__Int__Interfaces__integer_16.get
+                                                                    ([mlw:proxy_symbol]
+                                                                    [introduced] temp___574)
+                                                                    !Qoa__lms_update__L_2__i.i)))
+                                                                 + Qoa__lms_update__d.d)))))))))}}))
+                               in ( Qoa__lms_update__lms.lms__split_fields :=
+                               ([mlw:proxy_symbol]
+                                 [introduced] temp___579).Qoa__qoa_lms_t.__split_fields)))));
+            ( Qoa__lms_update__L_2__i.i :=
+            2);
+            ();
+            ([sloc:qoa.adb:83] (if
+                               ([sloc:qoa.adb:83] ([branch_id=965]
+                               _gnatprove_standard.Main.spark__branch :=
+                               ((Interfaces__integer_16__rep.to_rep
+                                   (let ([mlw:proxy_symbol]
+                                   [introduced] temp___580) =
+                                   ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields}).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__history
+                                   in
+                                   (Array__Int__Interfaces__integer_16.get
+                                      ([mlw:proxy_symbol]
+                                      [introduced] temp___580)
+                                      !Qoa__lms_update__L_2__i.i))) < 0)));
+                               ([branch_id=965] _gnatprove_standard.Main.spark__branch).bool__content
+                               then
+                               ();
+                               ([sloc:qoa.adb:84] (let ([mlw:proxy_symbol]
+                               [introduced] temp___572) =
+                               (let ([mlw:proxy_symbol]
+                                 [introduced] temp___570) =
+                                 ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields})
+                                 in (let ([mlw:proxy_symbol]
+                                 [introduced] temp___571) =
+                                 ([mlw:proxy_symbol] [introduced] temp___570)
+                                 in abstract ensures
+                                 { True } begin  (let _ =
+                                                ([mlw:proxy_symbol]
+                                                  [introduced] temp___571).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__weights
+                                                in ())  end;
+                                 {([mlw:proxy_symbol]
+                                 [introduced] temp___571) with Qoa__qoa_lms_t.__split_fields : 
+                                 {([mlw:proxy_symbol]
+                                 [introduced] temp___571).Qoa__qoa_lms_t.__split_fields with Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__weights : (let ([mlw:proxy_symbol]
+                                 [introduced] temp___568) =
+                                 ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields}).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__weights
+                                 in (let ([mlw:proxy_symbol]
+                                 [introduced] temp___569) =
+                                 ([mlw:proxy_symbol] [introduced] temp___568)
+                                 in
+                                 (Array__Int__Interfaces__integer_16.set
+                                    ([mlw:proxy_symbol]
+                                    [introduced] temp___568)
+                                    !Qoa__lms_update__L_2__i.i
+                                    (Interfaces__integer_16__rep.of_rep
+                                       ( ([sloc:qoa.adb:84] ([GP_Shape:L_2_while__if__lms_assign__sub]
+                                                            [vc:annotation]
+                                                            [GP_Check:2:VC_OVERFLOW_CHECK:qoa.adb:84:48] (
+                                                            Interfaces__Tinteger_16B.range_check_
+                                                              ((Interfaces__integer_16__rep.to_rep
+                                                                  (let ([mlw:proxy_symbol]
+                                                                  [introduced] temp___567)
+                                                                  =
+                                                                  ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields}).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__weights
+                                                                  in
+                                                                  (Array__Int__Interfaces__integer_16.get
+                                                                    ([mlw:proxy_symbol]
+                                                                    [introduced] temp___567)
+                                                                    !Qoa__lms_update__L_2__i.i)))
+                                                                 - Qoa__lms_update__d.d)))))))))}}))
+                               in ( Qoa__lms_update__lms.lms__split_fields :=
+                               ([mlw:proxy_symbol]
+                                 [introduced] temp___572).Qoa__qoa_lms_t.__split_fields)))
+                                else
+                               ();
+                               ([sloc:qoa.adb:86] (let ([mlw:proxy_symbol]
+                               [introduced] temp___579) =
+                               (let ([mlw:proxy_symbol]
+                                 [introduced] temp___577) =
+                                 ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields})
+                                 in (let ([mlw:proxy_symbol]
+                                 [introduced] temp___578) =
+                                 ([mlw:proxy_symbol] [introduced] temp___577)
+                                 in abstract ensures
+                                 { True } begin  (let _ =
+                                                ([mlw:proxy_symbol]
+                                                  [introduced] temp___578).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__weights
+                                                in ())  end;
+                                 {([mlw:proxy_symbol]
+                                 [introduced] temp___578) with Qoa__qoa_lms_t.__split_fields : 
+                                 {([mlw:proxy_symbol]
+                                 [introduced] temp___578).Qoa__qoa_lms_t.__split_fields with Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__weights : (let ([mlw:proxy_symbol]
+                                 [introduced] temp___575) =
+                                 ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields}).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__weights
+                                 in (let ([mlw:proxy_symbol]
+                                 [introduced] temp___576) =
+                                 ([mlw:proxy_symbol] [introduced] temp___575)
+                                 in
+                                 (Array__Int__Interfaces__integer_16.set
+                                    ([mlw:proxy_symbol]
+                                    [introduced] temp___575)
+                                    !Qoa__lms_update__L_2__i.i
+                                    (Interfaces__integer_16__rep.of_rep
+                                       ( ([sloc:qoa.adb:86] ([GP_Shape:L_2_while__if__lms_assign__add]
+                                                            [vc:annotation]
+                                                            [GP_Check:3:VC_OVERFLOW_CHECK:qoa.adb:86:48] (
+                                                            Interfaces__Tinteger_16B.range_check_
+                                                              ((Interfaces__integer_16__rep.to_rep
+                                                                  (let ([mlw:proxy_symbol]
+                                                                  [introduced] temp___574)
+                                                                  =
+                                                                  ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields}).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__weights
+                                                                  in
+                                                                  (Array__Int__Interfaces__integer_16.get
+                                                                    ([mlw:proxy_symbol]
+                                                                    [introduced] temp___574)
+                                                                    !Qoa__lms_update__L_2__i.i)))
+                                                                 + Qoa__lms_update__d.d)))))))))}}))
+                               in ( Qoa__lms_update__lms.lms__split_fields :=
+                               ([mlw:proxy_symbol]
+                                 [introduced] temp___579).Qoa__qoa_lms_t.__split_fields)))));
+            ( Qoa__lms_update__L_2__i.i :=
+            3);
+            ();
+            ([sloc:qoa.adb:83] (if
+                               ([sloc:qoa.adb:83] ([branch_id=965]
+                               _gnatprove_standard.Main.spark__branch :=
+                               ((Interfaces__integer_16__rep.to_rep
+                                   (let ([mlw:proxy_symbol]
+                                   [introduced] temp___580) =
+                                   ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields}).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__history
+                                   in
+                                   (Array__Int__Interfaces__integer_16.get
+                                      ([mlw:proxy_symbol]
+                                      [introduced] temp___580)
+                                      !Qoa__lms_update__L_2__i.i))) < 0)));
+                               ([branch_id=965] _gnatprove_standard.Main.spark__branch).bool__content
+                               then
+                               ();
+                               ([sloc:qoa.adb:84] (let ([mlw:proxy_symbol]
+                               [introduced] temp___572) =
+                               (let ([mlw:proxy_symbol]
+                                 [introduced] temp___570) =
+                                 ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields})
+                                 in (let ([mlw:proxy_symbol]
+                                 [introduced] temp___571) =
+                                 ([mlw:proxy_symbol] [introduced] temp___570)
+                                 in abstract ensures
+                                 { True } begin  (let _ =
+                                                ([mlw:proxy_symbol]
+                                                  [introduced] temp___571).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__weights
+                                                in ())  end;
+                                 {([mlw:proxy_symbol]
+                                 [introduced] temp___571) with Qoa__qoa_lms_t.__split_fields : 
+                                 {([mlw:proxy_symbol]
+                                 [introduced] temp___571).Qoa__qoa_lms_t.__split_fields with Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__weights : (let ([mlw:proxy_symbol]
+                                 [introduced] temp___568) =
+                                 ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields}).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__weights
+                                 in (let ([mlw:proxy_symbol]
+                                 [introduced] temp___569) =
+                                 ([mlw:proxy_symbol] [introduced] temp___568)
+                                 in
+                                 (Array__Int__Interfaces__integer_16.set
+                                    ([mlw:proxy_symbol]
+                                    [introduced] temp___568)
+                                    !Qoa__lms_update__L_2__i.i
+                                    (Interfaces__integer_16__rep.of_rep
+                                       ( ([sloc:qoa.adb:84] ([GP_Shape:L_2_while__if__lms_assign__sub]
+                                                            [vc:annotation]
+                                                            [GP_Check:2:VC_OVERFLOW_CHECK:qoa.adb:84:48] (
+                                                            Interfaces__Tinteger_16B.range_check_
+                                                              ((Interfaces__integer_16__rep.to_rep
+                                                                  (let ([mlw:proxy_symbol]
+                                                                  [introduced] temp___567)
+                                                                  =
+                                                                  ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields}).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__weights
+                                                                  in
+                                                                  (Array__Int__Interfaces__integer_16.get
+                                                                    ([mlw:proxy_symbol]
+                                                                    [introduced] temp___567)
+                                                                    !Qoa__lms_update__L_2__i.i)))
+                                                                 - Qoa__lms_update__d.d)))))))))}}))
+                               in ( Qoa__lms_update__lms.lms__split_fields :=
+                               ([mlw:proxy_symbol]
+                                 [introduced] temp___572).Qoa__qoa_lms_t.__split_fields)))
+                                else
+                               ();
+                               ([sloc:qoa.adb:86] (let ([mlw:proxy_symbol]
+                               [introduced] temp___579) =
+                               (let ([mlw:proxy_symbol]
+                                 [introduced] temp___577) =
+                                 ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields})
+                                 in (let ([mlw:proxy_symbol]
+                                 [introduced] temp___578) =
+                                 ([mlw:proxy_symbol] [introduced] temp___577)
+                                 in abstract ensures
+                                 { True } begin  (let _ =
+                                                ([mlw:proxy_symbol]
+                                                  [introduced] temp___578).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__weights
+                                                in ())  end;
+                                 {([mlw:proxy_symbol]
+                                 [introduced] temp___578) with Qoa__qoa_lms_t.__split_fields : 
+                                 {([mlw:proxy_symbol]
+                                 [introduced] temp___578).Qoa__qoa_lms_t.__split_fields with Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__weights : (let ([mlw:proxy_symbol]
+                                 [introduced] temp___575) =
+                                 ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields}).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__weights
+                                 in (let ([mlw:proxy_symbol]
+                                 [introduced] temp___576) =
+                                 ([mlw:proxy_symbol] [introduced] temp___575)
+                                 in
+                                 (Array__Int__Interfaces__integer_16.set
+                                    ([mlw:proxy_symbol]
+                                    [introduced] temp___575)
+                                    !Qoa__lms_update__L_2__i.i
+                                    (Interfaces__integer_16__rep.of_rep
+                                       ( ([sloc:qoa.adb:86] ([GP_Shape:L_2_while__if__lms_assign__add]
+                                                            [vc:annotation]
+                                                            [GP_Check:3:VC_OVERFLOW_CHECK:qoa.adb:86:48] (
+                                                            Interfaces__Tinteger_16B.range_check_
+                                                              ((Interfaces__integer_16__rep.to_rep
+                                                                  (let ([mlw:proxy_symbol]
+                                                                  [introduced] temp___574)
+                                                                  =
+                                                                  ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields}).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__weights
+                                                                  in
+                                                                  (Array__Int__Interfaces__integer_16.get
+                                                                    ([mlw:proxy_symbol]
+                                                                    [introduced] temp___574)
+                                                                    !Qoa__lms_update__L_2__i.i)))
+                                                                 + Qoa__lms_update__d.d)))))))))}}))
+                               in ( Qoa__lms_update__lms.lms__split_fields :=
+                               ([mlw:proxy_symbol]
+                                 [introduced] temp___579).Qoa__qoa_lms_t.__split_fields)))));
+            ( Qoa__lms_update__L_2__i.i :=
+            4);
+            ();
+            ([sloc:qoa.adb:83] (if
+                               ([sloc:qoa.adb:83] ([branch_id=965]
+                               _gnatprove_standard.Main.spark__branch :=
+                               ((Interfaces__integer_16__rep.to_rep
+                                   (let ([mlw:proxy_symbol]
+                                   [introduced] temp___580) =
+                                   ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields}).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__history
+                                   in
+                                   (Array__Int__Interfaces__integer_16.get
+                                      ([mlw:proxy_symbol]
+                                      [introduced] temp___580)
+                                      !Qoa__lms_update__L_2__i.i))) < 0)));
+                               ([branch_id=965] _gnatprove_standard.Main.spark__branch).bool__content
+                               then
+                               ();
+                               ([sloc:qoa.adb:84] (let ([mlw:proxy_symbol]
+                               [introduced] temp___572) =
+                               (let ([mlw:proxy_symbol]
+                                 [introduced] temp___570) =
+                                 ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields})
+                                 in (let ([mlw:proxy_symbol]
+                                 [introduced] temp___571) =
+                                 ([mlw:proxy_symbol] [introduced] temp___570)
+                                 in abstract ensures
+                                 { True } begin  (let _ =
+                                                ([mlw:proxy_symbol]
+                                                  [introduced] temp___571).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__weights
+                                                in ())  end;
+                                 {([mlw:proxy_symbol]
+                                 [introduced] temp___571) with Qoa__qoa_lms_t.__split_fields : 
+                                 {([mlw:proxy_symbol]
+                                 [introduced] temp___571).Qoa__qoa_lms_t.__split_fields with Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__weights : (let ([mlw:proxy_symbol]
+                                 [introduced] temp___568) =
+                                 ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields}).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__weights
+                                 in (let ([mlw:proxy_symbol]
+                                 [introduced] temp___569) =
+                                 ([mlw:proxy_symbol] [introduced] temp___568)
+                                 in
+                                 (Array__Int__Interfaces__integer_16.set
+                                    ([mlw:proxy_symbol]
+                                    [introduced] temp___568)
+                                    !Qoa__lms_update__L_2__i.i
+                                    (Interfaces__integer_16__rep.of_rep
+                                       ( ([sloc:qoa.adb:84] ([GP_Shape:L_2_while__if__lms_assign__sub]
+                                                            [vc:annotation]
+                                                            [GP_Check:2:VC_OVERFLOW_CHECK:qoa.adb:84:48] (
+                                                            Interfaces__Tinteger_16B.range_check_
+                                                              ((Interfaces__integer_16__rep.to_rep
+                                                                  (let ([mlw:proxy_symbol]
+                                                                  [introduced] temp___567)
+                                                                  =
+                                                                  ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields}).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__weights
+                                                                  in
+                                                                  (Array__Int__Interfaces__integer_16.get
+                                                                    ([mlw:proxy_symbol]
+                                                                    [introduced] temp___567)
+                                                                    !Qoa__lms_update__L_2__i.i)))
+                                                                 - Qoa__lms_update__d.d)))))))))}}))
+                               in ( Qoa__lms_update__lms.lms__split_fields :=
+                               ([mlw:proxy_symbol]
+                                 [introduced] temp___572).Qoa__qoa_lms_t.__split_fields)))
+                                else
+                               ();
+                               ([sloc:qoa.adb:86] (let ([mlw:proxy_symbol]
+                               [introduced] temp___579) =
+                               (let ([mlw:proxy_symbol]
+                                 [introduced] temp___577) =
+                                 ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields})
+                                 in (let ([mlw:proxy_symbol]
+                                 [introduced] temp___578) =
+                                 ([mlw:proxy_symbol] [introduced] temp___577)
+                                 in abstract ensures
+                                 { True } begin  (let _ =
+                                                ([mlw:proxy_symbol]
+                                                  [introduced] temp___578).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__weights
+                                                in ())  end;
+                                 {([mlw:proxy_symbol]
+                                 [introduced] temp___578) with Qoa__qoa_lms_t.__split_fields : 
+                                 {([mlw:proxy_symbol]
+                                 [introduced] temp___578).Qoa__qoa_lms_t.__split_fields with Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__weights : (let ([mlw:proxy_symbol]
+                                 [introduced] temp___575) =
+                                 ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields}).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__weights
+                                 in (let ([mlw:proxy_symbol]
+                                 [introduced] temp___576) =
+                                 ([mlw:proxy_symbol] [introduced] temp___575)
+                                 in
+                                 (Array__Int__Interfaces__integer_16.set
+                                    ([mlw:proxy_symbol]
+                                    [introduced] temp___575)
+                                    !Qoa__lms_update__L_2__i.i
+                                    (Interfaces__integer_16__rep.of_rep
+                                       ( ([sloc:qoa.adb:86] ([GP_Shape:L_2_while__if__lms_assign__add]
+                                                            [vc:annotation]
+                                                            [GP_Check:3:VC_OVERFLOW_CHECK:qoa.adb:86:48] (
+                                                            Interfaces__Tinteger_16B.range_check_
+                                                              ((Interfaces__integer_16__rep.to_rep
+                                                                  (let ([mlw:proxy_symbol]
+                                                                  [introduced] temp___574)
+                                                                  =
+                                                                  ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields}).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__weights
+                                                                  in
+                                                                  (Array__Int__Interfaces__integer_16.get
+                                                                    ([mlw:proxy_symbol]
+                                                                    [introduced] temp___574)
+                                                                    !Qoa__lms_update__L_2__i.i)))
+                                                                 + Qoa__lms_update__d.d)))))))))}}))
+                               in ( Qoa__lms_update__lms.lms__split_fields :=
+                               ([mlw:proxy_symbol]
+                                 [introduced] temp___579).Qoa__qoa_lms_t.__split_fields)))))) with
+          | Qoa__lms_update__L_2.L_2  -> ()))));
+          ([sloc:qoa.adb:89] (let ([mlw:proxy_symbol]
+          [introduced] temp___583) = 1 in (let ([mlw:proxy_symbol]
+          [introduced] temp___584) = 3 in
+          (* Translation of an unrolled Ada loop from qoa.adb:89 *);
+          (try
+          (let temp___loop_entry_592 =
+            {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields}
+            in (* Unrolling of the loop statements of loop qoa.adb:89 *);
+            ( Qoa__lms_update__L_3__i.i :=
+            1);
+            ();
+            ([sloc:qoa.adb:90] (let ([mlw:proxy_symbol]
+            [introduced] temp___591) =
+            (let ([mlw:proxy_symbol] [introduced] temp___589) =
+              ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields})
+              in (let ([mlw:proxy_symbol] [introduced] temp___590) =
+              ([mlw:proxy_symbol] [introduced] temp___589) in abstract
+              ensures
+              { True } begin  (let _ =
+                             ([mlw:proxy_symbol]
+                               [introduced] temp___590).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__history
+                             in ())  end;
+              {([mlw:proxy_symbol]
+              [introduced] temp___590) with Qoa__qoa_lms_t.__split_fields : 
+              {([mlw:proxy_symbol]
+              [introduced] temp___590).Qoa__qoa_lms_t.__split_fields with Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__history : (let ([mlw:proxy_symbol]
+              [introduced] temp___587) =
+              ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields}).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__history
+              in (let ([mlw:proxy_symbol] [introduced] temp___588) =
+              ([mlw:proxy_symbol] [introduced] temp___587) in
+              (Array__Int__Interfaces__integer_16.set ([mlw:proxy_symbol]
+                 [introduced] temp___587) !Qoa__lms_update__L_3__i.i
+                 (Interfaces__integer_16__rep.of_rep
+                    ( (Interfaces__integer_16__rep.to_rep
+                         (let ([mlw:proxy_symbol] [introduced] temp___586) =
+                         ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields}).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__history
+                         in
+                         (Array__Int__Interfaces__integer_16.get
+                            ([mlw:proxy_symbol] [introduced] temp___586)
+                            (!Qoa__lms_update__L_3__i.i + 1)))))))))}}))
+            in ( Qoa__lms_update__lms.lms__split_fields :=
+            ([mlw:proxy_symbol]
+              [introduced] temp___591).Qoa__qoa_lms_t.__split_fields)));
+            ( Qoa__lms_update__L_3__i.i :=
+            2);
+            ();
+            ([sloc:qoa.adb:90] (let ([mlw:proxy_symbol]
+            [introduced] temp___591) =
+            (let ([mlw:proxy_symbol] [introduced] temp___589) =
+              ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields})
+              in (let ([mlw:proxy_symbol] [introduced] temp___590) =
+              ([mlw:proxy_symbol] [introduced] temp___589) in abstract
+              ensures
+              { True } begin  (let _ =
+                             ([mlw:proxy_symbol]
+                               [introduced] temp___590).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__history
+                             in ())  end;
+              {([mlw:proxy_symbol]
+              [introduced] temp___590) with Qoa__qoa_lms_t.__split_fields : 
+              {([mlw:proxy_symbol]
+              [introduced] temp___590).Qoa__qoa_lms_t.__split_fields with Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__history : (let ([mlw:proxy_symbol]
+              [introduced] temp___587) =
+              ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields}).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__history
+              in (let ([mlw:proxy_symbol] [introduced] temp___588) =
+              ([mlw:proxy_symbol] [introduced] temp___587) in
+              (Array__Int__Interfaces__integer_16.set ([mlw:proxy_symbol]
+                 [introduced] temp___587) !Qoa__lms_update__L_3__i.i
+                 (Interfaces__integer_16__rep.of_rep
+                    ( (Interfaces__integer_16__rep.to_rep
+                         (let ([mlw:proxy_symbol] [introduced] temp___586) =
+                         ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields}).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__history
+                         in
+                         (Array__Int__Interfaces__integer_16.get
+                            ([mlw:proxy_symbol] [introduced] temp___586)
+                            (!Qoa__lms_update__L_3__i.i + 1)))))))))}}))
+            in ( Qoa__lms_update__lms.lms__split_fields :=
+            ([mlw:proxy_symbol]
+              [introduced] temp___591).Qoa__qoa_lms_t.__split_fields)));
+            ( Qoa__lms_update__L_3__i.i :=
+            3);
+            ();
+            ([sloc:qoa.adb:90] (let ([mlw:proxy_symbol]
+            [introduced] temp___591) =
+            (let ([mlw:proxy_symbol] [introduced] temp___589) =
+              ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields})
+              in (let ([mlw:proxy_symbol] [introduced] temp___590) =
+              ([mlw:proxy_symbol] [introduced] temp___589) in abstract
+              ensures
+              { True } begin  (let _ =
+                             ([mlw:proxy_symbol]
+                               [introduced] temp___590).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__history
+                             in ())  end;
+              {([mlw:proxy_symbol]
+              [introduced] temp___590) with Qoa__qoa_lms_t.__split_fields : 
+              {([mlw:proxy_symbol]
+              [introduced] temp___590).Qoa__qoa_lms_t.__split_fields with Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__history : (let ([mlw:proxy_symbol]
+              [introduced] temp___587) =
+              ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields}).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__history
+              in (let ([mlw:proxy_symbol] [introduced] temp___588) =
+              ([mlw:proxy_symbol] [introduced] temp___587) in
+              (Array__Int__Interfaces__integer_16.set ([mlw:proxy_symbol]
+                 [introduced] temp___587) !Qoa__lms_update__L_3__i.i
+                 (Interfaces__integer_16__rep.of_rep
+                    ( (Interfaces__integer_16__rep.to_rep
+                         (let ([mlw:proxy_symbol] [introduced] temp___586) =
+                         ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields}).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__history
+                         in
+                         (Array__Int__Interfaces__integer_16.get
+                            ([mlw:proxy_symbol] [introduced] temp___586)
+                            (!Qoa__lms_update__L_3__i.i + 1)))))))))}}))
+            in ( Qoa__lms_update__lms.lms__split_fields :=
+            ([mlw:proxy_symbol]
+              [introduced] temp___591).Qoa__qoa_lms_t.__split_fields)))) with
+          | Qoa__lms_update__L_3.L_3  -> ()))));
+          ([sloc:qoa.adb:92] (let ([mlw:proxy_symbol]
+          [introduced] temp___599) =
+          (let ([mlw:proxy_symbol] [introduced] temp___597) =
+            ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields})
+            in (let ([mlw:proxy_symbol] [introduced] temp___598) =
+            ([mlw:proxy_symbol] [introduced] temp___597) in abstract ensures
+            { True } begin  (let _ =
+                           ([mlw:proxy_symbol]
+                             [introduced] temp___598).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__history
+                           in ())  end;
+            {([mlw:proxy_symbol]
+            [introduced] temp___598) with Qoa__qoa_lms_t.__split_fields : 
+            {([mlw:proxy_symbol]
+            [introduced] temp___598).Qoa__qoa_lms_t.__split_fields with Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__history : (let ([mlw:proxy_symbol]
+            [introduced] temp___595) =
+            ( {Qoa__qoa_lms_t.__split_fields : !Qoa__lms_update__lms.lms__split_fields}).Qoa__qoa_lms_t.__split_fields.Qoa__qoa_lms_t.rec__qoa__qoa_lms_t__history
+            in (let ([mlw:proxy_symbol] [introduced] temp___596) =
+            ([mlw:proxy_symbol] [introduced] temp___595) in
+            (Array__Int__Interfaces__integer_16.set ([mlw:proxy_symbol]
+               [introduced] temp___595) 4
+               (Interfaces__integer_16__rep.of_rep
+                  ( ([sloc:qoa.adb:92] ([GP_Shape:lms_assign__typeconv]
+                                       [vc:annotation]
+                                       [GP_Check:4:VC_RANGE_CHECK:qoa.adb:92:45] (
+                                       Interfaces__integer_16.range_check_
+                                         Qoa__lms_update__sample.sample))))))))}}))
+          in ( Qoa__lms_update__lms.lms__split_fields :=
+          ([mlw:proxy_symbol]
+            [introduced] temp___599).Qoa__qoa_lms_t.__split_fields)));
+          raise Return__exc with | Return__exc  -> ());
+        abstract ensures { True } begin  (let _ = True in ())  end
+
+end
