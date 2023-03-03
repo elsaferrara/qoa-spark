@@ -296,22 +296,18 @@ is
    --     end loop;
    --  end encode;
 
-   procedure decode (data        :     Storage_Array;
-                     qoa        : out qoa_desc;
-                     Output      : out Storage_Array;
-                     Output_Size : out Storage_Count)
-   is
-      p : Storage_Count;
-      index : Storage_Count := Output'First;
 
-      procedure Read_u64 (Res : out Unsigned_64)
-        with
-          Pre =>
-             p in Output'First .. Output'Last - 7,
-              Post => P = P'Old + 8
-      ;
 
-      procedure Read_u64 (Res : out Unsigned_64)
+
+      procedure decode_header (data : Storage_Array;
+                              qoa : out qoa_desc)
+      is
+         p : Storage_Count := data'First;
+
+         file_header : Unsigned_64;
+         frame_header : Unsigned_64;
+
+               procedure Read_u64 (Res : out Unsigned_64)
       is
          r0 : constant Unsigned_64 := Unsigned_64 (data (p));
          r1 : constant Unsigned_64 := Unsigned_64 (data (p + 1));
@@ -333,14 +329,6 @@ is
          p := p + 8;
       end Read_u64;
 
-      procedure decode_header (data : Storage_Array;
-                              qoa : out qoa_desc)
-      is
-         p : Storage_Count := data'First;
-
-         file_header : Unsigned_64;
-         frame_header : Unsigned_64;
-
       begin
 
          if data'Length < MIN_FILESIZE then
@@ -354,9 +342,9 @@ is
 
          Read_u64 (frame_header);
          qoa.channels :=
-           Unsigned_32 (Shift_Right (frame_header, 56) and 16#0000ff#);
+           Storage_Count (Shift_Right (frame_header, 56) and 16#0000ff#);
          qoa.samplerate :=
-           Unsigned_32 (Shift_Right (frame_header, 32) and 16#ffffff#);
+           Storage_Count (Shift_Right (frame_header, 32) and 16#ffffff#);
 
          if qoa.channels = 0 or else qoa.samples = 0
            or else qoa.samplerate = 0
@@ -368,8 +356,40 @@ is
 
       end decode_header;
 
+   procedure decode (data        :     Storage_Array;
+                     qoa        : out qoa_desc;
+                     Output      : out Storage_Array;
+                     Output_Size : out Storage_Count)
+   is
+      p : Storage_Count;
+      index : Storage_Count := Output'First;
 
-      procedure decode_frame (data : Storage_Array;
+
+         procedure Read_u64 (Res : out Unsigned_64)
+      is
+         r0 : constant Unsigned_64 := Unsigned_64 (data (p));
+         r1 : constant Unsigned_64 := Unsigned_64 (data (p + 1));
+         r2 : constant Unsigned_64 := Unsigned_64 (data (p + 2));
+         r3 : constant Unsigned_64 := Unsigned_64 (data (p + 3));
+         r4 : constant Unsigned_64 := Unsigned_64 (data (p + 4));
+         r5 : constant Unsigned_64 := Unsigned_64 (data (p + 5));
+         r6 : constant Unsigned_64 := Unsigned_64 (data (p + 6));
+         r7 : constant Unsigned_64 := Unsigned_64 (data (p + 7));
+      begin
+         Res := Shift_Left (r0, 56)
+           or Shift_Left (r1, 48)
+           or Shift_Left (r2, 40)
+           or Shift_Left (r3, 32)
+           or Shift_Left (r4, 24)
+           or Shift_Left (r5, 16)
+           or Shift_Left (r6, 8)
+           or Shift_Left (r7, 0);
+         p := p + 8;
+      end Read_u64;
+
+
+
+       procedure decode_frame (data : Storage_Array;
                              p : in out Storage_Count;
                              qoa : in out qoa_desc;
                              Output      : in out Storage_Array;
@@ -473,7 +493,7 @@ is
       end decode_frame;
 
       sample_index : Unsigned_32 := 0;
-      frame_len : Unsigned_32;
+      --  frame_len : Unsigned_32;
 
    begin
 
@@ -485,18 +505,17 @@ is
       decode_header (data, qoa);
 
       p := data'First + HEADER_SIZE;
-
       loop
-         index := index + Storage_Count (sample_index * qoa.channels);
+         index := index + Storage_Count (sample_index) * qoa.channels;
          decode_frame (data, p, qoa, Output, index);
          --  frame_len := Unsigned_32 (decode_frame (data, p, qoa, Output, index));
          sample_index := sample_index + frame_len;
 
-         if frame_len = 0 and then sample_index > qoa.samples then
+         if frame_len = 0 or sample_index > Unsigned_32 (qoa.samples) then
             exit;
          end if;
       end loop;
-      qoa.samples := sample_index;
+      qoa.samples := Storage_Count (sample_index);
 
       Output_Size := index - Output'First;
 

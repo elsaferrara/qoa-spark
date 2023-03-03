@@ -1,5 +1,6 @@
 with System.Storage_Elements; use System.Storage_Elements;
 with Interfaces; use Interfaces;
+with Ada.Text_IO; use Ada.Text_IO;
 
 package Qoa
   with SPARK_Mode
@@ -26,9 +27,9 @@ is
    type Array_lms is array (1 .. MAX_CHANNELS) of qoa_lms_t;
 
    type qoa_desc is record
-      channels : Unsigned_32; -- Unsigned_8
-      samplerate : Unsigned_32; -- Unsigned_24
-      samples : Unsigned_32; -- Unsigned_16
+      channels : Storage_Count; -- Unsigned_8
+      samplerate : Storage_Count; -- Unsigned_24
+      samples : Storage_Count; -- Unsigned_16
       lms : Array_lms;
    end record;
 
@@ -37,6 +38,10 @@ is
    --                        qoa         : in out qoa_desc;
    --                        Output      : out Storage_Array;
    --                        Output_len  : out Storage_Count);
+
+
+   procedure decode_header (data : Storage_Array;
+                            qoa : out qoa_desc);
 
    procedure decode (data        :     Storage_Array;
                      qoa        : out qoa_desc;
@@ -50,6 +55,7 @@ is
      --    and then Data'Length >= MIN_FILESIZE
 
    ;
+
 
 
    --     function decode_header (data : Storage_Array;

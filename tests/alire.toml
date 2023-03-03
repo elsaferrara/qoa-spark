@@ -12,3 +12,7 @@ executables = ["tests"]
 qoa = "*"
 [[pins]]
 qoa = { path = ".." }
+[[depends-on]]
+audio_wavefiles = "^2.0.0"
+[[depends-on]]
+aaa = "~0.2.6"

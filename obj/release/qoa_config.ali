@@ -15,7 +15,7 @@ RR NO_ELABORATION_CODE
 
 U qoa_config%s		qoa_config.ads		fa86d7b8 NE OO PU PK
 
-D qoa_config.ads	20230227152517 fa86d7b8 qoa_config%s
+D qoa_config.ads	20230302155057 fa86d7b8 qoa_config%s
 D system.ads		20220819080952 a2da961d system%s
 G a e
 X 1 qoa_config.ads

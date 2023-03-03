@@ -1,1 +1,0 @@
-qoa.adb:476:07: warning: variable "frame_len" is read but never assigned [-gnatwv]

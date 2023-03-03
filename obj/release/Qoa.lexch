@@ -1,7 +1,7 @@
 [LIBRARY PATH]
-/home/ferrara/qoa/lib/libQoa.a
+/home/ferrara/qoa-spark/lib/libQoa.a
 [OBJECT FILES]
-/home/ferrara/qoa/obj/release/qoa.o
-20230228102350
-/home/ferrara/qoa/obj/release/qoa_config.o
-20230227153501
+/home/ferrara/qoa-spark/obj/release/qoa.o
+20230302143451
+/home/ferrara/qoa-spark/obj/release/qoa_config.o
+20230302155057

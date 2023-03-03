@@ -1,0 +1,3 @@
+[submodule "tests/qoa"]
+	path = tests/qoa
+	url = https://github.com/phoboslab/qoa
