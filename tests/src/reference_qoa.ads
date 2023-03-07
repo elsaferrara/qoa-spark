@@ -6,7 +6,8 @@ with Interfaces.C; use Interfaces.C;
 
 with Ada.Text_IO; use Ada.Text_IO;
 
-with Qoa;
+with Qoa; use Qoa;
+with Interfaces; use Interfaces;
 
 package reference_QOA is
 
@@ -22,7 +23,7 @@ package reference_QOA is
 
    function Check_Decode (Data     : Storage_Array;
                           Out_Desc : Qoa.qoa_desc;
-                          Out_Data : Storage_Array)
+                          Out_Data : Output_Array)
                           return Boolean;
 
    function Decode (Data     : System.Address;

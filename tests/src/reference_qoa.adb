@@ -3,13 +3,12 @@ package body reference_QOA is
 
    function Check_Decode (Data     : Storage_Array;
                           Out_Desc : Qoa.qoa_desc;
-                          Out_Data : Storage_Array)
+                          Out_Data : Output_Array)
                              return Boolean
    is
       Ref_Output_Ptr : System.Address;
       R_Desc         : aliased Ref_Desc;
    begin
-      Put_Line("Entrer");
       Ref_Output_Ptr := Decode (Data     => Data'Address,
                                 Size     => Data'Length,
                                 Desc     => R_Desc'Unchecked_Access);
@@ -47,10 +46,9 @@ package body reference_QOA is
       declare
          Ref_Out_Len : constant Storage_Count :=
            Storage_Count (R_Desc.channels *
-                            R_Desc.samples *
-                              Short_Integer'Size);
+                            R_Desc.samples);
 
-         Ref_Output : Storage_Array (1 .. Ref_Out_Len)
+         Ref_Output : Output_Array (1 .. Ref_Out_Len)
            with Address => Ref_Output_Ptr;
 
          To_Compare : constant Storage_Count :=
@@ -70,13 +68,13 @@ package body reference_QOA is
 
             for Offset in 0 .. To_Compare - 1 loop
                declare
-                  A : constant Storage_Element :=
+                  A : constant Integer_16 :=
                     Ref_Output (Ref_Output'First + Offset);
-                  B : constant Storage_Element :=
+                  B : constant Integer_16 :=
                     Out_Data (Out_Data'First + Offset);
                begin
                   if A /= B then
-                     Put_Line ("Byte diff" & Offset'Img &
+                     Put_Line ("Sample diff" & Offset'Img &
                                  " Ref:" & A'Img &
                                  " Act:" & B'Img);
                      return False;

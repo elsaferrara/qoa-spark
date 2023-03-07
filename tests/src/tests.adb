@@ -16,7 +16,7 @@ with Interfaces; use Interfaces;
 
 with GNAT.OS_Lib;
 
-with Qoa; --  use Qoa;
+with Qoa;  use Qoa;
 
 with reference_QOA;
 
@@ -27,7 +27,7 @@ procedure Tests is
    type Storage_Array_Access is access all Storage_Array;
 
    type Input_Data is record
-      Data : Storage_Array_Access;
+      Data : Output_Array_Access;
       Desc : Qoa.qoa_desc;
    end record;
 
@@ -179,18 +179,20 @@ procedure Tests is
 
          declare
             Out_Len : constant Storage_Count :=
-              Result.Desc.channels * Result.Desc.samples *
-                Short_Integer'Size;
-            Out_Data : constant Storage_Array_Access :=
-              new Storage_Array (1 .. Out_Len);
+              Result.Desc.channels * Result.Desc.samples ;
+            Out_Data : Output_Array_Access := new Output_Array (0 .. Out_Len - 1);
             Output_Size : Storage_Count;
+
          begin
-            Put_Line (Storage_Count'Image (Out_Len ));
+            Put_Line ("Short_Integer Size : " &  Integer'Image (Short_Integer'Size));
+
+            Put_Line ("Out len : " & Storage_Count'Image (Out_Len));
 
             Qoa.decode (data        => In_Data.all,
                         qoa        => Result.Desc,
                         Output      => Out_Data.all,
                         Output_Size => Output_Size);
+
             Result.Data := Out_Data;
 
             if reference_QOA.Check_Decode
@@ -214,7 +216,7 @@ procedure Tests is
                        return Unsigned_32 is
       use GNAT.OS_Lib;
       data_size : constant Unsigned_32 := Unsigned_32 (sample_data.Desc.samples
-       * sample_data.Desc.channels) * Unsigned_32 (Short_Integer'Size);
+       * sample_data.Desc.channels) * Unsigned_32 (Short_Integer'Size / 8) ;
       samplerate : constant Unsigned_32  :=
         Unsigned_32 (sample_data.Desc.samplerate);
       bits_per_sample : constant Unsigned_16 := 16;
@@ -236,7 +238,7 @@ procedure Tests is
          buf (1) := Storage_Element (16#ff# and Shift_Right (v, 8));
          buf (2) := Storage_Element (16#ff# and Shift_Right (v, 16));
          buf (3) := Storage_Element (16#ff# and Shift_Right (v, 24));
-         wrote := Write (FD, buf'Address, Integer (buf'Size));
+         wrote := Write (FD, buf'Address, buf'Length);
          if wrote = 0 then
             Put_Line ("Write error");
             GNAT.OS_Lib.OS_Exit (1);
@@ -249,15 +251,17 @@ procedure Tests is
       begin
          buf (0) := Storage_Element (16#ff# and Shift_Right (v, 0));
          buf (1) := Storage_Element (16#ff# and Shift_Right (v, 8));
-         wrote := Write (FD, buf'Address, Integer (buf'Size));
+         wrote := Write (FD, buf'Address, buf'Length);
          if wrote = 0 then
             Put_Line ("Write error");
             GNAT.OS_Lib.OS_Exit (1);
          end if;
       end fwrite_u16;
 
-      rff : String := "RFF";
-      fmt : String := "WAVEfmt \x10\x00\x00\x00\x01\x00";
+      rff : String := "RIFF";
+      fmt : String := "WAVEfmt " & Character'Val(16#10#) & Character'Val(16#00#)
+        & Character'Val(16#00#) & Character'Val(16#00#)
+        & Character'Val(16#01#) & Character'Val(16#00#);
       data : String := "data";
 
    begin
@@ -277,7 +281,7 @@ procedure Tests is
       fwrite_u16 (bits_per_sample, FD);
       wrote := Write (FD, data'Address, 4);
       fwrite_u32 (data_size, FD);
-      wrote := Write (FD, sample_data'Address, Integer (data_size));
+      wrote := Write (FD, sample_data.Data.all'Address, Integer (data_size));
       Close (FD);
 
       return data_size  + 44 - 8;
@@ -316,7 +320,7 @@ begin
                                         Input);
 
          if Result = 0 then
-            Put_Line (Standard_Error, "PNG write error: '" &
+            Put_Line (Standard_Error, "WAV write error: '" &
                         Ada.Command_Line.Argument (2) & "'");
             GNAT.OS_Lib.OS_Exit (1);
          end if;

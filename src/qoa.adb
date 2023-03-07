@@ -1,6 +1,8 @@
+with Unchecked_Conversion;
 package body Qoa
   with SPARK_Mode
 is
+   function uns_to_int is new Unchecked_Conversion (Unsigned_64, Integer_16);
 
    --  function Read_u64 (Arr : Storage_Array; Index : in out Storage_Offet)
    --  return Unsigned_64 is
@@ -29,13 +31,13 @@ is
       end if;
    end clamp;
 
-   --
-   --  function Frame_Size (channels : Unsigned_32; slices : Unsigned_32)
-   --    return Unsigned_32
-   --  is
-   --  begin
-   --     return 8 + LMS_LEN * 4 * channels + 8 * slices * channels;
-   --  end Frame_Size;
+
+   function Frame_Size (channels : Unsigned_32; slices : Unsigned_32)
+     return Unsigned_32
+   is
+   begin
+      return 8 + LMS_LEN * 4 * channels + 8 * slices * channels;
+   end Frame_Size;
    --
    --  procedure write_u64 (val : Unsigned_64; bytes : in out Storage_Array;
    --                       index : in out Storage_Offset)
@@ -58,16 +60,15 @@ is
 
 
    function lms_predict (lms : qoa_lms_t) return Integer is
-      prediction : Integer := 0;
+      prediction : Integer_64 := 0;
    begin
-      for i in 1 .. LMS_LEN loop
-         pragma Loop_Invariant (i in lms.weights'Range and i in lms.history'Range);
-         pragma Loop_Invariant (lms.weights (i) * lms.history (i) in Integer_16'Range);
-         prediction := prediction +
-           Integer (lms.weights (i) * lms.history (i));
+      for i in 0 .. LMS_LEN - 1 loop
+          prediction := prediction +
+           Integer_64 (lms.weights (i) * lms.history (i));
+         Put_Line ("Ada : prediction " & i'Img & " : " & prediction'Img);
          null;
       end loop;
-      return prediction / (2 ** 13); -- Shift_Right
+      return Integer ((prediction - (prediction mod 2**13))/ 2**13); -- Shift_Right
    end lms_predict;
    --
    --  ------------
@@ -78,21 +79,63 @@ is
                          sample : Integer;
                          residual : Integer)
    is
-      d : constant Integer_16 :=  Integer_16 (residual / (2 ** 4));
+      d : Integer_16 := Integer_16 ((residual - (residual mod 2**4))/ 2**4);
    begin
-      for i in 1 .. LMS_LEN loop
+      --  if residual < 0
+      --  then
+      --     d := Integer_16 (residual / (2 ** 4)) - 1;
+      --  else
+      --     d := Integer_16 (residual / (2 ** 4));
+      --  end if;
+      --
+         --     for i in 0 .. LMS_LEN - 1 loop
+         --  Put_Line ("Ada : lms.weights " & i'Img & " : " & lms.weights (i)'Img);
+         --  Put_Line ("Ada : lms.history " & i'Img & " : " & lms.history (i)'Img);
+         --  end loop;
+      Put_Line ("Ada : delta : " & d'Img);
+      for i in 0 .. LMS_LEN - 1 loop
          if lms.history (i) < 0 then
             lms.weights (i) := lms.weights (i) - d;
          else
             lms.weights (i) := lms.weights (i) +  d;
          end if;
+
       end loop;
-      for i in 1 .. LMS_LEN - 1 loop
+      for i in 0 .. LMS_LEN - 2 loop
          lms.history (i) := lms.history (i + 1);
       end loop;
-      lms.history (LMS_LEN) :=  Integer_16 (sample);
+      lms.history (LMS_LEN - 1) :=  Integer_16 (sample);
+      --  for i in 0 .. LMS_LEN - 1 loop
+      --     Put_Line ("Ada : lms.weights " & i'Img & " : " & lms.weights (i)'Img);
+      --     Put_Line ("Ada : lms.history " & i'Img & " : " & lms.history (i)'Img);
+      --     end loop;
    end lms_update;
 
+
+   procedure Read_u64 (Res : out Unsigned_64; p : in out Storage_Count;
+                       data : Storage_Array)
+      is
+         r0 : constant Unsigned_64 := Unsigned_64 (data (p));
+         r1 : constant Unsigned_64 := Unsigned_64 (data (p + 1));
+         r2 : constant Unsigned_64 := Unsigned_64 (data (p + 2));
+         r3 : constant Unsigned_64 := Unsigned_64 (data (p + 3));
+         r4 : constant Unsigned_64 := Unsigned_64 (data (p + 4));
+         r5 : constant Unsigned_64 := Unsigned_64 (data (p + 5));
+         r6 : constant Unsigned_64 := Unsigned_64 (data (p + 6));
+         r7 : constant Unsigned_64 := Unsigned_64 (data (p + 7));
+      begin
+         Res := Shift_Left (r0, 56)
+           or Shift_Left (r1, 48)
+           or Shift_Left (r2, 40)
+           or Shift_Left (r3, 32)
+           or Shift_Left (r4, 24)
+           or Shift_Left (r5, 16)
+           or Shift_Left (r6, 8)
+           or Shift_Left (r7, 0);
+         --  Put_Line ("Ada : Res : " & Res'Img);
+         --  Put_Line ("Ada : p : " & p'Img);
+         p := p + 8;
+      end Read_u64;
 
    --
    --  function div (v : Integer;
@@ -300,107 +343,74 @@ is
 
 
       procedure decode_header (data : Storage_Array;
-                              qoa : out qoa_desc)
+                               qoa : out qoa_desc)
       is
-         p : Storage_Count := data'First;
 
+       in_index : Storage_Count:= data'First ;
          file_header : Unsigned_64;
          frame_header : Unsigned_64;
 
-               procedure Read_u64 (Res : out Unsigned_64)
-      is
-         r0 : constant Unsigned_64 := Unsigned_64 (data (p));
-         r1 : constant Unsigned_64 := Unsigned_64 (data (p + 1));
-         r2 : constant Unsigned_64 := Unsigned_64 (data (p + 2));
-         r3 : constant Unsigned_64 := Unsigned_64 (data (p + 3));
-         r4 : constant Unsigned_64 := Unsigned_64 (data (p + 4));
-         r5 : constant Unsigned_64 := Unsigned_64 (data (p + 5));
-         r6 : constant Unsigned_64 := Unsigned_64 (data (p + 6));
-         r7 : constant Unsigned_64 := Unsigned_64 (data (p + 7));
-      begin
-         Res := Shift_Left (r0, 56)
-           or Shift_Left (r1, 48)
-           or Shift_Left (r2, 40)
-           or Shift_Left (r3, 32)
-           or Shift_Left (r4, 24)
-           or Shift_Left (r5, 16)
-           or Shift_Left (r6, 8)
-           or Shift_Left (r7, 0);
-         p := p + 8;
-      end Read_u64;
 
-      begin
+   begin
 
-         if data'Length < MIN_FILESIZE then
-            return;
-         end if;
+      if data'Length < MIN_FILESIZE then
+         return;
+      end if;
 
-         Read_u64 (file_header);
-         if Shift_Right (file_header, 32) /= MAGIC then
-            return;
-         end if;
+      Read_u64 (file_header, in_index, data);
+      if Shift_Right (file_header, 32) /= MAGIC then
+         return;
+      end if;
 
-         Read_u64 (frame_header);
-         qoa.channels :=
-           Storage_Count (Shift_Right (frame_header, 56) and 16#0000ff#);
-         qoa.samplerate :=
-           Storage_Count (Shift_Right (frame_header, 32) and 16#ffffff#);
+      qoa.samples := Storage_Count (file_header and 16#ffffffff#);
 
-         if qoa.channels = 0 or else qoa.samples = 0
-           or else qoa.samplerate = 0
-         then
-            return;
-         end if;
 
-         pragma Assert (p = Data'First + HEADER_SIZE);
+      Read_u64 (frame_header, in_index, data);
+      qoa.channels :=
+        Storage_Count (Shift_Right (frame_header, 56) and 16#0000ff#);
+      qoa.samplerate :=
+        Storage_Count (Shift_Right (frame_header, 32) and 16#ffffff#);
+
+      if qoa.channels = 0 or else qoa.samples = 0
+        or else qoa.samplerate = 0
+      then
+         return;
+      end if;
+
+      Put_Line ("qoa channels init : " & Storage_Count'Image (qoa.channels ));
+      Put_Line ("qoa samplerate init : " & Storage_Count'Image (qoa.samplerate));
+      Put_Line ("qoa samples init : " & Storage_Count'Image (qoa.samples ));
+      Put_Line ("p : " & Storage_Count'Image (in_index));
+      Put_Line ("data first : " & Storage_Count'Image (data'First ));
+      Put_Line ("header size : " & Integer'Image (HEADER_SIZE ));
+
+
 
       end decode_header;
 
    procedure decode (data        :     Storage_Array;
                      qoa        : out qoa_desc;
-                     Output      : out Storage_Array;
+                     Output      : out Output_Array;
                      Output_Size : out Storage_Count)
    is
       p : Storage_Count;
       index : Storage_Count := Output'First;
 
 
-         procedure Read_u64 (Res : out Unsigned_64)
-      is
-         r0 : constant Unsigned_64 := Unsigned_64 (data (p));
-         r1 : constant Unsigned_64 := Unsigned_64 (data (p + 1));
-         r2 : constant Unsigned_64 := Unsigned_64 (data (p + 2));
-         r3 : constant Unsigned_64 := Unsigned_64 (data (p + 3));
-         r4 : constant Unsigned_64 := Unsigned_64 (data (p + 4));
-         r5 : constant Unsigned_64 := Unsigned_64 (data (p + 5));
-         r6 : constant Unsigned_64 := Unsigned_64 (data (p + 6));
-         r7 : constant Unsigned_64 := Unsigned_64 (data (p + 7));
-      begin
-         Res := Shift_Left (r0, 56)
-           or Shift_Left (r1, 48)
-           or Shift_Left (r2, 40)
-           or Shift_Left (r3, 32)
-           or Shift_Left (r4, 24)
-           or Shift_Left (r5, 16)
-           or Shift_Left (r6, 8)
-           or Shift_Left (r7, 0);
-         p := p + 8;
-      end Read_u64;
-
-
 
        procedure decode_frame (data : Storage_Array;
-                             p : in out Storage_Count;
+                             in_index : in out Storage_Count;
                              qoa : in out qoa_desc;
-                             Output      : in out Storage_Array;
-                             index : Storage_Count)
-                             -- return Integer -- Unsigned ?
+                             Output : in out Output_Array;
+                              index : Storage_Count;
+                               frame_len : out Unsigned_32;
+                              End_Of_Decode : out Boolean)
       is
 
          frame_header : Unsigned_64;
          channels : Integer;
          samplerate : Integer;
-         samples : Integer;
+         fsamples : Integer;
          frame_size : Integer;
 
          data_size : Integer;
@@ -422,18 +432,27 @@ is
          dequantized : Integer;
          reconstructed : Integer;
 
+
       begin
 
          if data'Length < 16 + LMS_LEN * 4 * qoa.channels then
+            End_Of_Decode := True;
             return;     --  return 0;
          end if;
 
          --  Read and verify the frame header
-         Read_u64 (frame_header);
+         Read_u64 (frame_header, in_index, data);
          channels := Integer (Shift_Right (frame_header, 56) and 16#0000ff#);
          samplerate := Integer (Shift_Right (frame_header, 32) and 16#ffffff#);
-         samples    := Integer (Shift_Right (frame_header, 16) and 16#00ffff#);
+         fsamples    := Integer (Shift_Right (frame_header, 16) and 16#00ffff#);
          frame_size := Integer ((frame_header) and 16#00ffff#);
+
+         --  Put_Line ("num channels: " & Integer'Image (channels));
+         --  Put_Line ("sampelrate: " & Integer'Image (samplerate));
+         --  Put_Line ("fsamples: " & Integer'Image (fsamples));
+         --  Put_Line ("f_size: " & Integer'Image (frame_size));
+
+
 
          data_size := frame_size - 8 - LMS_LEN * 4 * channels;
          num_slices := data_size / 8;
@@ -442,58 +461,81 @@ is
          if channels /= Integer (qoa.channels) or else
            samplerate /= Integer (qoa.samplerate) or else
            frame_size > data'Length or else
-           samples * channels > max_total_samples
+           fsamples * channels > max_total_samples
+
          then
+            End_Of_Decode := True;
             return;     --  return 0;
          end if;
 
          --  Read the LMS state: 4 x 2 bytes history,
          --  4 x 2 bytes weights per channel
-         for  c in 1 .. channels loop
-            Read_u64 (history);
-            Read_u64 (weights);
-            for i in 1 .. LMS_LEN loop
+         for  c in 0 .. channels - 1 loop
+            Read_u64 (history, in_index, data);
+            Read_u64 (weights, in_index, data);
+            for i in 0 .. LMS_LEN - 1 loop
                qoa.lms (c) .history (i) :=
-                 Integer_16 (Shift_Right (history, 48));
+                 uns_to_int (Shift_Right (history, 48));
+
                history := Shift_Left (history, 16);
                qoa.lms (c) .weights (i) :=
-                 Integer_16 (Shift_Right (weights, 48));
+                 uns_to_int (Shift_Right (weights, 48));
                weights := Shift_Left (weights, 16);
+
             end loop;
          end loop;
 
          --  Decode all slices for all channels in this frame
-         while sample_i < samples loop
-            for c in 1 .. channels loop
-               Read_u64 (slice);
+
+
+         while sample_i < fsamples loop
+
+            for c in 0 .. channels - 1 loop
+               Read_u64 (slice, in_index, data);
                scalefactor := Integer (Shift_Right (slice, 60) and 16#f#);
                slice_start := sample_i * channels + c;
-               slice_end := clamp (sample_i + SLICE_LEN, 0, samples)
+               slice_end := clamp (sample_i + SLICE_LEN, 0, fsamples)
                  * channels + c;
-
+               --  Put_Line ("fsamples : " & fsamples'Img);
+               --  Put_Line ("sice end : " & slice_end'Img);
+               --                 Put_Line ("index : " & index'Img);
+               --
                si := slice_start;
                while si < slice_end loop
+
                   predicted := lms_predict (qoa.lms (c));
                   quantized := Integer (Shift_Right (slice, 57) and 16#7#);
                   dequantized := DEQUANT_TAB (scalefactor, quantized);
                   reconstructed := clamp (predicted + dequantized,
                                           -32768, 32767);
-                  Output (index + Storage_Count (si))
-                    := Storage_Element (reconstructed);
-                  slice := Shift_Left (slice, 3);
+                  --  if index + Storage_Count (si) > 5000 then
+                  --  Put_Line ("indice: " & Storage_Count'Image (index + Storage_Count (si)));
+                  --  end if;
+                     --  Put_Line ("indice 1 : " & Output'First'Img);
+                     --  Put_Line ("indice last : " & Output'Last'Img);
+                  Put_Line ("Ada : predicted: " & predicted'Img);
+                  Put_Line ("Ada : quantized: " & quantized'Img);
+                  Put_Line ("Ada : dequantized: " & dequantized'Img);
+                  Put_Line ("Ada : reconstructed: " & reconstructed'Img);
 
+                  Output (index + Storage_Count (si)) := Integer_16 (reconstructed);
+
+                  slice := Shift_Left (slice, 3);
                   lms_update (qoa.lms (c), reconstructed, dequantized);
                   si := si + channels;
                end loop;
             end loop;
             sample_i := sample_i + SLICE_LEN;
          end loop;
-         --  return samples;
+
+         frame_len := Unsigned_32 (fsamples);
+         End_Of_Decode := False;
 
       end decode_frame;
 
       sample_index : Unsigned_32 := 0;
-      --  frame_len : Unsigned_32;
+      frame_len : Unsigned_32;
+       End_Of_Decode : Boolean;
 
    begin
 
@@ -501,23 +543,31 @@ is
       --     Output_Size := 0;
       --     return;
       --  end if;
-
+      p := data'First;
       decode_header (data, qoa);
+       p := data'First + HEADER_SIZE;
+      Put_Line ("data first: " & data'First'Img);
 
-      p := data'First + HEADER_SIZE;
       loop
-         index := index + Storage_Count (sample_index) * qoa.channels;
-         decode_frame (data, p, qoa, Output, index);
-         --  frame_len := Unsigned_32 (decode_frame (data, p, qoa, Output, index));
-         sample_index := sample_index + frame_len;
 
-         if frame_len = 0 or sample_index > Unsigned_32 (qoa.samples) then
+         index := Storage_Count (sample_index) * qoa.channels;
+         decode_frame (data, p, qoa, Output, index,frame_len, End_Of_Decode);
+         sample_index := sample_index + frame_len;
+         Put_Line ("sample index : " & sample_index'Img);
+         if End_Of_Decode or sample_index >= Unsigned_32 (qoa.samples) then
             exit;
          end if;
       end loop;
+      Put_Line ("qoa samples : " & Storage_Count'Image (qoa.samples));
       qoa.samples := Storage_Count (sample_index);
+      Put_Line ("qoa samplesbis : " & Storage_Count'Image (qoa.samples));
+
+      index := Storage_Count (sample_index) * qoa.channels;
+      -- index := qoa.samples * qoa.channels;
+       Put_Line ("final index : " & Storage_Count'Image (index));
 
       Output_Size := index - Output'First;
+      Put_Line ("Output size : " & Storage_Count'Image (Output_Size ));
 
    end decode;
 

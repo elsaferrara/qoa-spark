@@ -11,13 +11,21 @@ P ZX
 RN
 RV NO_DIRECT_BOOLEAN_OPERATORS
 RV NO_IO
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_UNCHECKED_CONVERSION
 RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_IMPLEMENTATION_ATTRIBUTES
 RV NO_IMPLEMENTATION_PRAGMAS
 
-U qoa%b			qoa.adb			e0e37827 NE OO PK
+U qoa%b			qoa.adb			f8be3654 NE OO PK
 Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
+Z system.img_int%s	s-imgint.ads		s-imgint.ali
+Z system.img_lli%s	s-imglli.ads		s-imglli.ali
+Z system.img_uns%s	s-imguns.ads		s-imguns.ali
+Z system.unsigned_types%s  s-unstyp.ads		s-unstyp.ali
+W unchecked_conversion%s
 
-U qoa%s			qoa.ads			22cbeff6 EE NE OO PK
+U qoa%s			qoa.ads			2a33e247 EE NE OO PK
 W ada%s			ada.ads			ada.ali
 Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
 W ada.text_io%s		a-textio.adb		a-textio.ali
@@ -37,12 +45,18 @@ D a-textio.ads		20220819080952 deada98a ada.text_io%s
 D a-unccon.ads		20220819080952 0e9b276f ada.unchecked_conversion%s
 D interfac.ads		20220819080952 edec285f interfaces%s
 D i-cstrea.ads		20220819080952 e53d8b8e interfaces.c_streams%s
-D qoa.ads		20230302142120 7c0471d7 qoa%s
-D qoa.adb		20230302143447 9ce709f0 qoa%b
+D qoa.ads		20230306160923 74fc7c66 qoa%s
+D qoa.adb		20230307093456 466dd42a qoa%b
 D system.ads		20220819080952 a2da961d system%s
 D s-crtl.ads		20220819080952 8a0692f8 system.crtl%s
 D s-exctab.ads		20220819080952 91bef6ef system.exception_table%s
 D s-ficobl.ads		20220819080952 dc5161d4 system.file_control_block%s
+D s-imagei.ads		20220819080952 0d3f86a7 system.image_i%s
+D s-imageu.ads		20220819080952 525c30c6 system.image_u%s
+D s-imageu.adb		20220819080952 2d0619dc system.image_u%b
+D s-imgint.ads		20220819080952 bdb6f5ec system.img_int%s
+D s-imglli.ads		20220819080952 3723d9ff system.img_lli%s
+D s-imguns.ads		20220819080952 0e4da2ac system.img_uns%s
 D s-parame.ads		20220819080952 d494a4a6 system.parameters%s
 D s-putima.ads		20220819080952 4e095881 system.put_images%s
 D s-secsta.ads		20220819080952 62cd9202 system.secondary_stack%s
@@ -56,152 +70,161 @@ D s-unstyp.ads		20220819080952 fa2a7f59 system.unsigned_types%s
 D s-wchcon.ads		20220819080952 d9032363 system.wch_con%s
 D unchconv.ads		20220819080952 ca2f9e18 unchecked_conversion%s
 G a e
-G c Z s b [decode_header qoa 43 14 none]
-G c Z s b [decode qoa 46 14 none]
-G c Z s b [lms_predict qoa 96 13 none]
-G c Z s b [lms_update qoa 99 14 none]
-G c Z s b [clamp qoa 110 13 none]
-G c Z s s [Tmy_arrayBIP qoa 21 4 none]
-G c Z s s [qoa_lms_tIP qoa 22 9 none]
-G c Z s s [Tarray_lmsBIP qoa 27 4 none]
-G c Z s s [qoa_descIP qoa 29 9 none]
-G c Z s s [array_shortIP qoa 36 9 none]
+G c Z s b [decode_header qoa 46 14 none]
+G c Z s b [decode qoa 49 14 none]
+G c Z s b [lms_predict qoa 99 13 none]
+G c Z s b [lms_update qoa 102 14 none]
+G c Z s b [clamp qoa 113 13 none]
+G c Z s s [output_arrayIP qoa 21 9 none]
+G c Z s s [Tmy_arrayBIP qoa 24 4 none]
+G c Z s s [qoa_lms_tIP qoa 25 9 none]
+G c Z s s [Tarray_lmsBIP qoa 30 4 none]
+G c Z s s [qoa_descIP qoa 32 9 none]
+G c Z s s [array_shortIP qoa 39 9 none]
+G c Z b b [uns_to_int qoa 5 13 none]
+G c Z b b [frame_size qoa 35 13 none]
+G c Z b b [read_u64 qoa 115 14 none]
 X 1 ada.ads
 16K9*Ada 20e8 13|3r6 3r23
 X 9 a-textio.ads
 58K13*Text_IO 727e16 13|3w10 3r27
+507U14*Put_Line 14|68s10 95s7 380s7 381s7 382s7 383s7 384s7 385s7 516s19
+. 517s19 518s19 519s19 549s7 556s10 561s7 563s7 567s8 570s7
 X 11 interfac.ads
-38K9*Interfaces 231e15 13|2w6 2r22
-49I9*Integer_16<short_integer> 13|21r45 36r52 14|65r70 81r20 81r35 93r33
-. 457r18 460r18
-79M9*Unsigned_32 14|495r22 514r45
-82M9*Unsigned_64 14|307r24 308r25 310r46 312r24 312r39 313r24 313r39 314r24
-. 314r39 315r24 315r39 316r24 316r39 317r24 317r39 318r24 318r39 319r24 319r39
-. 368r40 370r24 370r39 371r24 371r39 372r24 372r39 373r24 373r39 374r24 374r39
-. 375r24 375r39 376r24 376r39 377r24 377r39 400r25 410r20 411r20 414r18
-164V13*Shift_Left{82M9} 14|321s17 322s15 323s15 324s15 325s15 326s15 327s15
-. 328s15 379s17 380s15 381s15 382s15 383s15 384s15 385s15 386s15 458s27 461s27
-. 483s28
-169V13*Shift_Right{82M9} 14|339s13 345s27 347s27 433s31 434s33 435s33 457s30
-. 460s30 469s40 477s41
+38K9*Interfaces 231e15 13|2w6 2r22 21r59
+49I9*Integer_16<short_integer> 13|21r70 24r49 39r52 14|5r66 82r11 82r25 107r37
+. 521r58
+55I9*Integer_64<long_long_integer> 14|63r20 67r12
+79M9*Unsigned_32 14|35r36 35r58 36r13 406r48 531r23 536r22 537r19 557r46
+82M9*Unsigned_64 14|5r53 115r34 118r24 118r39 119r24 119r39 120r24 120r39
+. 121r24 121r39 122r24 122r39 123r24 123r39 124r24 124r39 125r24 125r39 350r24
+. 351r25 410r25 420r20 421r20 424r18
+164V13*Shift_Left{82M9} 14|127s17 128s15 129s15 130s15 131s15 132s15 133s15
+. 134s15 480s27 483s27 523s28
+169V13*Shift_Right{82M9} 14|361s10 370s24 372s24 445s31 446s33 447s34 478s30
+. 482s30 495s40 507s41
 X 13 qoa.ads
-5K9*Qoa 69E4 121l5 121e8 14|1b14 524l5 524t8
-11N4*MIN_FILESIZE 14|334r27
-12N4*MAX_CHANNELS 27r34
-13N4*SLICE_LEN 15r48 14|440r44 471r47 489r36
+5K9*Qoa 72E4 124l5 124e8 14|2b14 574l5 574t8
+11N4*MIN_FILESIZE 14|356r24
+12N4*MAX_CHANNELS 30r34
+13N4*SLICE_LEN 15r48 14|459r44 497r47 528r36
 14N4*SLICES_PER_FRAME 15r29
-15N4*FRAME_LEN 14|512r41 514r13
-16N4*LMS_LEN 21r33 14|63r21 83r21 90r21 93r20 427r32 438r40 455r27
-17N4*MAGIC 14|339r46
-18N4*HEADER_SIZE 14|355r42 507r25
-21A9*my_array(11|49I9)<integer> 23r17 24r17
-22R9*qoa_lms_t 25e14 27r51 96r32 99r39 14|60r32 77r39
-23a7*history{21A9} 14|64r69 65r55 67r43 84r17 91m14 91r33 93m11 456m29
-24a7*weights{21A9} 14|64r42 65r37 67r25 85m17 85r36 87m17 87r36 459m29
-27A9*Array_lms(22R9)<integer> 33r13
-29R9*qoa_desc 34e14 44r39 47r39 14|303r41 360r39 394r43
-30i7*channels{25|59I12} 14|344m14 349r17 427r50 442r38 509r62
-31i7*samplerate{25|59I12} 14|346m14 350r24 443r39
-32i7*samples{25|59I12} 14|349r42 514r62 518m11
-33a7*lms{27A9} 14|456m20 459m20 476r49 485m35
-36A9*array_short(11|49I9)<integer>
-43U14*decode_header 43>29 44<29 14|302b17 357l11 357t24 505s7
-43a29 data{25|67A9} 14|302b32 305r31 312r52 313r52 314r52 315r52 316r52 317r52
-. 318r52 319r52 334r13 355r29
-44r29 qoa{29R9} 14|303b31 344m10 346m10 349r13 349r38 350r20
-46U14*decode 46>22 47<22 48<22 49<22 14|359b14 522l8 522t14
-46a22 data{25|67A9} 14|359b22 370r52 371r52 372r52 373r52 374r52 375r52 376r52
-. 377r52 505r22 507r12 510r24
-47r22 qoa{29R9} 14|360b22 505m28 509r58 510m33 514r58 518m7
-48a22 Output{25|67A9} 14|361b22 365r32 510m38 520r30
-49i22 Output_Size{25|59I12} 14|362b22 520m7
-69a4 QUANT_TAB(integer)
-72a4 SCALEFACTOR_TAB(integer)
-75a4 RECIPROCAL_TAB(integer)
-78a4 DEQUANT_TAB(integer) 14|478r34
-96V13 lms_predict{integer} 96>26 14|60b13 71l8 71t19 476s32
-96r26 lms{22R9} 14|60b26 64r38 64r65 65r33 65r51 67r21 67r39
-99U14 lms_update 99=26 100>26 101>26 14|77b14 94l8 94t18 485s19
-99r26 lms{22R9} 14|77b26 84r13 85m13 85r32 87m13 87r32 91m10 91r29 93m7
-100i26 sample{integer} 14|78b26 93r45
-101i26 residual{integer} 103r15 14|79b26 81r47
-110V13 clamp{integer} 110>20 111>24 112>24 14|15b13 30l8 30t13 471s29 479s36
-110i20 v{integer} 14|15b20 21r10 24r13 27r20
-111i24 min{integer} 14|16b20 21r14 22r17
-112i24 max{integer} 14|17b20 24r17 25r20
+15N4*FRAME_LEN
+16N4*LMS_LEN 24r33 14|39r18 65r21 96r21 104r21 107r20 438r32 457r40 476r27
+17N4*MAGIC 14|361r43
+18N4*HEADER_SIZE 14|385r51 548r26
+21A9*Output_Array(11|49I9)<31|52I9> 22r43 51r40 14|393r40 404r46
+22P9*Output_Array_Access(21A9)
+24A9*my_array(11|49I9)<integer> 26r17 27r17
+25R9*qoa_lms_t 28e14 30r55 99r32 102r39 14|62r32 78r39
+26a7*history{24A9} 14|67r46 97r17 105m14 105r33 107m11 477m29
+27a7*weights{24A9} 14|67r28 98m17 98r36 100m17 100r36 481m29
+30A9*Array_lms(25R9)<integer> 36r13
+32R9*qoa_desc 37e14 47r39 50r39 14|346r42 392r39 403r43
+33i7*channels{31|59I12} 14|369m11 374r14 380r67 438r50 461r38 553r54 565r51
+34i7*samplerate{31|59I12} 14|371m11 375r21 381r69 462r39
+35i7*samples{31|59I12} 14|365m11 374r39 382r66 557r63 561r61 562m11 563r64
+36a7*lms{30A9} 14|477m20 481m20 506r49 524m35
+39A9*array_short(11|49I9)<integer>
+46U14*decode_header 46>29 47<29 14|345b17 389l11 389t24 547s7
+46a29 data{31|67A9} 14|345b32 349r35 356r10 360r40 368r41 384r56
+47r29 qoa{32R9} 14|346b32 365m7 369m7 371m7 374r10 374r35 375r17 380r63 381r65
+. 382r62
+49U14*decode 49>22 50<22 51<22 52<22 14|391b14 572l8 572t14
+49a22 data{31|67A9} 14|391b22 546r12 547r22 548r13 549r34 554r24
+50r22 qoa{32R9} 14|392b22 547m28 553r50 554m33 557r59 561r57 562m7 563r60
+. 565r47
+51a22 Output{21A9} 14|393b22 397r32 554m38 569r30
+52i22 Output_Size{31|59I12} 14|394b22 569m7 570r57
+72a4 QUANT_TAB(integer)
+75a4 SCALEFACTOR_TAB(integer)
+78a4 RECIPROCAL_TAB(integer)
+81a4 DEQUANT_TAB(integer) 14|508r34
+99V13 lms_predict{integer} 99>26 14|62b13 72l8 72t19 506s32
+99r26 lms{25R9} 14|62b26 67r24 67r42
+102U14 lms_update 102=26 103>26 104>26 14|78b14 112l8 112t18 524s19
+102r26 lms{25R9} 14|78b26 97r13 98m13 98r32 100m13 100r32 105m10 105r29 107m7
+103i26 sample{integer} 14|79b26 107r49
+104i26 residual{integer} 106r15 14|80b26 82r38 82r50
+113V13 clamp{integer} 113>20 114>24 115>24 14|17b13 32l8 32t13 497s29 509s36
+113i20 v{integer} 14|17b20 23r10 26r13 29r20
+114i24 min{integer} 14|18b20 23r14 24r17
+115i24 max{integer} 14|19b20 26r17 27r20
 X 14 qoa.adb
-61i7 prediction{integer} 66m10 66r24 70r14
-63i11 i{integer} 64r33 64r60 65r46 65r64 67r34 67r52
-81i7 d{11|49I9} 85r50 87r51
-83i11 i{integer} 84r26 85r26 85r45 87r26 87r45
-90i11 i{integer} 91r23 91r42
-305i10 p{25|59I12} 312r58 313r58 314r58 315r58 316r58 317r58 318r58 319r58
-. 329m10 329r15 355r25
-307m10 file_header{11|82M9} 338m20 339r26
-308m10 frame_header{11|82M9} 343m20 345r40 347r40
-310U26 Read_u64 310b26 310<36 330l11 330t19 338s10 343s10
-310m36 Res{11|82M9} 321m10
-312m10 r0{11|82M9} 321r29
-313m10 r1{11|82M9} 322r27
-314m10 r2{11|82M9} 323r27
-315m10 r3{11|82M9} 324r27
-316m10 r4{11|82M9} 325r27
-317m10 r5{11|82M9} 326r27
-318m10 r6{11|82M9} 327r27
-319m10 r7{11|82M9} 328r27
-364i7 p{25|59I12} 370r58 371r58 372r58 373r58 374r58 375r58 376r58 377r58
-. 387m10 387r15 507m7 510m30 510r30
-365i7 index{25|59I12} 509m10 509r19 510r46 520r22
-368U20 Read_u64 368b20 368<30 388l11 388t19 432s10 453s13 454s13 468s16
-368m30 Res{11|82M9} 379m10
-370m10 r0{11|82M9} 379r29
-371m10 r1{11|82M9} 380r27
-372m10 r2{11|82M9} 381r27
-373m10 r3{11|82M9} 382r27
-374m10 r4{11|82M9} 383r27
-375m10 r5{11|82M9} 384r27
-376m10 r6{11|82M9} 385r27
-377m10 r7{11|82M9} 386r27
-392U18 decode_frame 392b18 392>32 393=30 394=30 395=30 396>30 493l11 493t23
-. 510s10
-392a32 data{25|67A9} 427r13 444r25
-393i30 p{25|59I12}
-394r30 qoa{13|29R9} 427r46 442r34 443r35 456m16 459m16 476r45 485m31 485r31
-395a30 Output{25|67A9} 481m19
-396i30 index{25|59I12} 481r27
-400m10 frame_header{11|82M9} 432m20 433r44 434r46 435r46 436r34
-401i10 channels{integer} 433m10 438r54 442r13 445r22 452r25 467r27 470r42
-. 472r20 486r30
-402i10 samplerate{integer} 434m10 443r12
-403i10 samples{integer} 435m10 445r12 466r27 471r61
-404i10 frame_size{integer} 436m10 438r23 444r12
-406i10 data_size{integer} 438m10 439r24
-407i10 num_slices{integer} 439m10 440r31
-408i10 max_total_samples{integer} 440m10 445r33
-410m10 history{11|82M9} 453m23 457r43 458m16 458r39
-411m10 weights{11|82M9} 454m23 460r43 461m16 461r39
-413i10 sample_i{integer} 466r16 470r31 471r36 489m13 489r25
-414m10 slice{11|82M9} 468m26 469r53 477r54 483m19 483r40
-415i10 scalefactor{integer} 469m16 478r47
-416i10 slice_start{integer} 470m16 474r22
-417i10 slice_end{integer} 471m16 475r27
-418i10 si{integer} 474m16 475r22 481r50 486m19 486r25
-420i10 predicted{integer} 476m19 479r43
-421i10 quantized{integer} 477m19 478r60
-422i10 dequantized{integer} 478m19 479r55 485r59
-423i10 reconstructed{integer} 479m19 482r41 485r44
-452i15 c{integer} 456r25 459r25
-455i17 i{integer} 456r38 459r38
-467i17 c{integer} 470r53 472r31 476r54 485r40
-495m7 sample_index{11|79M9} 509r42 512m10 512r26 514r30 518r37
+5V13 uns_to_int[36|20]{11|49I9} 478s18 482s18
+35V13 Frame_Size{11|79M9} 35b13 35>25 35>49 40l8 40t18
+35m25 channels{11|79M9} 39r32 39r56
+35m49 slices{11|79M9} 39r47
+63i7 prediction{11|55I9} 66m11 66r25 68r58 71r24 71r38
+65i11 i{integer} 67r37 67r55 68r42
+82i7 d{11|49I9} 95r36 98r50 100r51
+96i11 i{integer} 97r26 98r26 98r45 100r26 100r45
+104i11 i{integer} 105r23 105r42
+115U14 Read_u64 115b14 115<24 115=47 116>24 138l11 138t19 360s7 368s7 444s10
+. 474s13 475s13 494s16
+115m24 Res{11|82M9} 127m10
+115i47 p{31|59I12} 118r58 119r58 120r58 121r58 122r58 123r58 124r58 125r58
+. 137m10 137r15
+116a24 data{31|67A9} 118r52 119r52 120r52 121r52 122r52 123r52 124r52 125r52
+118m10 r0{11|82M9} 127r29
+119m10 r1{11|82M9} 128r27
+120m10 r2{11|82M9} 129r27
+121m10 r3{11|82M9} 130r27
+122m10 r4{11|82M9} 131r27
+123m10 r5{11|82M9} 132r27
+124m10 r6{11|82M9} 133r27
+125m10 r7{11|82M9} 134r27
+349i8 in_index{31|59I12} 360m30 360r30 368m31 368r31 383r47
+350m10 file_header{11|82M9} 360m17 361r23 365r37
+351m10 frame_header{11|82M9} 368m17 370r37 372r37
+396i7 p{31|59I12} 546m7 548m8 554m30 554r30
+397i7 index{31|59I12} 553m10 554r46 565m7 567r58 569r22
+401U18 decode_frame 401b18 401>32 402=30 403=30 404=30 405>31 406<32 407<31
+. 534l11 534t23 554s10
+401a32 data{31|67A9} 438r13 444r44 463r25 474r42 475r42 494r43
+402i30 in_index{31|59I12} 444m34 474m32 475m32 494m33
+403r30 qoa{13|32R9} 438r46 461r34 462r35 477m16 481m16 506r45 524m31 524r31
+404a30 Output{13|21A9} 521m19
+405i31 index{31|59I12} 521r27
+406m32 frame_len{11|79M9} 531m10
+407b31 End_Of_Decode{boolean} 439m13 467m13 532m10
+410m10 frame_header{11|82M9} 444m20 445r44 446r46 447r47 448r34
+411i10 channels{integer} 445m10 457r54 461r13 464r23 473r25 493r27 496r42
+. 498r20 525r30
+412i10 samplerate{integer} 446m10 462r12
+413i10 fsamples{integer} 447m10 464r12 491r27 497r61 531r36
+414i10 frame_size{integer} 448m10 457r23 463r12
+416i10 data_size{integer} 457m10 458r24
+417i10 num_slices{integer} 458m10 459r31
+418i10 max_total_samples{integer} 459m10 464r34
+420m10 history{11|82M9} 474m23 478r43 480m16 480r39
+421m10 weights{11|82M9} 475m23 482r43 483m16 483r39
+423i10 sample_i{integer} 491r16 496r31 497r36 528m13 528r25
+424m10 slice{11|82M9} 494m26 495r53 507r54 523m19 523r40
+425i10 scalefactor{integer} 495m16 508r47
+426i10 slice_start{integer} 496m16 503r22
+427i10 slice_end{integer} 497m16 504r27
+428i10 si{integer} 503m16 504r22 521r50 525m19 525r25
+430i10 predicted{integer} 506m19 509r43 516r51
+431i10 quantized{integer} 507m19 508r60 517r51
+432i10 dequantized{integer} 508m19 509r55 518r53 524r59
+433i10 reconstructed{integer} 509m19 519r55 521r70 524r44
+473i15 c{integer} 477r25 481r25
+476i17 i{integer} 477r38 481r38
+493i17 c{integer} 496r53 498r31 506r54 524r40
+536m7 sample_index{11|79M9} 553r34 555m10 555r26 556r40 557r30 562r37 565r31
+537m7 frame_len{11|79M9} 554m52 555r41
+538b8 End_Of_Decode{boolean} 554m63 557r13
 X 15 system.ads
 37K9*System 13|1r6 1r35 15|154e11
-X 25 s-stoele.ads
-40K16*Storage_Elements 13|1w13 1r42 25|114e28
+X 31 s-stoele.ads
+40K16*Storage_Elements 13|1w13 1r42 31|114e28
 52I9*Storage_Offset<long_integer>
-59I12*Storage_Count{52I9} 13|30r18 31r20 32r17 49r40 14|305r14 345r12 347r12
-. 362r40 364r11 365r15 393r41 396r38 481r35 509r27 518r22
-61M9*Storage_Element 14|482r24
-67A9*Storage_Array(61M9)<52I9> 13|43r36 46r40 48r40 14|302r39 359r40 361r40
-. 392r39 395r51
+59I12*Storage_Count{52I9} 13|21r32 33r18 34r20 35r17 52r40 14|115r58 349r19
+. 365r22 370r9 372r9 380r42 381r44 382r41 383r26 384r35 394r40 396r11 397r15
+. 402r48 405r39 521r35 553r19 561r36 562r22 563r39 565r16 567r37 570r36
+61M9*Storage_Element
+67A9*Storage_Array(61M9)<52I9> 13|46r36 49r40 14|116r31 345r39 391r40 401r39
+X 36 unchconv.ads
+20v10*Unchecked_Conversion 14|1w6 5r31
 
