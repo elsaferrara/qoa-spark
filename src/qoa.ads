@@ -12,7 +12,7 @@ is
    MAX_CHANNELS : constant := 8;
    SLICE_LEN : constant := 20;
    SLICES_PER_FRAME : constant := 256;
-   FRAME_LEN : constant := (SLICES_PER_FRAME * SLICE_LEN);
+   GEN_FRAME_LEN : constant := (SLICES_PER_FRAME * SLICE_LEN);
    LMS_LEN : constant := 4;
    MAGIC : constant := 16#716f6166#; -- 'qoaf'
    HEADER_SIZE : constant := 8;
@@ -21,49 +21,40 @@ is
    type Output_Array is array (Storage_Count range <>) of Interfaces.Integer_16;
    type Output_Array_Access is access all Output_Array;
 
-   type my_array is array (0 .. LMS_LEN - 1) of Integer_16;
-   type qoa_lms_t is record
-      history : my_array;
-      weights : my_array;
+   type My_Array is array (0 .. LMS_LEN - 1) of Integer_16;
+   type Qoa_Lms_t is record
+      History : My_Array := (others => 0);
+      Weights : My_Array := (others => 0);
    end record;
 
-   type Array_lms is array (0 .. MAX_CHANNELS - 1) of qoa_lms_t;
+   type Array_lms is array (0 .. MAX_CHANNELS - 1) of Qoa_Lms_t;
 
-   type qoa_desc is record
-      channels : Storage_Count; -- Unsigned_8
-      samplerate : Storage_Count; -- Unsigned_24
-      samples : Storage_Count; -- Unsigned_16
-      lms : Array_lms;
+   type Qoa_Desc is record
+      Channels : Storage_Count; -- Unsigned_8
+      Samplerate : Storage_Count; -- Unsigned_24
+      Samples : Storage_Count; -- Unsigned_16
+      Lms : Array_lms;
    end record;
 
    type array_short is array (Integer range <>) of Integer_16;
-   --  procedure encode (sample_data :     array_short;
-   --                        qoa         : in out qoa_desc;
-   --                        Output      : out Storage_Array;
-   --                        Output_len  : out Storage_Count);
 
 
-   procedure decode_header (data : Storage_Array;
-                            qoa : out qoa_desc);
 
-   procedure decode (data        :     Storage_Array;
-                     qoa        : out qoa_desc;
+   function Encode_Worst_Case (Qoa : Qoa_Desc) return Storage_Count;
+
+   procedure Encode (Sample_Data :     Output_Array;
+                     Qoa         : in out Qoa_Desc;
+                     Output      : out Storage_Array;
+                     Output_len  : out Storage_Count);
+
+   procedure Decode_Header (Data : Storage_Array;
+                            Qoa : out Qoa_Desc);
+
+   procedure Decode (Data        :     Storage_Array;
+                     Qoa         : out Qoa_Desc;
                      Output      : out Output_Array;
-                     Output_Size : out Storage_Count)
-     --  with
-     --    Pre => Output'First >= 0
-     --    and then Output'Last < Storage_Count'Last
-     --    and then Data'First >= 0
-     --    and then Data'Last < Storage_Count'Last
-     --    and then Data'Length >= MIN_FILESIZE
+                     Output_Size : out Storage_Count);
 
-   ;
-
-
-
-   --     function decode_header (data : Storage_Array;
-   --                              qoa : out qoa_desc)
-   --  return Integer;
 
 private
 
@@ -96,29 +87,21 @@ private
     (1286, -1286, 4288, -4288, 7718, -7718, 12005, -12005),
     (1536, -1536, 5120, -5120, 9216, -9216, 14336, -14336));
 
-   function lms_predict (lms : qoa_lms_t) return Integer;
+   function Lms_Predict (Lms : qoa_lms_t) return Integer;
 
 
-   procedure lms_update (lms : in out qoa_lms_t;
-                         sample : Integer;
-                         residual : Integer)
-     with
-       Pre => residual / (2 ** 4) in Integer
-   ;
+   procedure Lms_Update (Lms : in out qoa_lms_t;
+                         Sample : Integer;
+                         Residual : Integer);
 
-   --  function qoa_div (v : Integer;
-   --                    scalefactor : Integer)
-   --                    return Integer;
-   --
-   function clamp (v : Integer;
-                       min : Integer;
-                       max : Integer)
+   function Div (V : Integer;
+                 Scalefactor : Integer)
+                 return Integer;
+
+   function Clamp (V : Integer;
+                       Min : Integer;
+                       Max : Integer)
                        return Integer;
-   --
-   --  function Read_u64 (data : Storage_Array; p : Storage_Count;
-   --                    Res : out Unsigned_64)
-   --                     return Storage_Count;
-   --  procedure write_u64 (val : Unsigned_64; bytes : in out Storage_Array;
-   --                        index : in out Storage_Offset);
+
 
 end Qoa;

@@ -1,0 +1,2023 @@
+{
+  "spark": [
+    {
+      "name": "Qoa",
+      "sloc": [
+        {
+          "file": "qoa.ads",
+          "line": 5
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Qoa.Encode_Worst_Case",
+      "sloc": [
+        {
+          "file": "qoa.ads",
+          "line": 43
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Qoa.encode",
+      "sloc": [
+        {
+          "file": "qoa.ads",
+          "line": 45
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Qoa.decode_header",
+      "sloc": [
+        {
+          "file": "qoa.ads",
+          "line": 50
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Qoa.decode",
+      "sloc": [
+        {
+          "file": "qoa.ads",
+          "line": 53
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Qoa.lms_predict",
+      "sloc": [
+        {
+          "file": "qoa.ads",
+          "line": 103
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Qoa.lms_update",
+      "sloc": [
+        {
+          "file": "qoa.ads",
+          "line": 106
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Qoa.clamp",
+      "sloc": [
+        {
+          "file": "qoa.ads",
+          "line": 117
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Qoa.Uns_To_Intgp77",
+      "sloc": [
+        {
+          "file": "qoa.adb",
+          "line": 5
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Qoa.Uns_To_Intgp77.uns_to_int",
+      "sloc": [
+        {
+          "file": "qoa.adb",
+          "line": 5
+        }
+      ],
+      "spark": "spec"
+    },
+    {
+      "name": "Qoa.Frame_Size",
+      "sloc": [
+        {
+          "file": "qoa.adb",
+          "line": 35
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Qoa.write_u64",
+      "sloc": [
+        {
+          "file": "qoa.adb",
+          "line": 42
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Qoa.Read_u64",
+      "sloc": [
+        {
+          "file": "qoa.adb",
+          "line": 115
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Qoa.div",
+      "sloc": [
+        {
+          "file": "qoa.adb",
+          "line": 141
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Qoa.encode.encode_header",
+      "sloc": [
+        {
+          "file": "qoa.adb",
+          "line": 177
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Qoa.encode.encode_frame",
+      "sloc": [
+        {
+          "file": "qoa.adb",
+          "line": 187
+        }
+      ],
+      "spark": "all"
+    },
+    {
+      "name": "Qoa.decode.decode_frame",
+      "sloc": [
+        {
+          "file": "qoa.adb",
+          "line": 407
+        }
+      ],
+      "spark": "all"
+    }
+  ],
+  "progress": "PROGRESS_FLOW",
+  "stop_reason": "STOP_REASON_ERROR_FLOW",
+  "flow": [
+    {
+      "file": "qoa.adb",
+      "line": 412,
+      "col": 32,
+      "rule": "UNINITIALIZED",
+      "severity": "medium",
+      "entity": {
+        "name": "Qoa.decode.decode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 407
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "tracefile": "qoa__flow__0.trace",
+      "msg_id": 0,
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 427,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.decode.decode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 407
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 430,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.decode.decode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 407
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 431,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.decode.decode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 407
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 413,
+      "col": 31,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.decode.decode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 407
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 432,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.decode.decode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 407
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 433,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.decode.decode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 407
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 434,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.decode.decode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 407
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 436,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.decode.decode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 407
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 416,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.decode.decode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 407
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 437,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.decode.decode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 407
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 438,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.decode.decode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 407
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 417,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.decode.decode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 407
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 439,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.decode.decode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 407
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 418,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.decode.decode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 407
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 419,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.decode.decode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 407
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 420,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.decode.decode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 407
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 422,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.decode.decode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 407
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 423,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.decode.decode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 407
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 424,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.decode.decode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 407
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 426,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.decode.decode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 407
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.ads",
+      "line": 51,
+      "col": 29,
+      "rule": "UNINITIALIZED",
+      "severity": "medium",
+      "entity": {
+        "name": "Qoa.decode_header",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 50
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "tracefile": "qoa__flow__1.trace",
+      "msg_id": 1,
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.ads",
+      "line": 51,
+      "col": 29,
+      "rule": "UNINITIALIZED",
+      "severity": "medium",
+      "entity": {
+        "name": "Qoa.decode_header",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 50
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "tracefile": "qoa__flow__2.trace",
+      "msg_id": 2,
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.ads",
+      "line": 51,
+      "col": 29,
+      "rule": "UNINITIALIZED",
+      "severity": "medium",
+      "entity": {
+        "name": "Qoa.decode_header",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 50
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "tracefile": "qoa__flow__3.trace",
+      "msg_id": 3,
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.ads",
+      "line": 51,
+      "col": 29,
+      "rule": "UNINITIALIZED",
+      "severity": "high",
+      "entity": {
+        "name": "Qoa.decode_header",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 50
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "tracefile": "qoa__flow__4.trace",
+      "msg_id": 4,
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 356,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.decode_header",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 50
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 357,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.decode_header",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 50
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 177,
+      "col": 16,
+      "rule": "SIDE_EFFECTS",
+      "severity": "error",
+      "entity": {
+        "name": "Qoa.encode.encode_header",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 177
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "msg_id": 5,
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 403,
+      "col": 7,
+      "rule": "INEFFECTIVE",
+      "severity": "warning",
+      "entity": {
+        "name": "Qoa.decode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 53
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "tracefile": "qoa__flow__5.trace",
+      "msg_id": 6,
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 552,
+      "col": 9,
+      "rule": "INEFFECTIVE",
+      "severity": "warning",
+      "entity": {
+        "name": "Qoa.decode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 53
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "tracefile": "qoa__flow__6.trace",
+      "msg_id": 7,
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 560,
+      "col": 38,
+      "rule": "UNINITIALIZED",
+      "severity": "medium",
+      "entity": {
+        "name": "Qoa.decode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 53
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "tracefile": "qoa__flow__7.trace",
+      "msg_id": 8,
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 543,
+      "col": 7,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.decode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 53
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 544,
+      "col": 8,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.decode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 53
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.ads",
+      "line": 54,
+      "col": 22,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.decode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 53
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.ads",
+      "line": 56,
+      "col": 22,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.decode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 53
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 402,
+      "col": 7,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.decode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 53
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 307,
+      "col": 30,
+      "rule": "UNINITIALIZED",
+      "severity": "medium",
+      "entity": {
+        "name": "Qoa.encode.encode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 187
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "tracefile": "qoa__flow__8.trace",
+      "msg_id": 9,
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 305,
+      "col": 31,
+      "rule": "UNINITIALIZED",
+      "severity": "medium",
+      "entity": {
+        "name": "Qoa.encode.encode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 187
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "tracefile": "qoa__flow__9.trace",
+      "msg_id": 10,
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 305,
+      "col": 31,
+      "rule": "UNINITIALIZED",
+      "severity": "medium",
+      "entity": {
+        "name": "Qoa.encode.encode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 187
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "tracefile": "qoa__flow__10.trace",
+      "msg_id": 11,
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 211,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode.encode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 187
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 212,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode.encode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 187
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 213,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode.encode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 187
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 214,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode.encode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 187
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 216,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode.encode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 187
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 217,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode.encode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 187
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 218,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode.encode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 187
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 219,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode.encode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 187
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 220,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode.encode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 187
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 199,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode.encode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 187
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 221,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode.encode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 187
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 200,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode.encode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 187
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 222,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode.encode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 187
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 223,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode.encode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 187
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 203,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode.encode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 187
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 224,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode.encode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 187
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 204,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode.encode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 187
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 205,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode.encode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 187
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 207,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode.encode_frame",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 187
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 320,
+      "col": 7,
+      "rule": "UNUSED_VARIABLE",
+      "severity": "warning",
+      "entity": {
+        "name": "Qoa.encode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 45
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "msg_id": 12,
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.ads",
+      "line": 48,
+      "col": 22,
+      "rule": "UNUSED_VARIABLE",
+      "severity": "warning",
+      "entity": {
+        "name": "Qoa.encode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 45
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "msg_id": 13,
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 321,
+      "col": 7,
+      "rule": "UNUSED_VARIABLE",
+      "severity": "warning",
+      "entity": {
+        "name": "Qoa.encode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 45
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "msg_id": 14,
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 318,
+      "col": 7,
+      "rule": "INEFFECTIVE",
+      "severity": "warning",
+      "entity": {
+        "name": "Qoa.encode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 45
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "tracefile": "qoa__flow__11.trace",
+      "msg_id": 15,
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.ads",
+      "line": 47,
+      "col": 22,
+      "rule": "UNINITIALIZED",
+      "severity": "medium",
+      "entity": {
+        "name": "Qoa.encode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 45
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "msg_id": 16,
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.ads",
+      "line": 48,
+      "col": 22,
+      "rule": "UNINITIALIZED",
+      "severity": "high",
+      "entity": {
+        "name": "Qoa.encode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 45
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "tracefile": "qoa__flow__12.trace",
+      "msg_id": 17,
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 307,
+      "col": 30,
+      "rule": "UNINITIALIZED",
+      "severity": "medium",
+      "entity": {
+        "name": "Qoa.encode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 45
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "tracefile": "qoa__flow__13.trace",
+      "msg_id": 18,
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 305,
+      "col": 31,
+      "rule": "UNINITIALIZED",
+      "severity": "medium",
+      "entity": {
+        "name": "Qoa.encode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 45
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "tracefile": "qoa__flow__14.trace",
+      "msg_id": 19,
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 305,
+      "col": 31,
+      "rule": "UNINITIALIZED",
+      "severity": "medium",
+      "entity": {
+        "name": "Qoa.encode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 45
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "tracefile": "qoa__flow__15.trace",
+      "msg_id": 20,
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 220,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 45
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 199,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 45
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 221,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 45
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 200,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 45
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 222,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 45
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 223,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 45
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 203,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 45
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 224,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 45
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 204,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 45
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 205,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 45
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 207,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 45
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 211,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 45
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 212,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 45
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 317,
+      "col": 7,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 45
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 213,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 45
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 214,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 45
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 216,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 45
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 217,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 45
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 218,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 45
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 219,
+      "col": 10,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.encode",
+        "sloc": [
+          {
+            "file": "qoa.ads",
+            "line": 45
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    },
+    {
+      "file": "qoa.adb",
+      "line": 115,
+      "col": 24,
+      "rule": "UNINITIALIZED",
+      "severity": "info",
+      "entity": {
+        "name": "Qoa.Read_u64",
+        "sloc": [
+          {
+            "file": "qoa.adb",
+            "line": 115
+          }
+        ]
+      },
+      "check_tree": {
+      },
+      "how_proved": "flow"
+    }
+  ],
+  "assumptions": [
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "predicate": "CLAIM_EFFECTS",
+        "arg": {
+          "name": "Qoa.Encode_Worst_Case",
+          "sloc": [
+            {
+              "file": "qoa.ads",
+              "line": 43
+            }
+          ]
+        }
+      }
+    },
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "predicate": "CLAIM_EFFECTS",
+        "arg": {
+          "name": "Qoa.clamp",
+          "sloc": [
+            {
+              "file": "qoa.ads",
+              "line": 117
+            }
+          ]
+        }
+      }
+    },
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "predicate": "CLAIM_EFFECTS",
+        "arg": {
+          "name": "Qoa.Frame_Size",
+          "sloc": [
+            {
+              "file": "qoa.adb",
+              "line": 35
+            }
+          ]
+        }
+      }
+    },
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "predicate": "CLAIM_EFFECTS",
+        "arg": {
+          "name": "Qoa.lms_update",
+          "sloc": [
+            {
+              "file": "qoa.ads",
+              "line": 106
+            }
+          ]
+        }
+      }
+    },
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "predicate": "CLAIM_EFFECTS",
+        "arg": {
+          "name": "Qoa.Read_u64",
+          "sloc": [
+            {
+              "file": "qoa.adb",
+              "line": 115
+            }
+          ]
+        }
+      }
+    },
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "predicate": "CLAIM_EFFECTS",
+        "arg": {
+          "name": "Qoa.write_u64",
+          "sloc": [
+            {
+              "file": "qoa.adb",
+              "line": 42
+            }
+          ]
+        }
+      }
+    },
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "predicate": "CLAIM_EFFECTS",
+        "arg": {
+          "name": "Qoa.div",
+          "sloc": [
+            {
+              "file": "qoa.adb",
+              "line": 141
+            }
+          ]
+        }
+      }
+    },
+    {
+      "assumptions": [
+      ],
+      "claim": {
+        "predicate": "CLAIM_EFFECTS",
+        "arg": {
+          "name": "Qoa.lms_predict",
+          "sloc": [
+            {
+              "file": "qoa.ads",
+              "line": 103
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "timings": {
+    "globals (advanced)": 5.04000019282103E-03,
+    "marking": 1.43399997614324E-03,
+    "properties (advanced)": 6.60000005154870E-05,
+    "globals (basic)": 1.49670001119375E-02
+  }
+}

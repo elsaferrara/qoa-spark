@@ -1,0 +1,11 @@
+20230307180052
+-c
+-x
+ada
+-gnatA
+-O3
+-gnatn
+-ffunction-sections
+-fdata-sections
+-gnatc
+-gnates=/home/ferrara/qoa-spark/tests/obj/development/gnatprove/5ad7ca33.tmp
