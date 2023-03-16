@@ -228,6 +228,7 @@ procedure Tests is
          Len : constant Storage_Count := Storage_Count (File_Length (FD));
          In_Data : constant Storage_Array_Access :=
            new Storage_Array (1 .. Len);
+         End_Of_Header : Boolean;
       begin
 
          Ret := Read (FD, In_Data.all'Address, In_Data.all'Length);
@@ -239,7 +240,7 @@ procedure Tests is
 
          Close (FD);
 
-         Qoa.Decode_Header (In_Data.all, Result.Desc);
+         Qoa.Decode_Header (In_Data.all, Result.Desc, End_Of_Header);
 
          declare
             Out_Len : constant Storage_Count :=
