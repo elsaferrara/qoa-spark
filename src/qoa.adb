@@ -5,8 +5,8 @@ is
 
    function Uns_To_Int is new Unchecked_Conversion (Unsigned_16, Integer_16);
 
-   function Frame_Size (Channels : Unsigned_32; Slices : Unsigned_32)
-                        return Unsigned_32
+   function Frame_Size (Channels : Unsigned_16; Slices : Unsigned_16)
+                        return Unsigned_16
 
    is
    begin
@@ -15,7 +15,7 @@ is
 
    procedure Write_u64 (Val : Unsigned_64; Bytes : in out Storage_Array;
                         Index : in out Storage_Count)
---  with SPARK_Mode => Off
+     --  with SPARK_Mode => Off
    is
    begin
       Bytes (Index) := Storage_Element ((Val / (2 ** 56)) and 16#ff#);
@@ -35,7 +35,7 @@ is
 
    procedure Read_u64 (Res : out Unsigned_64; P : in out Storage_Count;
                        Data : Storage_Array)
---  with SPARK_Mode => Off
+     --  with SPARK_Mode => Off
    is
       R0 : constant Unsigned_64 := Unsigned_64 (Data (P));
       R1 : constant Unsigned_64 := Unsigned_64 (Data (P + 1));
@@ -62,7 +62,7 @@ is
    ----------------
 
    function Lms_Predict (Lms : Qoa_Lms_t) return Integer
- is
+   is
       Prediction : Integer_64 := 0;
    begin
       for i in 0 .. LMS_LEN - 1 loop
@@ -114,8 +114,37 @@ is
       end if;
    end Clamp;
 
-      function Clamp_16 (V : Integer)
-                   return Integer_16
+   function Clamp (V : Integer;
+                   Min : Unsigned_16;
+                   Max : Unsigned_16)
+                   return Unsigned_16
+   is
+   begin
+      if V < Integer (Min) then
+         return Min;
+      else
+         if V > Integer (Max) then
+            return Max;
+         else
+            return Unsigned_16 (V);
+         end if;
+      end if;
+   end Clamp;
+
+   function Clamp (V : Unsigned_16;
+                   Max : Unsigned_32)
+                      return Unsigned_16
+   is
+   begin
+      if Unsigned_32 (V) > Max then
+         return Unsigned_16 (Max);
+      else
+         return V;
+      end if;
+   end Clamp;
+
+   function Clamp_16 (V : Integer)
+                         return Integer_16
    is
    begin
       if V < Integer (Integer_16'First) then
@@ -169,41 +198,42 @@ is
    --     return Storage_Count (Encoded_Size);
    --  end Encode_Worst_Case;
 
-   function Encode_Worst_Case (Qoa : Qoa_Desc) return Storage_Count
+   function Encode_Size (Channels : Channels_Type; Samples : Samples_Type ) return Storage_Count
    is
       Num_Frames : Storage_Count :=
-        (Qoa.Samples + GEN_FRAME_LEN - 1) / GEN_FRAME_LEN;
+        (Samples + GEN_FRAME_LEN - 1) / GEN_FRAME_LEN;
       Num_Slices : Storage_Count :=
-        (Qoa.Samples + SLICE_LEN - 1) / SLICE_LEN;
+        (Samples + SLICE_LEN - 1) / SLICE_LEN;
       Encoded_Size : Storage_Count := 8 +
         Num_Frames * 8 +
-          Num_Frames * LMS_LEN * 4 * Qoa.Channels +
-        Num_Slices * 8 * Qoa.Channels;
+          Num_Frames * LMS_LEN * 4 * Channels +
+            Num_Slices * 8 * Channels;
    begin
       return Encoded_Size;
-   end Encode_Worst_Case;
+   end Encode_Size;
 
    procedure Encode (Sample_Data :     Output_Array;
                      Qoa         :     in out Qoa_Desc;
                      Output      : out Storage_Array;
                      Output_len  : out Storage_Count)
---  with SPARK_Mode => Off
+     --  with SPARK_Mode => Off
    is
-            procedure Encode_Header (Qoa : Qoa_Desc; Output : in out Storage_Array;
-                                     P : in out Storage_Count)
+      procedure Encode_Header (Qoa : Qoa_Desc; Output : in out Storage_Array;
+                               P : in out Storage_Count)
         with
-        Pre => Output'First >= 0
-         and then Output'Last < Storage_Count'Last
-       and then Qoa.Samples <= 2 ** 32
-         and then (Qoa.Samples + SLICE_LEN - 1) / SLICE_LEN < Storage_Count'Last / 256
-          and then Output'Length >= Encode_Worst_Case (Qoa)
+          Relaxed_Initialization => Output,
+          Pre => Output'First >= 0
+          and then Output'Last < Storage_Count'Last
+          and then Qoa.Samples <= 2 ** 32
+          and then (Qoa.Samples + SLICE_LEN - 1) / SLICE_LEN < Storage_Count'Last / 256
+          and then Output'Length = Encode_Size (Qoa.Channels,Qoa.Samples)
           and then P = Output'First,
 
-            Post => P = P'Old + 8
+          Post => P = P'Old + 8
             ;
 
       procedure Encode_Header (Qoa : Qoa_Desc; Output : in out Storage_Array;
-                              P : in out Storage_Count)
+                               P : in out Storage_Count)
       is
       begin
          Write_u64 ((Unsigned_64 (MAGIC)) * (2 ** 32) or
@@ -214,46 +244,43 @@ is
                               Qoa : in out Qoa_Desc;
                               Bytes : in out Storage_Array;
                               Index : in out Storage_Count;
-                              F_Len : Integer;
-                             End_Of_Encode : out Boolean)
+                              F_Len : Unsigned_16)
         with
-          Pre => F_Len < 2 ** 30
-          and then Index >= Bytes'First
-            and then Index <= Bytes'Last - 7
-            and then Output'First >= 0
-         and then Output'Last < Storage_Count'Last
-       and then Qoa.Samples <= 2 ** 32
-         and then (Qoa.Samples + SLICE_LEN - 1) / SLICE_LEN < Storage_Count'Last / 256
-          and then Output'Length >= Encode_Worst_Case (Qoa)
-            and then (F_Len + SLICE_LEN - 1)
-            / SLICE_LEN >= 0
+          Relaxed_Initialization => Bytes,
+          Pre =>
+            F_Len < 2 ** 16
+            and then
+              F_Len >= 0
+              and then Index >= Bytes'First
+              and then Bytes'Last >= Storage_Count'First + 7
+              and then Index <= Bytes'Last - 7
+              and then Qoa.Samples <= 2 ** 32
+              and then (Qoa.Samples + SLICE_LEN - 1) / SLICE_LEN < Storage_Count'Last / 256
+              and then Bytes'Length = Integer_128 (Encode_Size (Qoa.Channels, Qoa.Samples))
+              and then (F_Len + SLICE_LEN - 1)
+                / SLICE_LEN >= 0
         and then Bytes'Length >= 8
         and then Bytes'Last < Storage_Count'Last
-          and then Bytes'Length < Storage_Count'Last
-
-
-      ;
-
+        and then Bytes'Length < Integer_128 (Storage_Count'Last);
 
       procedure Encode_Frame (Sample_Data : Output_Array;
                               Qoa : in out Qoa_Desc;
                               Bytes : in out Storage_Array;
                               Index : in out Storage_Count;
-                              F_Len : Integer;
-                             End_Of_Encode : out Boolean)
+                              F_Len : Unsigned_16)
       is
-         Channels : constant Unsigned_32 := Unsigned_32 (Qoa.Channels);
-         Slices : constant Unsigned_32 := Unsigned_32 ((F_Len + SLICE_LEN - 1)
-           / SLICE_LEN);
-         F_Size : constant Unsigned_32 :=
+         Channels : constant Unsigned_16 := Unsigned_16 (Qoa.Channels);
+         Slices : constant Unsigned_16 := Unsigned_16 ((F_Len + SLICE_LEN - 1)
+                                                       / SLICE_LEN);
+         F_Size : constant Unsigned_16 :=
            Frame_Size (Channels, Slices);
          Weights : Unsigned_64;
          History : Unsigned_64;
-         Sample_Index : Integer := 0;
+         Sample_Index : Unsigned_16 := 0;
 
-         Slice_Size : Integer;
-         Slice_Start : Integer;
-         Slice_End : Integer;
+         Slice_Size : Unsigned_16;
+         Slice_Start : Unsigned_16;
+         Slice_End : Unsigned_16;
 
          Best_Error : Unsigned_64;
          Best_Slice : Unsigned_64 := 0;
@@ -262,9 +289,9 @@ is
          Lms : qoa_lms_t;
          Slice : Unsigned_64;
          Current_Error : Unsigned_64;
-         SI : Integer;
+         SI : Unsigned_16;
 
-         Sample : Integer;
+         Sample : Integer_16;
          Predicted : Integer;
          Residual : Integer;
          Scaled : Integer;
@@ -272,7 +299,7 @@ is
          Quantized : Integer;
          Dequantized : Integer;
          Reconstructed : Integer_16;
-         Error : Long_Long_Integer;
+         Error : Integer;
 
       begin
 
@@ -283,19 +310,10 @@ is
                       Unsigned_64 (F_Size)
                    ), Bytes, Index);
 
-         if Bytes'Length < 16 * Qoa.Channels or else
-           Bytes'Last < Storage_Count'First + 16 * Qoa.Channels or else
-            Index > Bytes'Last - 16 * Qoa.Channels + 1 or else
-              Index  > Storage_Count'Last - 16 * Qoa.Channels
-            then
-               End_Of_Encode := True;
-                  return;
-               end if;
-
          --  Write the current LMS state
          for c in Integer range 0 .. (Integer (Channels) - 1) loop
             pragma Loop_Invariant (Index >= Bytes'First);
-            pragma Loop_Invariant (Bytes'Length >= 16);
+            pragma Loop_Invariant (Bytes'Length = Encode_Size (Qoa.Channels, Qoa.Samples));
             pragma Loop_Invariant (Index <= Bytes'Last - 15);
             pragma Loop_invariant (Index <= Storage_Count'Last - 16);
             Weights := 0;
@@ -309,52 +327,15 @@ is
             Write_u64 (History, Bytes, Index);
             Write_u64 (Weights, Bytes, Index);
 
-            if Index > Bytes'Last - 15
-              then
-               End_Of_Encode := True;
-                  return;
-               end if;
          end loop;
 
          --  Encode all samples
          while Sample_Index < F_Len loop
-            pragma Loop_Invariant (Index >= Bytes'First);
-            pragma Loop_Invariant (Index <= Bytes'Last - 7);
-            for c in Integer range 0 .. Integer (Channels) - 1 loop
-               pragma Loop_Invariant (Index >= Bytes'First);
-               pragma Loop_Invariant (Index <= Bytes'Last - 7);
+            for c in 0 .. Channels - 1 loop
 
-               if Sample_Index > F_Len
-                 or else Sample_Index < 0
-               then
-                  End_Of_Encode := True;
-                  return;
-               end if;
-
-               Slice_Size := Clamp (SLICE_LEN, 0,
-                                    F_Len - Sample_Index);
-               if Integer (Channels) > 2 ** 4 or else
-                 c > 2 ** 4  or else
-                 Sample_Index > 2 ** 26
-               then
-                  End_Of_Encode := True;
-                  return;
-               end if;
-
-               Slice_Start := Sample_Index * Integer (Channels) + c;
-               if Integer(Channels) > 2 ** 4 or else
-                 c > 2 ** 4 or else
-                 Slice_Size > 2 ** 6 or else
-                 Sample_Index > 2 ** 26
-               or else Sample_Index + Slice_Size > 2 ** 28
-               or else Sample_Index + Slice_Size < 0
-               then
-               End_Of_Encode := True;
-                  return;
-               end if;
-
-               Slice_End := (Sample_Index + Slice_Size)
-                 * Integer (Channels) + c;
+               Slice_Size := Clamp (SLICE_LEN, 0, F_Len - Sample_Index);
+               Slice_Start := Sample_Index * Channels + c;
+               Slice_End := (Sample_Index + Slice_Size) * Channels + c;
 
                --  Search the best scalefactor. Go through all 16 scalefactors,
                --  encode all samples for the current slice and
@@ -362,33 +343,21 @@ is
                Best_Error := -1;
 
                for Scalefactor in 0 .. 15 loop
-
+                  pragma Loop_Invariant (True);
                   --  Reset the LMS state to the last known good one
                   --  before trying each scalefactor
 
-                  Lms := Qoa.Lms (c);
+                  Lms := Qoa.Lms (Integer(c));
                   Slice := Unsigned_64 (Scalefactor);
                   Current_Error := 0;
 
                   SI := Slice_Start;
-                   if SI < Integer (Storage_Count'First)  then
-                     End_Of_Encode := True;
-                     return;
-                     end if;
                   while SI < Slice_End loop
-                     pragma Loop_Invariant (SI >= Integer (Storage_Count'First));
 
-                     if Sample_Data'First > 2 ** 62 or else
-                       Sample_Data'First + Storage_Count(SI) > Sample_Data'Last
-                     then
-                     End_Of_Encode := True;
-                     return;
-                     end if;
-                     Sample :=
-                       Integer (Sample_Data (Sample_Data'First + Storage_Count(SI)));
+                     Sample := Sample_Data (Sample_Data'First + Storage_Count(SI));
 
                      Predicted := Lms_Predict (Lms);
-                     Residual := Sample - Predicted;
+                     Residual := Integer (Sample) - Predicted;
 
                      Scaled := Div (Residual, Scalefactor);
                      Clamped := Clamp (Scaled, -8, 8);
@@ -396,14 +365,10 @@ is
                      Dequantized := DEQUANT_TAB (Scalefactor, Quantized);
                      Reconstructed := Clamp_16 (Predicted + Dequantized);
 
-                     Error := Long_Long_Integer (Sample - Integer (Reconstructed));
-                     if Error > 2 ** 30 or else
-                       Error < - 2 ** 30 then
-                        End_Of_Encode := True;
-                        return;
-                     end if;
+                     Error := Integer (Sample) - Integer (Reconstructed);
+
                      Current_Error := Current_Error +
-                       Unsigned_64 (Error * Error);
+                       Unsigned_64 (Abs (Error)) * Unsigned_64 (Abs (Error));
 
                      if Current_Error > Best_Error then
                         exit;
@@ -411,12 +376,7 @@ is
 
                      Lms_Update (Lms, Reconstructed, Dequantized);
                      Slice := (Slice * (2 ** 3)) or Unsigned_64 (Quantized);
-                     if SI > 2 ** 30
-                       or else Integer (Channels) > 2 ** 8 then
-                        End_Of_Encode := True;
-                        return;
-                     end if;
-                     SI := SI + Integer (Channels);
+                     SI := SI + Channels;
                   end loop;
 
                   if Current_Error < Best_Error then
@@ -427,31 +387,26 @@ is
 
                end loop;
 
-               Qoa.Lms (c) := Best_Lms;
+               Qoa.Lms (Integer(c)) := Best_Lms;
                Best_Slice := Shift_Left (Best_Slice,
-                                         ((SLICE_LEN - Slice_Size) * 3));
+                                         Integer ((SLICE_LEN - Slice_Size) * 3));
                Write_u64 (Best_Slice, Bytes, Index);
-               --  if Index > Bytes'Last - 7 then
-               --     End_Of_Encode := True;
-               --           return;
-               --  end if;
 
             end loop;
             Sample_Index := Sample_Index + SLICE_LEN;
          end loop;
-        End_Of_Encode := False;
       end Encode_Frame;
 
 
       Index : Storage_Count := Output'First;
-      F_Len : Integer := GEN_FRAME_LEN;
-      Sample_Index : Integer := 0;
+      F_Len : Unsigned_16; -- := GEN_FRAME_LEN;
+      Sample_Index : Unsigned_32 := 0;
       Input_First : Storage_Count;
-      End_Of_Encode : Boolean;
    begin
 
       --  initialize LMS weights to {0, 0, -1, 2}
       for c in Integer range 0 .. Integer (Qoa.Channels) - 1 loop
+         pragma Loop_Invariant (Output'Length = Encode_Size (Qoa.Channels,Qoa.Samples));
          Qoa.Lms (c) .Weights (0) := 0;
          Qoa.Lms (c) .Weights (1) := 0;
          Qoa.Lms (c) .Weights (2) := -1 * (2 ** 13);
@@ -459,32 +414,26 @@ is
 
          --  initialize LMS weights to {0, 0, 0, 0}
          for i in 0 .. LMS_LEN - 1 loop
+            pragma Loop_Invariant (Output'Length = Encode_Size (Qoa.Channels,Qoa.Samples));
             Qoa.Lms (c) .History (i) := 0;
          end loop;
       end loop;
-
       --  Encode the header and go through all frames
       Encode_Header (Qoa, Output, Index);
 
-      while Sample_Index < Integer (Qoa.Samples) loop
-         F_Len := Clamp (GEN_FRAME_LEN, 0, Integer (Qoa.Samples) - Sample_Index);
+      while Sample_Index < Unsigned_32 (Qoa.Samples) loop
+         F_Len := Clamp (GEN_FRAME_LEN, Unsigned_32 (Qoa.Samples) - Sample_Index);
          Input_First := Sample_Data'First +
            Storage_Count (Sample_Index) * Qoa.channels;
          Encode_Frame (Sample_Data (Input_First .. Sample_Data'Last),
-                       Qoa, Output, Index, F_Len,End_Of_Encode);
-         Sample_Index := Sample_Index + F_Len;
-
-         if End_Of_Encode then
-            Output_len := 0;
-            return;
-         end if;
-
+                       Qoa, Output, Index, F_Len);
+         Sample_Index := Sample_Index + Unsigned_32 (F_Len);
       end loop;
 
       if Index < Output'First
       then
          Output_Len := 0;
-            return;
+         return;
       end if;
       Output_len := Index - Output'First;
    end Encode;
@@ -494,7 +443,7 @@ is
 
    procedure Decode_Header (Data : Storage_Array;
                             Qoa : out Qoa_Desc;
-                              End_Of_Header : out Boolean)
+                            End_Of_Header : out Boolean)
    is
 
       In_Index : Storage_Count := Data'First ;
@@ -530,7 +479,7 @@ is
       Temp_24 := Unsigned_24 (Shift_Right (Frame_Header, 32) and 16#ffffff#);
       Qoa.Samplerate := Storage_Count (Temp_24);
       Qoa.Lms := (others => ( History => <>,
-                             Weights => <>));
+                              Weights => <>));
 
       if Qoa.Samples = 0
         or else Qoa.Samplerate = 0
@@ -545,7 +494,6 @@ is
                      Qoa        : out Qoa_Desc;
                      Output      : out Output_Array;
                      Output_Size : out Storage_Count)
-      --  with SPARK_Mode => Off
    is
       P : Storage_Count;
       Index : Storage_Count := Output'First;
@@ -555,44 +503,35 @@ is
                               Qoa : in out Qoa_Desc;
                               Output : in out Output_Array;
                               Index : Storage_Count;
-                              Frame_Len : out Storage_Count;
+                              Frame_Len : out Unsigned_16;
                               End_Of_Decode : out Boolean)
         with
           Relaxed_Initialization => Output,
           Pre => Data'Last < Storage_Count'Last
           and then Data'First >= 0
           and then Data'Length >= 8 + 16 * Qoa.Channels
-            and then Data'Length < Storage_Count'Last
+          and then Data'Length <= Storage_Count'Last
           and then In_Index <= Data'Last - 7 - 16 * Qoa.Channels
           and then In_Index >= Data'First,
-
           Post => In_Index >= Data'First
-            --  and then Data'Last < Storage_Count'Last
-          --  and then Data'First >= 0
-          and then Data'Length >= 8 + 16 * Qoa.Channels
-            --  and then Data'Length < Storage_Count'Last
-          --  and then (if End_Of_Decode = False then
-          --              In_Index <= Data'Last - 7 - 16 * Qoa.Channels)
-          --              (Frame_Len <= Storage_Count'Last / Qoa.Channels
-          --    and then Index <= Storage_Count'Last - Frame_Len * Qoa.Channels))
-      ;
+          and then Data'Length >= 8 + 16 * Qoa.Channels;
 
       procedure Decode_Frame (Data : Storage_Array;
                               In_Index : in out Storage_Count;
                               Qoa : in out Qoa_Desc;
                               Output : in out Output_Array;
                               Index : Storage_Count;
-                              Frame_Len : out Storage_Count;
+                              Frame_Len : out Unsigned_16;
                               End_Of_Decode : out Boolean)
       is
 
          In_Index_Ref : constant Storage_Count := In_Index with Ghost;
 
          Frame_Header : Unsigned_64;
-         Channels : Integer;
-         Samplerate : Integer;
-         F_Samples : Integer;
-         Frame_Size : Integer;
+         Channels : Unsigned_16;
+         Samplerate : Unsigned_24;
+         F_Samples : Unsigned_16;
+         Frame_Size : Unsigned_16;
 
          Data_Size : Integer;
          Num_Slices : Integer;
@@ -601,12 +540,12 @@ is
          History : Unsigned_64;
          Weights : Unsigned_64;
 
-         Sample_I : Integer := 0;
+         Sample_I : Unsigned_16 := 0;
          Slice : Unsigned_64;
          Scalefactor : Integer;
-         Slice_Start : Integer;
-         Slice_End  : Integer;
-         SI : Integer;
+         Slice_Start : Unsigned_16;
+         Slice_End  : Unsigned_16;
+         SI : Unsigned_16;
 
          Predicted : Integer;
          Quantized : Integer;
@@ -614,8 +553,7 @@ is
          Reconstructed : Integer_16;
 
          Temp_16 : Unsigned_16;
-         Temp_24 : Unsigned_24;
-         Clamped : Integer;
+         Clamped : Unsigned_16;
 
 
       begin
@@ -628,28 +566,23 @@ is
          end if;
 
          --  Read and verify the frame header
-          Read_u64 (Frame_Header, In_Index, Data);
-         Channels := Integer (Shift_Right (Frame_Header, 56) and 16#0000ff#);
-         Temp_24 := Unsigned_24 (Shift_Right (Frame_Header, 32) and 16#ffffff#);
-         Samplerate := Integer (Temp_24);
-         Temp_16 := Unsigned_16 (Shift_Right (Frame_Header, 16) and 16#00ffff#);
-         F_Samples := Integer (Temp_16);
-         Temp_16 := Unsigned_16 (Frame_Header and 16#00ffff#);
-         Frame_Size := Integer (Temp_16);
+         Read_u64 (Frame_Header, In_Index, Data);
+         Channels := Unsigned_16 (Shift_Right (Frame_Header, 56) and 16#0000ff#);
+         Samplerate := Unsigned_24 (Shift_Right (Frame_Header, 32) and 16#ffffff#);
+         F_Samples := Unsigned_16 (Shift_Right (Frame_Header, 16) and 16#00ffff#);
+         Frame_Size := Unsigned_16 (Frame_Header and 16#00ffff#);
          if Frame_Size < 8 + LMS_LEN * 4 * Channels then
             End_Of_Decode := True;
             return;
          end if;
-         Data_Size := Frame_Size - 8 - LMS_LEN * 4 * Channels;
+         Data_Size := Integer (Frame_Size) - 8 - LMS_LEN * 4 * Integer (Channels);
          Num_Slices := Data_Size / 8;
          Max_Total_Samples := Num_Slices * SLICE_LEN;
 
-         if Channels /= Integer (Qoa.Channels) or else
-           Channels >= MAX_CHANNELS or else
-           Samplerate <= 0 or else
+         if Channels /= Unsigned_16 (Qoa.Channels) or else
            Storage_Count (Samplerate) /= Qoa.Samplerate or else
            Integer_64 (Frame_Size) > Data'Length or else
-          Integer (F_Samples) * Integer (Qoa.Channels) > Max_Total_Samples
+           Integer (F_Samples) * Integer (Qoa.Channels) > Max_Total_Samples
 
          then
             End_Of_Decode := True;
@@ -658,7 +591,7 @@ is
 
          --  Read the LMS state: 4 x 2 bytes history,
          --  4 x 2 bytes weights per channel
-         for c in 0 .. Channels - 1 loop
+         for c in Integer range 0 .. Integer(Channels) - 1 loop
             pragma Loop_Invariant (In_Index = In_Index_Ref + 8 + 16 * Storage_Count (c));
 
             Read_u64 (History, In_Index, Data);
@@ -682,142 +615,94 @@ is
          while Sample_I < F_Samples loop
             pragma Loop_Invariant (In_Index >= Data'First);
             pragma Loop_Invariant (Sample_I >= 0);
+            pragma Loop_Invariant (In_Index <= Data'Last - 8 * Storage_Count (Channels) + 1);
+
             for c in 0 .. Channels - 1 loop
                pragma Loop_Invariant (In_Index >= Data'First);
                pragma Loop_Invariant (Sample_I >= 0);
-               if In_Index > Data'Last - 7 then
-                  End_Of_Decode := True;
-                  return;
-               end if;
+               pragma Loop_Invariant (In_Index <= Data'Last - 7 );
+               --  if In_Index > Data'Last - 7 then
+               --     End_Of_Decode := True;
+               --     return;
+               --  end if;
                Read_u64 (Slice, In_Index, Data);
                Scalefactor := Integer (Shift_Right (Slice, 60) and 16#f#);
-               if Channels > 2 ** 8 or else
-                 Sample_I > 2 ** 16
-                  then
-                  End_Of_Decode := True;
-                  return;
-               end if;
                Slice_Start := Sample_I * Channels + c;
-               Clamped := Clamp (Sample_I + SLICE_LEN, 0, F_Samples);
-               if Channels > 2 ** 8 or else
-                 c > 2 ** 8 or else
-                 Clamped > 2 ** 16 or else
-                 Clamped < 0
-               then
-                  End_Of_Decode := True;
-                  return;
-               end if;
+               Clamped := Clamp (Integer (Sample_I) + Integer (SLICE_LEN), 0, F_Samples);
+               pragma Assert (Channels > 0);
                Slice_End := Clamped * Channels + c;
 
                SI := Slice_Start;
                while SI < Slice_End loop
-                  pragma Loop_invariant (SI <= Slice_End);
-                  pragma Loop_invariant (SI >= Integer'First);
-                  Predicted := Lms_Predict (Qoa.Lms (c));
+                  pragma Loop_invariant (SI < Slice_End);
+                  pragma Loop_invariant (SI >= 0);
+                  Predicted := Lms_Predict (Qoa.Lms (Integer (c)));
                   Quantized := Integer (Shift_Right (Slice, 57) and 16#7#);
                   Dequantized := DEQUANT_TAB (Scalefactor, Quantized);
--- Put_Line ("Ada : predict : " & Predicted'Img & " / dequant : " & Dequantized'Img);
                   Reconstructed := Clamp_16 (Predicted + Dequantized);
-                  if SI < Integer (Storage_Count'First)
-                    or else Storage_Count (SI) > 2 ** 60
-                    or else Index > 2 ** 60
-                      or else Index + Storage_Count (SI) not in Output'Range
-                  then
-                     End_Of_Decode := True;
-                  return;
-                  end if;
-                  --  if Index + Storage_Count (SI) not in Output'Range then
+                  --  if Index > 2 ** 60
+                  --    or else Index + Storage_Count (SI) not in Output'Range
+                  --  then
                   --     End_Of_Decode := True;
-                  --  return;
+                  --     return;
                   --  end if;
                   Output (Index + Storage_Count (SI)) := Reconstructed;
                   Slice := Shift_Left (Slice, 3);
-                  Lms_Update (Qoa.Lms (c), Reconstructed, Dequantized);
-                  if SI > 2 ** 30
-                    or else Channels > 2 ** 8 then
-                     End_Of_Decode := True;
-                     return;
-                  end if;
+                  Lms_Update (Qoa.Lms (Integer (c)), Reconstructed, Dequantized);
+                  pragma Assert (Channels <= 8);
                   SI := SI + Channels;
                end loop;
             end loop;
             Sample_I := Sample_I + SLICE_LEN;
          end loop;
-         if F_Samples < Integer (Storage_Count'First) then
-             End_Of_Decode := True;
-                  return;
-               end if;
-         Frame_Len := Storage_Count (F_Samples);
+         Frame_Len := F_Samples;
          End_Of_Decode := False;
 
       end Decode_Frame;
 
-      Sample_Index : Storage_Count := 0;
-      Frame_Len : Storage_Count ;
+      Sample_Index : Unsigned_32 := 0;
+      Frame_Len : Unsigned_16;
       End_Of_Decode : Boolean;
       End_Of_Header : Boolean;
       --  Data_Ref : constant Storage_Array := Data with Ghost;
 
    begin
 
-
       Decode_Header (Data, Qoa, End_Of_Header);
       P := Data'First + HEADER_SIZE;
 
-      if End_Of_Header or else
-        Data'Length < 8 + 16 * Qoa.Channels or else
-        Data'Length >= Storage_Count'Last or else
-        P > Data'Last - 7 - 16 * Qoa.Channels
-
-
-      then
+      if End_Of_Header
+        or else Data'Length < 8 + 16 * Qoa.Channels
+          or else P > Data'Last - 7 - 16 * Qoa.Channels
+ then
          Output_Size := 0;
-            return;
+         return;
       end if;
 
       loop
          pragma Loop_Invariant (Data'Length >= 8 + 16 * Qoa.Channels);
-         pragma Loop_Invariant (Data'Length < Storage_Count'Last);
+         pragma Loop_Invariant (Data'Length <= Storage_Count'Last);
          pragma Loop_Invariant (P <= Data'Last - 7 - 16 * Qoa.Channels);
          pragma Loop_Invariant (P >= Data'First);
-         pragma Loop_Invariant (Sample_Index <= Qoa.Samples);
-         --  pragma Loop_Invariant (Index = Output'First + Sample_Index * Qoa.channels);
-         --  pragma Loop_Invariant (Output (Output'First .. Index - 1)'Initialized);
          pragma Loop_Invariant (Qoa'Initialized);
 
-
          Decode_Frame (Data, P, Qoa, Output, Index, Frame_Len, End_Of_Decode);
-         if Frame_Len > 2 ** 16
-           or else Frame_Len * Qoa.channels > 2 ** 24
-           or else Index > 2 ** 32
-      then
-         Output_Size := 0;
-            return;
-      end if;
-         Index := Index + Frame_Len * Qoa.channels;
-         if Frame_Len > 2 ** 16
-           or else Sample_Index > 2 ** 32
-      then
-         Output_Size := 0;
-            return;
-      end if;
-         Sample_Index := Sample_Index + Frame_Len;
+         Index := Index + Storage_Count (Frame_Len) * Qoa.channels;
+         Sample_Index := Sample_Index + Unsigned_32 (Frame_Len);
 
-
-         if End_Of_Decode or Sample_Index >= Qoa.Samples
+         if End_Of_Decode or Storage_Count (Sample_Index) >= Qoa.Samples
            or P > Data'Last - 7 - 16 * Qoa.Channels
          then
             exit;
          end if;
-
       end loop;
 
-      Qoa.Samples := Sample_Index;
+      Qoa.Samples := Storage_Count (Sample_Index);
 
       if Index < Output'First
       then
          Output_Size := 0;
-            return;
+         return;
       end if;
       Output_Size := Index - Output'First;
    end Decode;

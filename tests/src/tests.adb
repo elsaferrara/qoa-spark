@@ -394,7 +394,8 @@ begin
    elsif  AAA.Strings.Has_Suffix (Ada.Command_Line.Argument (2), ".qoa") then
 
       declare
-         Output : Storage_Array (1 .. Qoa.Encode_Worst_Case (Input.Desc));
+         Output : Storage_Array
+           (1 .. Qoa.Encode_Size (Input.Desc.Channels, Input.Desc.Samples));
          Output_Size : Storage_Count;
 
       begin

@@ -14,12 +14,12 @@
   "assumptions": [
   ],
   "timings": {
-    "init_why_sections": 4.11999993957579E-04,
-    "globals (advanced)": 1.01999998150859E-04,
-    "flow analysis": 1.10000000859145E-05,
-    "marking": 4.30000000051223E-05,
-    "translation of standard": 2.43499991483986E-03,
-    "properties (advanced)": 3.99999998990097E-06,
-    "globals (basic)": 1.38999996124767E-04
+    "init_why_sections": 4.23999998020008E-04,
+    "globals (advanced)": 1.28999992739409E-04,
+    "flow analysis": 2.09999998332933E-05,
+    "marking": 5.19999994139653E-05,
+    "translation of standard": 2.32500000856817E-03,
+    "properties (advanced)": 4.99999987368938E-06,
+    "globals (basic)": 1.95999993593432E-04
   }
 }
