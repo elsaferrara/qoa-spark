@@ -49,8 +49,14 @@ is
      with
        Pre => Samples <= 2 ** 32
        and then (Samples + SLICE_LEN - 1)
-         / SLICE_LEN < Storage_Count'Last / 256,
-     Post => Encode_Size'Result >= 8
+         / SLICE_LEN < Storage_Count'Last / 256
+
+   ;
+      function Frame_Size (Channels : Channels_Type; F_Len : Unsigned_16  ) return Storage_Count
+     --  with
+     --    Pre => Samples <= 2 ** 32
+     --    and then (Samples + SLICE_LEN - 1)
+     --      / SLICE_LEN < Storage_Count'Last / 256
 
    ;
 
@@ -66,6 +72,7 @@ is
          and then (Qoa.Samples + SLICE_LEN - 1) / SLICE_LEN < Storage_Count'Last / 256
        and then Output'Length = Encode_Size (Qoa.Channels,Qoa.Samples)
        and then Sample_Data'Last < Storage_Count'Last
+         and then Sample_Data'First > Storage_Count'First
        and then Sample_Data'Length < Storage_Count'Last
    ;
 
@@ -92,7 +99,7 @@ is
      with
        Relaxed_Initialization => (Output, Qoa),
        Pre => Output'First >= 0
-         and then Output'Last < Storage_Count'Last
+       and then Output'Last < Storage_Count'Last
          and then Data'First >= 0
          and then Data'Last < Storage_Count'Last
          and then Data'Length >= MIN_FILESIZE
@@ -156,7 +163,6 @@ private
        and then Index <= Bytes'Last - 7
          and then Index <= Storage_Count'Last - 8,
        Post => Index = Index'Old + 8
-         and then Bytes'Length >= 8
 
      ;
 
