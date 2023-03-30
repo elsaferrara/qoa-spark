@@ -17,6 +17,7 @@ is
    MAGIC : constant := 16#716f6166#; -- 'qoaf'
    HEADER_SIZE : constant := 8;
 
+   subtype Positive_16 is Integer range 0 .. 2**16;
 
    type Output_Array is array (Storage_Count range <>) of Interfaces.Integer_16;
    type Output_Array_Access is access all Output_Array;
@@ -43,7 +44,7 @@ is
 
    type array_short is array (Integer range <>) of Integer_16;
 
-
+   subtype Pos_Uns_16 is Unsigned_16 range 0 .. 2 ** 16;
 
    function Encode_Size (Channels : Channels_Type; Samples : Samples_Type ) return Storage_Count
      with
@@ -56,8 +57,9 @@ is
      --  with
      --    Pre => Samples <= 2 ** 32
      --    and then (Samples + SLICE_LEN - 1)
-     --      / SLICE_LEN < Storage_Count'Last / 256
-
+     --      / SLICE_LEN < Storage_Count'Last / 256,
+     with
+       Pre => F_Len > 0
    ;
 
    procedure Encode (Sample_Data :     Output_Array;
@@ -73,7 +75,7 @@ is
        and then Output'Length = Encode_Size (Qoa.Channels,Qoa.Samples)
        and then Sample_Data'Last < Storage_Count'Last
          and then Sample_Data'First > Storage_Count'First
-       and then Sample_Data'Length < Storage_Count'Last
+       and then Sample_Data'Length = Qoa.Channels * Qoa.Samples
    ;
 
    procedure Decode_Header (Data : Storage_Array;
@@ -189,7 +191,7 @@ private
                    return Integer
      with
        Pre => Min <= Max,
-       Post => Clamp'Result in Min .. Max ;
+       Post => Clamp'Result in Min .. Max;
 
       function Clamp (V : Integer;
                    Min : Unsigned_16;
@@ -197,11 +199,19 @@ private
                    return Unsigned_16
      with
        Pre => Min <= Max,
-       Post => Clamp'Result in Min .. Max ;
+       Post => Clamp'Result in Min .. Max;
 
          function Clamp (V : Unsigned_16;
                    Max : Unsigned_32)
                          return Unsigned_16;
+
+            function Clamp (V : Positive_16;
+                   Max : Positive_16)
+                            return Positive_16
+   with Pre => V > 0,
+     Post => Clamp'Result > 0
+   and then Clamp'Result <= Max;
+
 
    function Clamp_16 (V : Integer)
                             return Integer_16;
